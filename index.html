@@ -3,408 +3,449 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Artistry Haven — Art in Another Dimension</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Artistry Haven</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;700;900&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#06060e;--bg2:#0d0d1a;--gold:#c9a96e;--gold-light:#e8d5a3;--gold-dark:#6b5014;
-  --cream:#f2ece0;--red:#8b1a2a;--text:#c0b8aa;--text-dim:#5a5550;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+:root{--bg:#06060e;--bg2:#0d0d1a;--gold:#c9a96e;--gl:#e8d5a3;--gd:#6b5014;--cream:#f2ece0;--text:#c0b8aa;--dim:#5a5550;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Raleway',sans-serif;overflow-x:hidden;cursor:none;}
-
-.cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;}
-.cursor-ring{position:fixed;width:34px;height:34px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
-
-/* NAV */
+.cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+.cur-ring{position:fixed;width:34px;height:34px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 60px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(6,6,14,.95),transparent);backdrop-filter:blur(12px);}
-.nav-logo{font-family:'Cinzel',serif;font-size:22px;letter-spacing:.35em;color:var(--gold);text-decoration:none;}
-.nav-logo span{color:var(--cream);}
-.nav-links{display:flex;gap:40px;list-style:none;align-items:center;}
-.nav-btn{background:none;border:none;cursor:pointer;font-family:inherit;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--text);padding:0;transition:color .3s;}
-.nav-btn:hover{color:var(--gold);}
-.nav-visit{color:var(--gold)!important;border:1px solid var(--gold);padding:8px 22px!important;}
-.nav-visit:hover{background:rgba(201,169,110,.15)!important;}
-.nav-login-btn{color:var(--cream)!important;border:1px solid #2a2a40;padding:8px 22px!important;display:flex;align-items:center;gap:8px;}
-.nav-login-btn:hover{border-color:var(--gold);color:var(--gold)!important;}
-.user-badge{display:none;align-items:center;gap:10px;}
-.user-badge span{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
-.user-badge button{background:none;border:1px solid #2a2a40;color:var(--text-dim);font-size:9px;letter-spacing:.18em;padding:5px 12px;cursor:pointer;font-family:inherit;text-transform:uppercase;transition:all .3s;}
-.user-badge button:hover{border-color:var(--red);color:var(--red);}
-.admin-badge{background:var(--gold);color:var(--bg);font-size:9px;letter-spacing:.15em;padding:3px 8px;text-transform:uppercase;}
-
-/* HERO */
+.logo{font-family:'Cinzel',serif;font-size:22px;letter-spacing:.35em;color:var(--gold);text-decoration:none;}
+.logo span{color:var(--cream);}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center;}
+.nb{background:none;border:none;cursor:pointer;font-family:inherit;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--text);padding:0;transition:color .3s;}
+.nb:hover{color:var(--gold);}
+.nb-gold{color:var(--gold)!important;border:1px solid var(--gold);padding:7px 18px!important;}
+.nb-gold:hover{background:rgba(201,169,110,.15)!important;}
+.nb-outline{border:1px solid #2a2a40;padding:7px 18px!important;color:var(--cream)!important;}
+.nb-outline:hover{border-color:var(--gold);color:var(--gold)!important;}
+.user-badge{display:none;align-items:center;gap:8px;}
+.user-badge span{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);}
+.user-badge button{background:none;border:1px solid #2a2a40;color:var(--dim);font-size:9px;letter-spacing:.15em;padding:4px 10px;cursor:pointer;font-family:inherit;text-transform:uppercase;transition:all .3s;}
+.user-badge button:hover{border-color:#e63946;color:#e63946;}
 #hero{position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-#hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;}
-.hero-content{position:relative;z-index:2;text-align:center;pointer-events:none;}
-.hero-eyebrow{font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;opacity:0;animation:fadeUp 1s .5s forwards;}
-.hero-title{font-family:'Cinzel',serif;font-size:clamp(70px,13vw,160px);font-weight:700;line-height:.9;color:var(--cream);opacity:0;animation:fadeUp 1s .8s forwards;}
-.hero-title .gold{color:var(--gold);}
-.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,26px);font-style:italic;color:var(--text);margin-top:22px;opacity:0;animation:fadeUp 1s 1.1s forwards;}
-.hero-cta{display:inline-block;margin-top:50px;padding:14px 48px;border:1px solid var(--gold);color:var(--gold);font-size:10px;letter-spacing:.3em;text-transform:uppercase;pointer-events:all;transition:background .3s,color .3s;opacity:0;animation:fadeUp 1s 1.4s forwards;background:none;cursor:pointer;font-family:inherit;}
-.hero-cta:hover{background:var(--gold);color:var(--bg);}
-.scroll-ind{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:fadeUp 1s 2s forwards;}
-.scroll-ind span{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--text-dim);}
-.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s infinite;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes scrollPulse{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* SECTIONS */
+#hc{position:absolute;inset:0;z-index:1;}
+.hcont{position:relative;z-index:2;text-align:center;pointer-events:none;}
+.heyebrow{font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;opacity:0;animation:fu 1s .5s forwards;}
+.htitle{font-family:'Cinzel',serif;font-size:clamp(70px,13vw,160px);font-weight:700;line-height:.9;color:var(--cream);opacity:0;animation:fu 1s .8s forwards;}
+.htitle .g{color:var(--gold);}
+.hsub{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,26px);font-style:italic;color:var(--text);margin-top:22px;opacity:0;animation:fu 1s 1.1s forwards;}
+.hcta{margin-top:50px;padding:14px 48px;border:1px solid var(--gold);color:var(--gold);font-size:10px;letter-spacing:.3em;text-transform:uppercase;pointer-events:all;transition:background .3s,color .3s;opacity:0;animation:fu 1s 1.4s forwards;background:none;cursor:pointer;font-family:inherit;}
+.hcta:hover{background:var(--gold);color:var(--bg);}
+.scroll-ind{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0;animation:fu 1s 2s forwards;}
+.scroll-ind span{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);}
+.sline{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:sp 2s infinite;}
+@keyframes fu{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sp{0%,100%{opacity:1}50%{opacity:.3}}
 section{padding:110px 60px;}
-.section-label{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:16px;}
-.section-label::before{content:'';display:block;width:40px;height:1px;background:var(--gold);}
-.section-title{font-family:'Cinzel',serif;font-size:clamp(30px,5vw,62px);color:var(--cream);line-height:1.1;margin-bottom:18px;}
-.section-sub{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--text);max-width:580px;}
-
-/* GALLERY */
+.slabel{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:16px;}
+.slabel::before{content:'';display:block;width:40px;height:1px;background:var(--gold);}
+.stitle{font-family:'Cinzel',serif;font-size:clamp(30px,5vw,62px);color:var(--cream);line-height:1.1;margin-bottom:18px;}
+.ssub{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--text);max-width:580px;}
 #gallery{background:var(--bg2);}
 .filter-bar{display:flex;gap:14px;margin:56px 0 44px;flex-wrap:wrap;}
-.filter-btn{padding:8px 22px;border:1px solid var(--text-dim);background:none;color:var(--text);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
-.filter-btn.active,.filter-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,.07);}
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-.art-card{perspective:1000px;height:420px;cursor:pointer;}
-.art-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.23,1,.32,1);}
-.art-card:hover .art-card-inner{transform:rotateY(180deg);}
-.art-front,.art-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;overflow:hidden;}
-.art-front{background:var(--bg);border:1px solid #181828;}
-.art-front-info{padding:16px 20px;border-top:1px solid #181828;}
-.art-front-info h3{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--cream);margin-bottom:4px;}
-.art-front-info p{font-size:10px;letter-spacing:.18em;color:var(--text-dim);text-transform:uppercase;}
-.art-back{transform:rotateY(180deg);background:linear-gradient(135deg,#0d0d1a,#180d24);border:1px solid var(--gold-dark);padding:38px 28px;display:flex;flex-direction:column;justify-content:center;}
-.cat-tag{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dark);display:inline-block;padding:4px 12px;margin-bottom:18px;width:fit-content;}
-.art-back h3{font-family:'Cinzel',serif;font-size:20px;color:var(--cream);margin-bottom:8px;}
-.art-back .a-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--gold);margin-bottom:18px;}
-.art-back p{font-size:13px;line-height:1.9;color:var(--text);margin-bottom:20px;}
-.art-price{font-family:'Cinzel',serif;font-size:22px;color:var(--cream);margin-top:auto;border-top:1px solid #1e1e30;padding-top:18px;}
-
-/* TIMELINE */
+.fbtn{padding:8px 22px;border:1px solid var(--dim);background:none;color:var(--text);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.fbtn.active,.fbtn:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,.07);}
+.ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.acard{perspective:1000px;height:420px;cursor:pointer;}
+.acard-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.23,1,.32,1);}
+.acard:hover .acard-in{transform:rotateY(180deg);}
+.af,.ab{position:absolute;width:100%;height:100%;backface-visibility:hidden;overflow:hidden;}
+.af{background:var(--bg);border:1px solid #181828;}
+.af-info{padding:16px 20px;border-top:1px solid #181828;}
+.af-info h3{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--cream);margin-bottom:4px;}
+.af-info p{font-size:10px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;}
+.ab{transform:rotateY(180deg);background:linear-gradient(135deg,#0d0d1a,#180d24);border:1px solid var(--gd);padding:28px;display:flex;flex-direction:column;justify-content:center;}
+.ctag{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gd);display:inline-block;padding:4px 12px;margin-bottom:12px;}
+.ab h3{font-family:'Cinzel',serif;font-size:18px;color:var(--cream);margin-bottom:6px;}
+.ab .aname{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--gold);margin-bottom:12px;}
+.ab p{font-size:12px;line-height:1.8;color:var(--text);margin-bottom:12px;}
+.aprice{font-family:'Cinzel',serif;font-size:20px;color:var(--cream);border-top:1px solid #1e1e30;padding-top:12px;margin-bottom:10px;}
 #timeline{background:var(--bg2);}
-.tl-scroll{display:flex;margin-top:56px;overflow-x:auto;padding-bottom:28px;scrollbar-width:thin;scrollbar-color:var(--gold-dark) transparent;}
-.tl-item{flex:0 0 270px;padding:38px 28px;border-right:1px solid #181828;position:relative;transition:background .3s;}
-.tl-item:hover{background:rgba(201,169,110,.03);}
-.tl-swatch{width:100%;height:4px;margin-bottom:18px;}
-.tl-era{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-.tl-yr{font-family:'Cinzel',serif;font-size:44px;color:rgba(201,169,110,.1);position:absolute;top:18px;right:14px;line-height:1;}
-.tl-name{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream);margin-bottom:10px;}
-.tl-desc{font-size:12.5px;line-height:1.85;color:var(--text-dim);}
-
-/* STATS */
+.tls{display:flex;margin-top:56px;overflow-x:auto;padding-bottom:28px;scrollbar-width:thin;scrollbar-color:var(--gd) transparent;}
+.tli{flex:0 0 270px;padding:38px 28px;border-right:1px solid #181828;position:relative;transition:background .3s;}
+.tli:hover{background:rgba(201,169,110,.03);}
+.tli-sw{width:100%;height:4px;margin-bottom:18px;}
+.tli-era{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.tli-yr{font-family:'Cinzel',serif;font-size:44px;color:rgba(201,169,110,.1);position:absolute;top:18px;right:14px;line-height:1;}
+.tli-name{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream);margin-bottom:10px;}
+.tli-desc{font-size:12.5px;line-height:1.85;color:var(--dim);}
 #stats{background:var(--bg);padding:60px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #181828;border-bottom:1px solid #181828;}
 .stat{text-align:center;padding:20px;border-right:1px solid #181828;}
 .stat:last-child{border-right:none;}
-.stat-num{font-family:'Cinzel',serif;font-size:48px;color:var(--gold);line-height:1;margin-bottom:10px;}
-.stat-label{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--text-dim);}
-
-/* FOOTER */
+.snum{font-family:'Cinzel',serif;font-size:48px;color:var(--gold);line-height:1;margin-bottom:10px;}
+.slb{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);}
 footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:50px;}
-.f-logo{font-family:'Cinzel',serif;font-size:26px;color:var(--gold);margin-bottom:14px;display:block;}
-.f-desc{font-size:12.5px;line-height:1.85;color:var(--text-dim);max-width:260px;}
-.f-col h4{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream);margin-bottom:18px;}
-.f-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
-.f-col ul a,.f-btn{font-size:13px;color:var(--text-dim);text-decoration:none;transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Raleway',sans-serif;padding:0;text-align:left;}
-.f-col ul a:hover,.f-btn:hover{color:var(--gold);}
-.f-bottom{padding:18px 60px;border-top:1px solid #181828;display:flex;justify-content:space-between;align-items:center;}
-.f-bottom p{font-size:10px;color:var(--text-dim);letter-spacing:.1em;}
-
-/* MODAL BASE */
-.modal-base{display:none;position:fixed;inset:0;z-index:5000;background:rgba(4,4,10,.97);backdrop-filter:blur(18px);overflow-y:auto;}
-.modal-base.open{display:block;}
-.modal-flex{display:none;position:fixed;inset:0;z-index:7000;background:rgba(4,4,10,.96);backdrop-filter:blur(18px);align-items:center;justify-content:center;}
-.gm-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:22px 50px;background:linear-gradient(to bottom,rgba(6,6,14,1),rgba(6,6,14,0));border-bottom:1px solid #181828;}
-.gm-title{font-family:'Cinzel',serif;font-size:20px;letter-spacing:.25em;color:var(--gold);}
-.gm-sub{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-dim);margin-top:4px;}
-.gm-close{width:44px;height:44px;border:1px solid #2a2a40;background:none;color:var(--cream);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .3s,color .3s;}
-.gm-close:hover{border-color:var(--gold);color:var(--gold);}
-.gm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;padding:36px 50px 60px;}
-.gm-item{position:relative;overflow:hidden;border:1px solid #181828;cursor:pointer;transition:border-color .35s,transform .35s;}
-.gm-item:hover{border-color:var(--gold);transform:translateY(-4px);}
-.gm-item img{width:100%;height:220px;object-fit:cover;display:block;}
-.gm-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,14,.92) 0%,rgba(6,6,14,0) 55%);opacity:0;transition:opacity .35s;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;}
-.gm-item:hover .gm-item-overlay{opacity:1;}
-.gm-item-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--cream);margin-bottom:4px;}
-.gm-item-meta{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);}
-
-/* LIGHTBOX */
-#lightbox{display:none;position:fixed;inset:0;z-index:6000;background:rgba(2,2,8,.98);backdrop-filter:blur(28px);align-items:center;justify-content:center;flex-direction:column;}
-#lightbox.open{display:flex;}
-.lb-inner{position:relative;max-width:560px;width:90%;}
-.lb-inner canvas{width:100%;display:block;border:1px solid #2a2a3a;}
-.lb-info{padding:20px 0 0;}
-.lb-title{font-family:'Cinzel',serif;font-size:22px;color:var(--cream);margin-bottom:6px;}
-.lb-meta{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-.lb-desc{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text);line-height:1.85;}
-.lb-close{position:absolute;top:-18px;right:-18px;width:40px;height:40px;background:var(--gold);border:none;color:var(--bg);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.lb-nav{display:flex;gap:14px;margin-top:22px;justify-content:center;}
-.lb-nav button{padding:10px 30px;border:1px solid var(--gold);background:none;color:var(--gold);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s;}
-.lb-nav button:hover{background:var(--gold);color:var(--bg);}
-
-/* CURATOR */
-.curator-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:56px;align-items:start;}
-.curator-panel{background:var(--bg2);border:1px solid #181828;padding:38px;}
-.curator-panel h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream);margin-bottom:8px;}
-.panel-desc{font-size:13px;color:var(--text-dim);margin-bottom:22px;line-height:1.7;}
-.art-textarea{width:100%;height:148px;background:var(--bg);border:1px solid #22223a;color:var(--text);padding:16px;font-family:'Cormorant Garamond',serif;font-size:16px;resize:vertical;outline:none;transition:border-color .3s;line-height:1.7;}
-.art-textarea:focus{border-color:var(--gold);}
-.art-textarea::placeholder{color:var(--text-dim);font-style:italic;}
-.ex-row{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
-.ex-btn{padding:6px 16px;border:1px solid #22223a;background:none;color:var(--text-dim);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
-.ex-btn:hover{border-color:var(--gold);color:var(--gold);}
-.analyze-btn{margin-top:16px;width:100%;padding:14px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;transition:background .3s,opacity .3s;display:flex;align-items:center;justify-content:center;gap:10px;}
-.analyze-btn:hover{background:var(--gold-light);}
-.analyze-btn:disabled{opacity:.5;cursor:not-allowed;}
+.flogo{font-family:'Cinzel',serif;font-size:26px;color:var(--gold);margin-bottom:14px;display:block;}
+.fdesc{font-size:12.5px;line-height:1.85;color:var(--dim);max-width:260px;}
+.fcol h4{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream);margin-bottom:18px;}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.fb{font-size:13px;color:var(--dim);transition:color .3s;background:none;border:none;cursor:pointer;font-family:'Raleway',sans-serif;padding:0;text-align:left;}
+.fb:hover{color:var(--gold);}
+.fbot{padding:18px 60px;border-top:1px solid #181828;display:flex;justify-content:space-between;align-items:center;}
+.fbot p{font-size:10px;color:var(--dim);letter-spacing:.1em;}
+.modal-full{display:none;position:fixed;inset:0;z-index:5000;background:rgba(4,4,10,.97);backdrop-filter:blur(18px);overflow-y:auto;}
+.modal-full.open{display:block;}
+.mhdr{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:22px 50px;background:linear-gradient(to bottom,rgba(6,6,14,1),transparent);border-bottom:1px solid #181828;}
+.mtitle{font-family:'Cinzel',serif;font-size:20px;letter-spacing:.25em;color:var(--gold);}
+.msub{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin-top:4px;}
+.mclose{width:44px;height:44px;border:1px solid #2a2a40;background:none;color:var(--cream);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.mclose:hover{border-color:var(--gold);color:var(--gold);}
+.gmgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;padding:36px 50px 60px;}
+.gmi{position:relative;overflow:hidden;border:1px solid #181828;cursor:pointer;transition:border-color .35s,transform .35s;}
+.gmi:hover{border-color:var(--gold);transform:translateY(-4px);}
+.gmi img{width:100%;height:220px;object-fit:cover;display:block;}
+.gmio{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,14,.92),transparent 55%);opacity:0;transition:opacity .35s;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;}
+.gmi:hover .gmio{opacity:1;}
+.gmit{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--cream);margin-bottom:4px;}
+.gmim{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);}
+#lb{display:none;position:fixed;inset:0;z-index:6000;background:rgba(2,2,8,.98);backdrop-filter:blur(28px);align-items:center;justify-content:center;flex-direction:column;}
+#lb.open{display:flex;}
+.lbin{position:relative;max-width:560px;width:90%;}
+.lbin canvas{width:100%;display:block;border:1px solid #2a2a3a;}
+.lbin-info{padding:20px 0 0;}
+.lbt{font-family:'Cinzel',serif;font-size:22px;color:var(--cream);margin-bottom:6px;}
+.lbm{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.lbd{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text);line-height:1.85;}
+.lbcl{position:absolute;top:-18px;right:-18px;width:40px;height:40px;background:var(--gold);border:none;color:var(--bg);font-size:18px;cursor:pointer;}
+.lbnav{display:flex;gap:14px;margin-top:22px;justify-content:center;}
+.lbnav button{padding:10px 30px;border:1px solid var(--gold);background:none;color:var(--gold);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.lbnav button:hover{background:var(--gold);color:var(--bg);}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:56px;align-items:start;}
+.cpanel{background:var(--bg2);border:1px solid #181828;padding:38px;}
+.cpanel h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream);margin-bottom:8px;}
+.pdesc{font-size:13px;color:var(--dim);margin-bottom:22px;line-height:1.7;}
+.atxt{width:100%;height:148px;background:var(--bg);border:1px solid #22223a;color:var(--text);padding:16px;font-family:'Cormorant Garamond',serif;font-size:16px;resize:vertical;outline:none;transition:border-color .3s;line-height:1.7;}
+.atxt:focus{border-color:var(--gold);}
+.atxt::placeholder{color:var(--dim);font-style:italic;}
+.exrow{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
+.exb{padding:6px 16px;border:1px solid #22223a;background:none;color:var(--dim);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.exb:hover{border-color:var(--gold);color:var(--gold);}
+.abtn{margin-top:16px;width:100%;padding:14px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;transition:background .3s;display:flex;align-items:center;justify-content:center;gap:10px;}
+.abtn:hover{background:var(--gl);}
+.abtn:disabled{opacity:.5;cursor:not-allowed;}
 .ld{display:none;gap:4px;align-items:center;}
-.ld span{display:block;width:5px;height:5px;background:var(--bg);border-radius:50%;animation:ldot 1.4s infinite both;}
+.ld span{display:block;width:5px;height:5px;background:var(--bg);border-radius:50%;animation:ld 1.4s infinite both;}
 .ld span:nth-child(2){animation-delay:.2s}.ld span:nth-child(3){animation-delay:.4s}
-@keyframes ldot{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
-.output-card{background:var(--bg2);border:1px solid #181828;padding:38px;min-height:360px;position:relative;transition:border-color .4s;}
-.output-card.active{border-color:var(--gold-dark);}
-.out-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:290px;text-align:center;}
-.out-placeholder .ei{font-size:56px;opacity:.2;margin-bottom:18px;}
-.out-placeholder p{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--text-dim);}
-.ai-resp{display:none;}
-.ai-resp-hdr{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid #1a1a2e;}
-.ai-badge{background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--bg);font-size:9px;letter-spacing:.2em;padding:4px 10px;text-transform:uppercase;}
-.ai-resp-hdr span{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--cream);font-style:italic;}
-.ai-text{font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.95;color:var(--text);}
-.ai-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;}
-.ai-tag{padding:4px 12px;border:1px solid var(--gold-dark);color:var(--gold);font-size:10px;letter-spacing:.2em;text-transform:uppercase;}
-
-/* LOGIN MODAL */
-.login-modal{display:none;position:fixed;inset:0;z-index:8000;background:rgba(2,2,8,.97);backdrop-filter:blur(24px);align-items:center;justify-content:center;}
-.login-modal.open{display:flex;}
-.login-box{background:var(--bg2);border:1px solid var(--gold-dark);padding:52px;width:100%;max-width:420px;position:relative;}
-.login-box-title{font-family:'Cinzel',serif;font-size:22px;color:var(--gold);margin-bottom:6px;}
-.login-box-sub{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);margin-bottom:36px;}
-.login-tabs{display:flex;margin-bottom:32px;border-bottom:1px solid #181828;}
-.login-tab{flex:1;padding:10px;background:none;border:none;font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .3s;}
-.login-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
-.login-field{margin-bottom:20px;}
-.login-field label{display:block;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;}
-.login-field input{width:100%;padding:12px 16px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color .3s;}
-.login-field input:focus{border-color:var(--gold);}
-.login-submit{width:100%;padding:14px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;margin-top:8px;transition:background .3s;}
-.login-submit:hover{background:var(--gold-light);}
-.login-err{color:#e63946;font-size:12px;margin-top:10px;display:none;text-align:center;letter-spacing:.05em;}
-.login-close{position:absolute;top:16px;right:16px;width:36px;height:36px;background:none;border:1px solid #2a2a40;color:var(--cream);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;}
-.login-close:hover{border-color:var(--gold);color:var(--gold);}
-.login-hint{font-size:11px;color:var(--text-dim);margin-top:16px;text-align:center;line-height:1.6;}
-.login-hint span{color:var(--gold);}
-
-/* ADMIN PANEL */
-#adminPanel{display:none;position:fixed;inset:0;z-index:9000;background:var(--bg);overflow-y:auto;}
-#adminPanel.open{display:block;}
-.admin-nav{background:var(--bg2);border-bottom:1px solid var(--gold-dark);padding:18px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
-.admin-nav-logo{font-family:'Cinzel',serif;font-size:18px;color:var(--gold);letter-spacing:.2em;}
-.admin-nav-logo span{color:var(--text-dim);font-size:11px;letter-spacing:.15em;margin-left:12px;}
-.admin-nav-right{display:flex;gap:12px;align-items:center;}
-.admin-close-btn{padding:8px 20px;background:none;border:1px solid var(--red);color:var(--red);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
-.admin-close-btn:hover{background:var(--red);color:var(--cream);}
-.admin-body{padding:40px;max-width:1200px;margin:0 auto;}
-.admin-tabs{display:flex;gap:0;margin-bottom:36px;border-bottom:1px solid #181828;}
-.admin-tab{padding:12px 28px;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);cursor:pointer;transition:all .3s;}
-.admin-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
-.admin-section{display:none;}
-.admin-section.active{display:block;}
-.admin-card{background:var(--bg2);border:1px solid #181828;padding:32px;margin-bottom:24px;}
-.admin-card h3{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #181828;}
-.admin-field{margin-bottom:16px;}
-.admin-field label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);margin-bottom:7px;}
-.admin-field input,.admin-field textarea,.admin-field select{width:100%;padding:10px 14px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;transition:border-color .3s;}
-.admin-field input:focus,.admin-field textarea:focus{border-color:var(--gold);}
-.admin-field textarea{height:80px;resize:vertical;}
-.admin-save-btn{padding:10px 28px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:background .3s;}
-.admin-save-btn:hover{background:var(--gold-light);}
-.admin-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-.saved-toast{position:fixed;bottom:30px;right:30px;background:var(--gold);color:var(--bg);padding:12px 24px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;z-index:9999;opacity:0;transition:opacity .4s;pointer-events:none;}
-.artwork-admin-row{display:grid;grid-template-columns:60px 1fr 1fr 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid #181828;}
-.artwork-admin-row img{width:60px;height:60px;object-fit:cover;border:1px solid #22223a;}
-.artwork-admin-row input{padding:7px 10px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:12px;outline:none;width:100%;}
-.artwork-admin-row input:focus{border-color:var(--gold);}
-.del-btn{padding:6px 12px;background:none;border:1px solid var(--red);color:var(--red);font-size:11px;cursor:pointer;font-family:inherit;transition:all .3s;white-space:nowrap;}
-.del-btn:hover{background:var(--red);color:var(--cream);}
-.stat-edit-row{display:flex;align-items:center;gap:16px;margin-bottom:14px;}
-.stat-edit-row label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);width:130px;}
-.stat-edit-row input{flex:1;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Cinzel',serif;font-size:16px;outline:none;}
-
-/* VISITOR DASHBOARD */
-.visitor-dash{background:var(--bg2);border:1px solid #181828;padding:28px;margin-top:12px;}
-.visitor-dash h4{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--cream);margin-bottom:16px;}
-.visitor-info-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #181828;font-size:13px;}
-.visitor-info-row span:first-child{color:var(--text-dim);}
-.visitor-info-row span:last-child{color:var(--cream);}
-
-/* SUBMIT ARTWORK MODAL */
-.submit-modal{display:none;position:fixed;inset:0;z-index:8500;background:rgba(2,2,8,.97);backdrop-filter:blur(24px);align-items:center;justify-content:center;overflow-y:auto;}
-.submit-modal.open{display:flex;}
-.submit-box{background:var(--bg2);border:1px solid var(--gold-dark);padding:48px;width:100%;max-width:600px;position:relative;margin:40px auto;}
-.submit-box h2{font-family:'Cinzel',serif;font-size:22px;color:var(--gold);margin-bottom:6px;}
-.submit-box .sub-desc{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:30px;}
-.sfield{margin-bottom:16px;}
-.sfield label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);margin-bottom:7px;}
-.sfield input,.sfield textarea,.sfield select{width:100%;padding:11px 14px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;transition:border-color .3s;}
-.sfield input:focus,.sfield textarea:focus{border-color:var(--gold);}
-.sfield textarea{height:80px;resize:vertical;line-height:1.6;}
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.submit-art-btn{width:100%;padding:13px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;margin-top:6px;transition:background .3s;}
-.submit-art-btn:hover{background:var(--gold-light);}
-.pending-badge{background:rgba(251,140,0,.15);border:1px solid #fb8c00;color:#fb8c00;font-size:9px;letter-spacing:.18em;padding:3px 10px;text-transform:uppercase;display:inline-block;}
-.approved-badge{background:rgba(76,175,80,.15);border:1px solid #4caf50;color:#4caf50;font-size:9px;letter-spacing:.18em;padding:3px 10px;text-transform:uppercase;display:inline-block;}
-.rejected-badge{background:rgba(230,57,70,.15);border:1px solid #e63946;color:#e63946;font-size:9px;letter-spacing:.18em;padding:3px 10px;text-transform:uppercase;display:inline-block;}
-.pending-row{display:grid;grid-template-columns:60px 1fr 1fr auto auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid #181828;}
-.pending-row img{width:60px;height:60px;object-fit:cover;border:1px solid #22223a;}
-.approve-btn{padding:6px 14px;background:none;border:1px solid #4caf50;color:#4caf50;font-size:11px;cursor:pointer;font-family:inherit;transition:all .3s;white-space:nowrap;}
-.approve-btn:hover{background:#4caf50;color:#000;}
-.reject-btn{padding:6px 14px;background:none;border:1px solid #e63946;color:#e63946;font-size:11px;cursor:pointer;font-family:inherit;transition:all .3s;white-space:nowrap;}
-.reject-btn:hover{background:#e63946;color:#fff;}
-
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(38px);transition:opacity .85s,transform .85s;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-.reveal-d1{transition-delay:.1s;}.reveal-d2{transition-delay:.2s;}.reveal-d3{transition-delay:.3s;}
+@keyframes ld{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+.ocard{background:var(--bg2);border:1px solid #181828;padding:38px;min-height:360px;transition:border-color .4s;}
+.ocard.active{border-color:var(--gd);}
+.oph{display:flex;flex-direction:column;align-items:center;justify-content:center;height:290px;text-align:center;}
+.oph .ei{font-size:56px;opacity:.2;margin-bottom:18px;}
+.oph p{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--dim);}
+.airsp{display:none;}
+.airhdr{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid #1a1a2e;}
+.aibadge{background:linear-gradient(135deg,var(--gd),var(--gold));color:var(--bg);font-size:9px;letter-spacing:.2em;padding:4px 10px;text-transform:uppercase;}
+.airhdr span{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--cream);font-style:italic;}
+.aitxt{font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.95;color:var(--text);}
+.aitags{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;}
+.aitag{padding:4px 12px;border:1px solid var(--gd);color:var(--gold);font-size:10px;letter-spacing:.2em;text-transform:uppercase;}
+/* AUTH MODAL */
+.lm{display:none;position:fixed;inset:0;z-index:8000;background:rgba(2,2,8,.97);backdrop-filter:blur(24px);align-items:center;justify-content:center;}
+.lm.open{display:flex;}
+.lbox{background:var(--bg2);border:1px solid var(--gd);padding:44px;width:100%;max-width:460px;position:relative;}
+.lbox h2{font-family:'Cinzel',serif;font-size:22px;color:var(--gold);margin-bottom:4px;}
+.lbox-sub{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:28px;}
+.auth-tabs{display:flex;margin-bottom:28px;border-bottom:1px solid #181828;}
+.auth-tab{flex:1;padding:10px;background:none;border:none;font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .3s;}
+.auth-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.lf{margin-bottom:16px;}
+.lf label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;}
+.lf input{width:100%;padding:11px 14px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;transition:border-color .3s;}
+.lf input:focus{border-color:var(--gold);}
+.lsub{width:100%;padding:13px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;margin-top:6px;transition:background .3s;}
+.lsub:hover{background:var(--gl);}
+.lerr{color:#e63946;font-size:12px;margin-top:10px;display:none;text-align:center;}
+.lsuccess{color:#4caf50;font-size:12px;margin-top:10px;display:none;text-align:center;}
+.lhint{font-size:11px;color:var(--dim);margin-top:14px;text-align:center;line-height:1.7;}
+.lhint span{color:var(--gold);}
+.role-sel{display:flex;gap:10px;margin-bottom:16px;}
+.role-btn{flex:1;padding:9px;border:1px solid #22223a;background:none;color:var(--dim);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.role-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,.07);}
+/* ADMIN */
+#ap{display:none;position:fixed;inset:0;z-index:9000;background:var(--bg);overflow-y:auto;}
+#ap.open{display:block;}
+.anav{background:var(--bg2);border-bottom:1px solid var(--gd);padding:18px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.anavl{font-family:'Cinzel',serif;font-size:18px;color:var(--gold);letter-spacing:.2em;}
+.anavl span{color:var(--dim);font-size:11px;margin-left:12px;}
+.acbtn{padding:8px 20px;background:none;border:1px solid #e63946;color:#e63946;font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.acbtn:hover{background:#e63946;color:var(--cream);}
+.abody{padding:40px;max-width:1200px;margin:0 auto;}
+.atabs{display:flex;gap:0;margin-bottom:36px;border-bottom:1px solid #181828;flex-wrap:wrap;}
+.atab{padding:12px 22px;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);cursor:pointer;transition:all .3s;}
+.atab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.asec{display:none;}
+.asec.active{display:block;}
+.acard{background:var(--bg2);border:1px solid #181828;padding:32px;margin-bottom:24px;}
+.acard h3{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #181828;}
+.af2{margin-bottom:16px;}
+.af2 label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;}
+.af2 input,.af2 textarea,.af2 select{width:100%;padding:10px 14px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;transition:border-color .3s;}
+.af2 input:focus,.af2 textarea:focus{border-color:var(--gold);}
+.af2 textarea{height:80px;resize:vertical;}
+.asave{padding:10px 28px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:background .3s;}
+.asave:hover{background:var(--gl);}
+.ag2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.toast{position:fixed;bottom:30px;right:30px;background:var(--gold);color:var(--bg);padding:12px 24px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;z-index:9999;opacity:0;transition:opacity .4s;pointer-events:none;}
+.arow{display:grid;grid-template-columns:60px 1fr 1fr 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid #181828;}
+.arow img{width:60px;height:60px;object-fit:cover;border:1px solid #22223a;}
+.arow input{padding:7px 10px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:12px;outline:none;width:100%;}
+.serow{display:flex;align-items:center;gap:16px;margin-bottom:14px;}
+.serow label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);width:130px;}
+.serow input{flex:1;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Cinzel',serif;font-size:16px;outline:none;}
+.dbtn{padding:6px 12px;background:none;border:1px solid #e63946;color:#e63946;font-size:11px;cursor:pointer;font-family:inherit;transition:all .3s;white-space:nowrap;}
+.dbtn:hover{background:#e63946;color:var(--cream);}
+.prow{display:grid;grid-template-columns:60px 1fr 1fr auto auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid #181828;}
+.prow img{width:60px;height:60px;object-fit:cover;border:1px solid #22223a;}
+.appbtn{padding:6px 14px;background:none;border:1px solid #4caf50;color:#4caf50;font-size:11px;cursor:pointer;font-family:inherit;transition:all .3s;}
+.appbtn:hover{background:#4caf50;color:#000;}
+.rejbtn{padding:6px 14px;background:none;border:1px solid #e63946;color:#e63946;font-size:11px;cursor:pointer;font-family:inherit;transition:all .3s;}
+.rejbtn:hover{background:#e63946;color:#fff;}
+.abadge2{background:rgba(76,175,80,.15);border:1px solid #4caf50;color:#4caf50;font-size:9px;letter-spacing:.15em;padding:3px 10px;text-transform:uppercase;}
+.rbadge{background:rgba(230,57,70,.15);border:1px solid #e63946;color:#e63946;font-size:9px;letter-spacing:.15em;padding:3px 10px;text-transform:uppercase;}
+.pbadge{background:rgba(251,140,0,.15);border:1px solid #fb8c00;color:#fb8c00;font-size:9px;letter-spacing:.15em;padding:3px 10px;text-transform:uppercase;}
+/* TABLE */
+.atable{width:100%;border-collapse:collapse;font-size:13px;}
+.atable th{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);padding:10px 12px;border-bottom:1px solid #181828;text-align:left;font-weight:400;}
+.atable td{padding:12px;border-bottom:1px solid #181828;color:var(--text);}
+.atable td:first-child{color:var(--cream);}
+.atable tr:hover td{background:rgba(201,169,110,.03);}
+.badge{font-size:9px;letter-spacing:.15em;padding:3px 10px;text-transform:uppercase;display:inline-block;}
+.badge-v{background:rgba(76,175,80,.1);border:1px solid #4caf50;color:#4caf50;}
+.badge-a{background:rgba(201,169,110,.1);border:1px solid var(--gd);color:var(--gold);}
+.badge-p{background:rgba(76,175,80,.1);border:1px solid #4caf50;color:#4caf50;}
+/* PAYMENT */
+.pay-modal{display:none;position:fixed;inset:0;z-index:9500;background:rgba(2,2,8,.98);backdrop-filter:blur(28px);align-items:center;justify-content:center;}
+.pay-modal.open{display:flex;}
+.pay-box{background:var(--bg2);border:1px solid var(--gd);width:100%;max-width:520px;position:relative;overflow:hidden;}
+.pay-header{background:linear-gradient(135deg,#0d0d1a,#1a0a2e);padding:28px 36px;border-bottom:1px solid var(--gd);}
+.pay-header h3{font-family:'Cinzel',serif;font-size:18px;color:var(--gold);margin-bottom:4px;}
+.pay-header p{font-size:11px;color:var(--dim);letter-spacing:.15em;}
+.pay-art-row{display:flex;align-items:center;gap:16px;padding:20px 36px;border-bottom:1px solid #181828;}
+.pay-art-row img{width:60px;height:72px;object-fit:cover;border:1px solid #22223a;}
+.pa-info h4{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream);margin-bottom:3px;}
+.pa-info p{font-size:10px;color:var(--dim);letter-spacing:.15em;text-transform:uppercase;}
+.pa-price{margin-left:auto;font-family:'Cinzel',serif;font-size:20px;color:var(--gold);}
+.pay-methods{display:flex;gap:10px;padding:20px 36px 0;flex-wrap:wrap;}
+.pm-btn{flex:1;min-width:90px;padding:12px 8px;background:var(--bg);border:1px solid #22223a;color:var(--text);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .3s;text-align:center;}
+.pm-btn.active,.pm-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,.07);}
+.pm-icon{font-size:20px;display:block;margin-bottom:6px;}
+.pay-form{padding:20px 36px 28px;}
+.pf{margin-bottom:14px;}
+.pf label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;}
+.pf input,.pf select{width:100%;padding:10px 13px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;transition:border-color .3s;}
+.pf input:focus{border-color:var(--gold);}
+.pf input::placeholder{color:var(--dim);}
+.pf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.pay-btn{width:100%;padding:14px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;transition:background .3s;margin-top:4px;}
+.pay-btn:hover{background:var(--gl);}
+.pay-secure{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;font-size:10px;color:var(--dim);letter-spacing:.12em;}
+.pay-success{display:none;padding:40px 36px;text-align:center;}
+.pay-success .tick{font-size:56px;margin-bottom:16px;}
+.pay-success h3{font-family:'Cinzel',serif;font-size:22px;color:var(--gold);margin-bottom:10px;}
+.pay-success p{font-size:13px;color:var(--text);line-height:1.8;margin-bottom:20px;}
+.pay-ref{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);padding:10px 20px;border:1px solid #22223a;display:inline-block;margin-bottom:20px;}
+.pay-close-btn{padding:11px 32px;background:none;border:1px solid var(--gold);color:var(--gold);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+.pay-close-btn:hover{background:var(--gold);color:var(--bg);}
+.upi-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.upi-opt{padding:8px 16px;border:1px solid #22223a;background:var(--bg);color:var(--text);font-size:11px;cursor:pointer;transition:all .3s;font-family:inherit;}
+.upi-opt.active,.upi-opt:hover{border-color:var(--gold);color:var(--gold);}
+/* SUBMIT */
+.sm{display:none;position:fixed;inset:0;z-index:8500;background:rgba(2,2,8,.97);backdrop-filter:blur(24px);align-items:center;justify-content:center;overflow-y:auto;}
+.sm.open{display:flex;}
+.sbox{background:var(--bg2);border:1px solid var(--gd);padding:44px;width:100%;max-width:580px;position:relative;margin:40px auto;}
+.sbox h2{font-family:'Cinzel',serif;font-size:20px;color:var(--gold);margin-bottom:4px;}
+.sbox-sub{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:24px;}
+.sf{margin-bottom:14px;}
+.sf label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;}
+.sf input,.sf textarea,.sf select{width:100%;padding:10px 14px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;transition:border-color .3s;}
+.sf input:focus,.sf textarea:focus{border-color:var(--gold);}
+.sf textarea{height:80px;resize:vertical;line-height:1.6;}
+.sg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.subbtn{width:100%;padding:13px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;margin-top:4px;transition:background .3s;}
+.subbtn:hover{background:var(--gl);}
+.flabel{padding:9px 20px;border:1px solid #22223a;color:var(--dim);font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;background:var(--bg);display:inline-block;transition:all .3s;}
+.flabel:hover{border-color:var(--gold);color:var(--gold);}
+/* POPUP */
+.popup{display:none;position:fixed;inset:0;z-index:7000;background:rgba(4,4,10,.96);backdrop-filter:blur(18px);align-items:center;justify-content:center;}
+.popup.open{display:flex;}
+.pbox{background:var(--bg2);border:1px solid var(--gd);padding:46px;max-width:420px;width:90%;position:relative;}
+.pbox-cl{position:absolute;top:16px;right:16px;width:36px;height:36px;background:none;border:1px solid #2a2a40;color:var(--cream);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.pbox-cl:hover{border-color:var(--gold);color:var(--gold);}
+.prow2{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #181828;}
+.prow2 p{font-family:'Cormorant Garamond',serif;font-size:17px;}
+.prow2 p:first-child{color:var(--text);}
+.prow2 p:last-child{color:var(--cream);}
+.plabel{font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
+.rv{opacity:0;transform:translateY(38px);transition:opacity .85s,transform .85s;}
+.rv.vis{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}
 </style>
 </head>
 <body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="cr"></div>
+<div class="toast" id="toast">Changes Saved ✓</div>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<!-- PAYMENT MODAL -->
+<div class="pay-modal" id="paym">
+  <div class="pay-box">
+    <button class="pbox-cl" onclick="closeM('paym')" style="position:absolute;top:14px;right:14px;z-index:2;">✕</button>
+    <div id="pay-main">
+      <div class="pay-header"><h3>Complete Purchase</h3><p>Secure · Encrypted · Instant Confirmation</p></div>
+      <div class="pay-art-row">
+        <img id="pay-img" src="">
+        <div class="pa-info"><h4 id="pay-title">Artwork</h4><p id="pay-artist">Artist</p></div>
+        <div class="pa-price" id="pay-price">₹0</div>
+      </div>
+      <div class="pay-methods">
+        <button class="pm-btn active" onclick="switchPay(this,'card')"><span class="pm-icon">💳</span>Card</button>
+        <button class="pm-btn" onclick="switchPay(this,'upi')"><span class="pm-icon">📱</span>UPI</button>
+        <button class="pm-btn" onclick="switchPay(this,'netbank')"><span class="pm-icon">🏦</span>Net Banking</button>
+        <button class="pm-btn" onclick="switchPay(this,'wallet')"><span class="pm-icon">👝</span>Wallet</button>
+      </div>
+      <div class="pay-form">
+        <div id="pf-card">
+          <div class="pf"><label>Cardholder Name</label><input id="cc-name" placeholder="Name on card"></div>
+          <div class="pf"><label>Card Number</label><input id="cc-num" placeholder="1234 5678 9012 3456" maxlength="19" oninput="fmtCard(this)"></div>
+          <div class="pf-row">
+            <div class="pf"><label>Expiry</label><input placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)"></div>
+            <div class="pf"><label>CVV</label><input placeholder="•••" maxlength="3" type="password"></div>
+          </div>
+        </div>
+        <div id="pf-upi" style="display:none;">
+          <div class="pf"><label>Select UPI App</label>
+            <div class="upi-row">
+              <button class="upi-opt active" onclick="selUpi(this)">GPay</button>
+              <button class="upi-opt" onclick="selUpi(this)">PhonePe</button>
+              <button class="upi-opt" onclick="selUpi(this)">Paytm</button>
+              <button class="upi-opt" onclick="selUpi(this)">BHIM</button>
+            </div>
+          </div>
+          <div class="pf"><label>UPI ID</label><input placeholder="yourname@upi"></div>
+        </div>
+        <div id="pf-netbank" style="display:none;">
+          <div class="pf"><label>Select Bank</label>
+            <select style="width:100%;padding:10px 13px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;">
+              <option>State Bank of India</option><option>HDFC Bank</option><option>ICICI Bank</option><option>Axis Bank</option><option>Kotak Mahindra</option><option>Punjab National Bank</option>
+            </select>
+          </div>
+          <div class="pf"><label>User ID</label><input placeholder="Net banking user ID"></div>
+          <div class="pf"><label>Password</label><input type="password" placeholder="••••••••"></div>
+        </div>
+        <div id="pf-wallet" style="display:none;">
+          <div class="pf"><label>Select Wallet</label>
+            <div class="upi-row">
+              <button class="upi-opt active" onclick="selUpi(this)">Paytm</button>
+              <button class="upi-opt" onclick="selUpi(this)">Amazon Pay</button>
+              <button class="upi-opt" onclick="selUpi(this)">Mobikwik</button>
+            </div>
+          </div>
+          <div class="pf"><label>Registered Mobile</label><input placeholder="10-digit mobile number" maxlength="10"></div>
+        </div>
+        <button class="pay-btn" id="pay-submit-btn" onclick="processPayment()">Pay <span id="pay-btn-amt">₹0</span></button>
+        <div class="pay-secure">🔒 256-bit SSL Encrypted &nbsp;·&nbsp; PCI DSS Compliant</div>
+      </div>
+    </div>
+    <div class="pay-success" id="pay-success">
+      <div class="tick">✅</div>
+      <h3>Payment Successful!</h3>
+      <p>Your artwork has been reserved.<br>A confirmation has been sent to your registered contact.</p>
+      <div class="pay-ref" id="pay-ref">REF: AH-000000</div><br>
+      <button class="pay-close-btn" onclick="closeM('paym');$('pay-success').style.display='none';$('pay-main').style.display='block';">Done</button>
+    </div>
+  </div>
+</div>
 
-<!-- SAVED TOAST -->
-<div class="saved-toast" id="savedToast">Changes Saved ✓</div>
-
-<!-- SUBMIT ARTWORK MODAL -->
-<div class="submit-modal" id="submitModal">
-  <div class="submit-box">
-    <button onclick="document.getElementById('submitModal').classList.remove('open')" style="position:absolute;top:16px;right:16px;width:36px;height:36px;background:none;border:1px solid #2a2a40;color:var(--cream);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+<!-- SUBMIT MODAL -->
+<div class="sm" id="sm">
+  <div class="sbox">
+    <button class="pbox-cl" onclick="closeM('sm')">✕</button>
     <h2>Submit Your Artwork</h2>
-    <div class="sub-desc">Submitted artworks are reviewed by our admin before going live</div>
-    <div class="sgrid">
-      <div class="sfield"><label>Title *</label><input type="text" id="s-title" placeholder="Artwork title"></div>
-      <div class="sfield"><label>Artist Name *</label><input type="text" id="s-artist" placeholder="Your name"></div>
+    <div class="sbox-sub">Reviewed by admin before going live</div>
+    <div class="sg2">
+      <div class="sf"><label>Title *</label><input id="s-ti" placeholder="Artwork title"></div>
+      <div class="sf"><label>Artist Name *</label><input id="s-ar" placeholder="Your name"></div>
     </div>
-    <div class="sgrid">
-      <div class="sfield"><label>Year *</label><input type="text" id="s-year" placeholder="e.g. 2026"></div>
-      <div class="sfield"><label>Category *</label>
-        <select id="s-cat">
-          <option>Abstract</option><option>Impressionist</option><option>Modern</option>
-          <option>Digital</option><option>Expressionist</option><option>Watercolor</option><option>Other</option>
-        </select>
+    <div class="sg2">
+      <div class="sf"><label>Year *</label><input id="s-yr" placeholder="2026"></div>
+      <div class="sf"><label>Category *</label><select id="s-cat"><option>Abstract</option><option>Impressionist</option><option>Modern</option><option>Digital</option><option>Expressionist</option><option>Watercolor</option><option>Other</option></select></div>
+    </div>
+    <div class="sf"><label>Price</label><input id="s-pr" placeholder="₹1,50,000 or Not for Sale"></div>
+    <div class="sf"><label>Description *</label><textarea id="s-de" placeholder="Tell us about your artwork..."></textarea></div>
+    <div class="sf">
+      <label>Upload Image *</label>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
+        <label class="flabel" for="s-up">Choose Image</label>
+        <input type="file" id="s-up" accept="image/*" style="display:none;" onchange="prevImg(this,'s-pv','s-fn',true)">
+        <span id="s-fn" style="font-size:12px;color:var(--dim);">No file chosen</span>
       </div>
+      <canvas id="s-pv" width="120" height="90" style="display:none;margin-top:10px;border:1px solid #22223a;"></canvas>
     </div>
-    <div class="sfield"><label>Price (optional)</label><input type="text" id="s-price" placeholder="e.g. ₹1,50,000 or Not for Sale"></div>
-    <div class="sfield"><label>Description *</label><textarea id="s-desc" placeholder="Tell us about your artwork — style, inspiration, technique..."></textarea></div>
-    <div class="sfield">
-      <label>Upload Artwork Image *</label>
-      <div style="display:flex;align-items:center;gap:14px;">
-        <label for="s-img-upload" style="padding:9px 22px;border:1px solid #22223a;color:var(--text-dim);font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;background:var(--bg);transition:all .3s;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='#22223a';this.style.color='var(--text-dim)'">Choose Image</label>
-        <input type="file" id="s-img-upload" accept="image/*" style="display:none;" onchange="previewSubmitImg(this)">
-        <span id="s-img-name" style="font-size:12px;color:var(--text-dim);">No file chosen</span>
-      </div>
-      <canvas id="s-img-preview" width="120" height="90" style="display:none;margin-top:12px;border:1px solid #22223a;"></canvas>
-    </div>
-    <div id="s-err" style="color:#e63946;font-size:12px;margin-bottom:10px;display:none;">Please fill all required fields and upload an image.</div>
-    <div id="s-success" style="background:rgba(76,175,80,.1);border:1px solid #4caf50;color:#4caf50;padding:12px 16px;font-size:13px;display:none;margin-bottom:12px;">✓ Artwork submitted! It will appear in the gallery after admin approval.</div>
-    <button class="submit-art-btn" onclick="submitArtwork()">Submit for Review</button>
+    <div id="s-err" style="color:#e63946;font-size:12px;margin-bottom:8px;display:none;">Please fill all required fields and upload an image.</div>
+    <div id="s-ok" style="background:rgba(76,175,80,.1);border:1px solid #4caf50;color:#4caf50;padding:12px 16px;font-size:13px;display:none;margin-bottom:10px;">✓ Submitted! Awaiting admin approval.</div>
+    <button class="subbtn" onclick="submitArt()">Submit for Review</button>
   </div>
 </div>
 
-<!-- LOGIN MODAL -->
-<div class="login-modal" id="loginModal">
-  <div class="login-box">
-    <button class="login-close" onclick="closeLogin()">✕</button>
-    <div class="login-box-title">Welcome Back</div>
-    <div class="login-box-sub">Sign in to Artistry Haven</div>
-    <div class="login-tabs">
-      <button class="login-tab active" onclick="switchTab('visitor')">Visitor</button>
-      <button class="login-tab" onclick="switchTab('admin')">Admin</button>
-    </div>
-    <div id="visitorForm">
-      <div class="login-field"><label>Username</label><input type="text" id="vUser" placeholder="e.g. visitor1"></div>
-      <div class="login-field"><label>Password</label><input type="password" id="vPass" placeholder="••••••••"></div>
-      <button class="login-submit" onclick="loginVisitor()">Enter Gallery</button>
-      <div class="login-err" id="vErr">Invalid credentials. Try visitor / visit123</div>
-      <div class="login-hint">Demo: username <span>visitor</span> · password <span>visit123</span></div>
-    </div>
-    <div id="adminForm" style="display:none;">
-      <div class="login-field"><label>Admin Username</label><input type="text" id="aUser" placeholder="admin"></div>
-      <div class="login-field"><label>Admin Password</label><input type="password" id="aPass" placeholder="••••••••"></div>
-      <button class="login-submit" onclick="loginAdmin()">Access Dashboard</button>
-      <div class="login-err" id="aErr">Invalid credentials. Try admin / admin123</div>
-      <div class="login-hint">Demo: username <span>admin</span> · password <span>admin123</span></div>
-    </div>
+<!-- HOURS POPUP -->
+<div class="popup" id="hpop">
+  <div class="pbox">
+    <button class="pbox-cl" onclick="closeM('hpop')">✕</button>
+    <div class="plabel">Visiting Hours</div>
+    <div class="prow2"><p>Monday – Friday</p><p>10:00 AM – 8:00 PM</p></div>
+    <div class="prow2"><p>Saturday – Sunday</p><p>10:00 AM – 8:00 PM</p></div>
+    <div class="prow2"><p>Last Entry</p><p style="color:var(--gold);">7:30 PM</p></div>
+    <div style="background:rgba(201,169,110,.06);border:1px solid var(--gd);padding:14px 18px;margin-top:16px;"><p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Note</p><p style="font-size:13px;color:var(--dim);line-height:1.7;">Open all days. Timings may vary during special exhibitions.</p></div>
   </div>
 </div>
 
-<!-- HOURS MODAL -->
-<div id="hoursModal" style="display:none;position:fixed;inset:0;z-index:7000;background:rgba(4,4,10,.96);backdrop-filter:blur(18px);align-items:center;justify-content:center;">
-  <div style="background:var(--bg2);border:1px solid var(--gold-dark);padding:50px;max-width:420px;width:90%;position:relative;">
-    <button onclick="document.getElementById('hoursModal').style.display='none'" style="position:absolute;top:16px;right:16px;width:36px;height:36px;background:none;border:1px solid #2a2a40;color:var(--cream);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
-    <div style="font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;">Visiting Hours</div>
+<!-- LOCATION POPUP -->
+<div class="popup" id="lpop">
+  <div class="pbox">
+    <button class="pbox-cl" onclick="closeM('lpop')">✕</button>
+    <div class="plabel">Location</div>
     <div style="display:flex;flex-direction:column;gap:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text);">Monday – Friday</p><p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream);">10:00 AM – 8:00 PM</p></div>
+      <div><p style="font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;">Department</p><p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);">Computer Science &amp; Engineering</p></div>
       <div style="height:1px;background:#181828;"></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text);">Saturday – Sunday</p><p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream);">10:00 AM – 8:00 PM</p></div>
+      <div><p style="font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;">Hours</p><p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);">10:00 AM – 8:00 PM</p></div>
       <div style="height:1px;background:#181828;"></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text);">Last Entry</p><p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold);">7:30 PM</p></div>
-      <div style="height:1px;background:#181828;"></div>
-      <div style="background:rgba(201,169,110,.06);border:1px solid var(--gold-dark);padding:14px 18px;">
-        <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Note</p>
-        <p style="font-size:13px;color:var(--text-dim);line-height:1.7;">Gallery is open all days. Timings may vary during special exhibitions.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- LOCATION MODAL -->
-<div id="locationModal" style="display:none;position:fixed;inset:0;z-index:7000;background:rgba(4,4,10,.96);backdrop-filter:blur(18px);align-items:center;justify-content:center;">
-  <div style="background:var(--bg2);border:1px solid var(--gold-dark);padding:50px;max-width:420px;width:90%;position:relative;">
-    <button onclick="document.getElementById('locationModal').style.display='none'" style="position:absolute;top:16px;right:16px;width:36px;height:36px;background:none;border:1px solid #2a2a40;color:var(--cream);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
-    <div style="font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;">Location</div>
-    <div style="display:flex;flex-direction:column;gap:22px;">
-      <div><p style="font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;">Department</p><p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);">Computer Science &amp; Engineering</p></div>
-      <div style="height:1px;background:#181828;"></div>
-      <div><p style="font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;">Visiting Hours</p><p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);">10:00 AM – 8:00 PM</p></div>
-      <div style="height:1px;background:#181828;"></div>
-      <div><p style="font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;">Gallery</p><p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);">Artistry Haven</p></div>
+      <div><p style="font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;">Gallery</p><p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);">Artistry Haven</p></div>
     </div>
   </div>
 </div>
 
 <!-- AI CURATOR MODAL -->
-<div id="aiCuratorModal" class="modal-base">
-  <div class="gm-header">
-    <div><div class="gm-title">AI Art Curator</div><div class="gm-sub">Artistry Haven &nbsp;·&nbsp; Powered by Claude</div></div>
-    <button class="gm-close" id="aiModalClose">✕</button>
-  </div>
+<div class="modal-full" id="aim">
+  <div class="mhdr"><div><div class="mtitle">AI Art Curator</div><div class="msub">Artistry Haven · Powered by Claude</div></div><button class="mclose" onclick="closeM('aim')">✕</button></div>
   <div style="max-width:1100px;margin:0 auto;padding:40px 50px 80px;">
-    <div style="margin-bottom:36px;">
-      <div class="section-label" style="margin-bottom:10px;">Innovation</div>
-      <h2 style="font-family:'Cinzel',serif;font-size:clamp(26px,4vw,48px);color:var(--cream);line-height:1.1;margin-bottom:12px;">AI Art Curator</h2>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--text);max-width:580px;">Describe any artwork — real or imagined — and receive museum-quality curatorial analysis powered by artificial intelligence.</p>
-    </div>
-    <div class="curator-grid">
-      <div class="curator-panel">
+    <div class="slabel" style="margin-bottom:10px;">Innovation</div>
+    <h2 style="font-family:'Cinzel',serif;font-size:clamp(26px,4vw,48px);color:var(--cream);line-height:1.1;margin-bottom:12px;">AI Art Curator</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--text);max-width:580px;">Describe any artwork and receive museum-quality curatorial analysis.</p>
+    <div class="cgrid">
+      <div class="cpanel">
         <h3>Describe Your Artwork</h3>
-        <p class="panel-desc">Paint a picture with your words. Share colors, composition, mood, and emotion — our AI curator will respond with deep historical and psychological analysis.</p>
-        <textarea class="art-textarea" id="artDesc" placeholder="e.g. 'A woman's face half-submerged in golden water, her eyes open and calm, surrounded by floating lotus petals and geometric light...'"></textarea>
-        <div class="ex-row">
-          <button class="ex-btn" onclick="setEx(1)">Example 1</button>
-          <button class="ex-btn" onclick="setEx(2)">Example 2</button>
-          <button class="ex-btn" onclick="setEx(3)">Example 3</button>
+        <p class="pdesc">Share colors, composition, mood — our AI curator responds with deep analysis.</p>
+        <textarea class="atxt" id="adt" placeholder="e.g. 'A woman's face half-submerged in golden water...'"></textarea>
+        <div class="exrow">
+          <button class="exb" onclick="setEx(0)">Example 1</button>
+          <button class="exb" onclick="setEx(1)">Example 2</button>
+          <button class="exb" onclick="setEx(2)">Example 3</button>
         </div>
-        <button class="analyze-btn" id="analyzeBtn" onclick="analyzeArt()">
-          <span id="btnTxt">Analyze Artwork</span>
-          <div class="ld" id="ldots"><span></span><span></span><span></span></div>
+        <button class="abtn" id="anb" onclick="analyzeArt()">
+          <span id="abt">Analyze Artwork</span>
+          <div class="ld" id="ald"><span></span><span></span><span></span></div>
         </button>
       </div>
       <div>
-        <div class="output-card" id="outputCard">
-          <div class="out-placeholder" id="outPh"><div class="ei">👁</div><p>Your curatorial analysis<br>will appear here</p></div>
-          <div class="ai-resp" id="aiResp">
-            <div class="ai-resp-hdr"><div class="ai-badge">AI Curator</div><span>Curatorial Analysis</span></div>
-            <div class="ai-text" id="aiText"></div>
-            <div class="ai-tags" id="aiTags"></div>
+        <div class="ocard" id="oc">
+          <div class="oph" id="oph"><div class="ei">👁</div><p>Your curatorial analysis<br>will appear here</p></div>
+          <div class="airsp" id="ars">
+            <div class="airhdr"><div class="aibadge">AI Curator</div><span>Curatorial Analysis</span></div>
+            <div class="aitxt" id="atxtout"></div>
+            <div class="aitags" id="atags"></div>
           </div>
         </div>
       </div>
@@ -413,677 +454,571 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
 </div>
 
 <!-- GALLERY MODAL -->
-<div id="galleryModal" class="modal-base">
-  <div class="gm-header">
-    <div><div class="gm-title">Gallery Collection</div><div class="gm-sub">Artistry Haven &nbsp;·&nbsp; All Works</div></div>
-    <button class="gm-close" id="gmClose">✕</button>
-  </div>
-  <div class="gm-grid" id="gmGrid"></div>
+<div class="modal-full" id="gm">
+  <div class="mhdr"><div><div class="mtitle">Gallery Collection</div><div class="msub">Artistry Haven · All Works</div></div><button class="mclose" onclick="closeM('gm')">✕</button></div>
+  <div class="gmgrid" id="gmg"></div>
 </div>
 
 <!-- LIGHTBOX -->
-<div id="lightbox">
-  <div class="lb-inner">
-    <button class="lb-close" id="lbClose">✕</button>
-    <canvas id="lbCanvas"></canvas>
-    <div class="lb-info">
-      <div class="lb-title" id="lbTitle"></div>
-      <div class="lb-meta" id="lbMeta"></div>
-      <div class="lb-desc" id="lbDesc"></div>
+<div id="lb">
+  <div class="lbin">
+    <button class="lbcl" onclick="closeLb()">✕</button>
+    <canvas id="lbc"></canvas>
+    <div class="lbin-info">
+      <div class="lbt" id="lbt"></div>
+      <div class="lbm" id="lbm"></div>
+      <div class="lbd" id="lbd"></div>
     </div>
-    <div class="lb-nav"><button id="lbPrev">← Prev</button><button id="lbNext">Next →</button></div>
+    <div class="lbnav">
+      <button onclick="moveLb(-1)">← Prev</button>
+      <button onclick="buyArt(lbI)" style="background:var(--gold);border-color:var(--gold);color:var(--bg);">🛒 Buy Now</button>
+      <button onclick="moveLb(1)">Next →</button>
+    </div>
   </div>
 </div>
 
 <!-- ADMIN PANEL -->
-<div id="adminPanel">
-  <div class="admin-nav">
-    <div>
-      <span class="admin-nav-logo">Artistry Haven <span>Admin Dashboard</span></span>
-    </div>
-    <div class="admin-nav-right">
-      <span style="font-size:10px;letter-spacing:.18em;color:var(--text-dim);text-transform:uppercase;">Logged in as <span style="color:var(--gold)">Admin</span></span>
-      <button class="admin-close-btn" onclick="closeAdmin()">Exit Dashboard</button>
+<div id="ap">
+  <div class="anav">
+    <span class="anavl">Artistry Haven <span>Admin Dashboard</span></span>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <span style="font-size:10px;letter-spacing:.15em;color:var(--dim);text-transform:uppercase;">Admin: <span style="color:var(--gold);">admin</span></span>
+      <button class="acbtn" onclick="closeAdmin()">Exit Dashboard</button>
     </div>
   </div>
-  <div class="admin-body">
-    <div class="admin-tabs">
-      <button class="admin-tab active" onclick="switchAdminTab('hero')">Hero</button>
-      <button class="admin-tab" onclick="switchAdminTab('artworks')">Artworks</button>
-      <button class="admin-tab" onclick="switchAdminTab('stats')">Stats</button>
-      <button class="admin-tab" onclick="switchAdminTab('info')">Gallery Info</button>
-      <button class="admin-tab" onclick="switchAdminTab('pending')">Pending <span id="pendingBadge" style="background:var(--gold);color:var(--bg);font-size:9px;padding:2px 7px;margin-left:6px;border-radius:0;">0</span></button>
-      <button class="admin-tab" onclick="switchAdminTab('visitors')">Visitors</button>
+  <div class="abody">
+    <div class="atabs">
+      <button class="atab active" onclick="aTab(this,'th')">Hero</button>
+      <button class="atab" onclick="aTab(this,'ta')">Artworks</button>
+      <button class="atab" onclick="aTab(this,'ts')">Stats</button>
+      <button class="atab" onclick="aTab(this,'ti')">Gallery Info</button>
+      <button class="atab" onclick="aTab(this,'tp')">Pending <span id="pb" style="background:var(--gold);color:var(--bg);font-size:9px;padding:2px 6px;margin-left:4px;">0</span></button>
+      <button class="atab" onclick="aTab(this,'tv')">Users</button>
+      <button class="atab" onclick="aTab(this,'tpay')">Purchases</button>
     </div>
-
-    <!-- HERO TAB -->
-    <div class="admin-section active" id="tab-hero">
-      <div class="admin-card">
-        <h3>Hero Section</h3>
-        <div class="admin-grid-2">
-          <div class="admin-field"><label>Gallery Name</label><input type="text" id="edit-name" value="Artistry Haven"></div>
-          <div class="admin-field"><label>Eyebrow Text</label><input type="text" id="edit-eyebrow" value="Contemporary Art Gallery · Est. 2026"></div>
+    <div class="asec active" id="th">
+      <div class="acard"><h3>Hero Section</h3>
+        <div class="ag2">
+          <div class="af2"><label>Gallery Name</label><input id="en" value="Artistry Haven"></div>
+          <div class="af2"><label>Eyebrow Text</label><input id="ee" value="Contemporary Art Gallery · Est. 2026"></div>
         </div>
-        <div class="admin-field"><label>Tagline</label><input type="text" id="edit-tagline" value="Experience Art in Another Dimension"></div>
-        <div class="admin-field"><label>CTA Button Text</label><input type="text" id="edit-cta" value="Explore Collection"></div>
-        <button class="admin-save-btn" onclick="saveHero()">Save Changes</button>
+        <div class="af2"><label>Tagline</label><input id="et" value="Experience Art in Another Dimension"></div>
+        <div class="af2"><label>CTA Button</label><input id="ec" value="Explore Collection"></div>
+        <button class="asave" onclick="saveHero()">Save Changes</button>
       </div>
     </div>
-
-    <!-- ARTWORKS TAB -->
-    <div class="admin-section" id="tab-artworks">
-      <div class="admin-card">
-        <h3>Manage Artworks</h3>
-        <div id="artworkAdminRows"></div>
-        <button class="admin-save-btn" style="margin-top:16px;" onclick="saveArtworks()">Save All Artworks</button>
+    <div class="asec" id="ta"><div class="acard"><h3>Manage Artworks</h3><div id="ar"></div></div></div>
+    <div class="asec" id="ts">
+      <div class="acard"><h3>Statistics</h3>
+        <div class="serow"><label>Artworks</label><input type="number" id="sa" value="240"></div>
+        <div class="serow"><label>Artists</label><input type="number" id="sb" value="80"></div>
+        <div class="serow"><label>Exhibitions</label><input type="number" id="sc" value="36"></div>
+        <div class="serow"><label>Years Active</label><input type="number" id="sd" value="12"></div>
+        <button class="asave" onclick="saveStats()">Save Stats</button>
       </div>
     </div>
-
-    <!-- STATS TAB -->
-    <div class="admin-section" id="tab-stats">
-      <div class="admin-card">
-        <h3>Gallery Statistics</h3>
-        <div class="stat-edit-row"><label>Artworks Count</label><input type="number" id="s-art" value="240"></div>
-        <div class="stat-edit-row"><label>Artists Count</label><input type="number" id="s-artists" value="80"></div>
-        <div class="stat-edit-row"><label>Exhibitions</label><input type="number" id="s-ex" value="36"></div>
-        <div class="stat-edit-row"><label>Years Active</label><input type="number" id="s-yr" value="12"></div>
-        <button class="admin-save-btn" onclick="saveStats()">Save Stats</button>
-      </div>
-    </div>
-
-    <!-- INFO TAB -->
-    <div class="admin-section" id="tab-info">
-      <div class="admin-card">
-        <h3>Gallery Information</h3>
-        <div class="admin-grid-2">
-          <div class="admin-field"><label>Department</label><input type="text" id="edit-dept" value="Computer Science & Engineering"></div>
-          <div class="admin-field"><label>Gallery Tagline</label><input type="text" id="edit-footer-tag" value="A sanctuary for art and contemplation"></div>
+    <div class="asec" id="ti">
+      <div class="acard"><h3>Gallery Information</h3>
+        <div class="ag2">
+          <div class="af2"><label>Department</label><input id="id2" value="Computer Science & Engineering"></div>
+          <div class="af2"><label>Footer Tagline</label><input id="it" value="A sanctuary for art and contemplation"></div>
         </div>
-        <div class="admin-grid-2">
-          <div class="admin-field"><label>Opening Time</label><input type="text" id="edit-open" value="10:00 AM"></div>
-          <div class="admin-field"><label>Closing Time</label><input type="text" id="edit-close" value="8:00 PM"></div>
+        <div class="ag2">
+          <div class="af2"><label>Opening Time</label><input id="io" value="10:00 AM"></div>
+          <div class="af2"><label>Closing Time</label><input id="ic" value="8:00 PM"></div>
         </div>
-        <div class="admin-field"><label>Last Entry</label><input type="text" id="edit-last" value="7:30 PM"></div>
-        <button class="admin-save-btn" onclick="saveInfo()">Save Info</button>
+        <button class="asave" onclick="saveInfo()">Save Info</button>
       </div>
     </div>
+    <div class="asec" id="tp"><div class="acard"><h3>Pending Submissions</h3><div id="pl"><p style="color:var(--dim);font-size:13px;">No pending submissions.</p></div></div></div>
+    <div class="asec" id="tv"><div class="acard"><h3>Registered Users</h3><div id="vl"></div></div></div>
+    <div class="asec" id="tpay"><div class="acard"><h3>Purchase History</h3><div id="paylist"></div></div></div>
+  </div>
+</div>
 
-    <!-- PENDING TAB -->
-    <div class="admin-section" id="tab-pending">
-      <div class="admin-card">
-        <h3>Pending Artwork Submissions</h3>
-        <div id="pendingList"><p style="color:var(--text-dim);font-size:13px;">No pending submissions.</p></div>
-      </div>
+<!-- AUTH MODAL -->
+<div class="lm" id="lm">
+  <div class="lbox">
+    <button class="pbox-cl" onclick="closeM('lm')">✕</button>
+    <h2 id="auth-title">Welcome</h2>
+    <div class="lbox-sub" id="auth-sub">Sign in or create an account</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuth(this,'login')">Login</button>
+      <button class="auth-tab" onclick="switchAuth(this,'register')">Register</button>
     </div>
-
-    <!-- VISITORS TAB -->
-    <div class="admin-section" id="tab-visitors">
-      <div class="admin-card">
-        <h3>Registered Visitors</h3>
-        <div id="visitorList"></div>
+    <!-- LOGIN FORM -->
+    <div id="auth-login">
+      <div class="role-sel">
+        <button class="role-btn active" id="rb-v" onclick="selRole(this,'visitor')">👤 Visitor</button>
+        <button class="role-btn" id="rb-a" onclick="selRole(this,'admin')">🔐 Admin</button>
       </div>
+      <div class="lf"><label>Username</label><input id="l-user" placeholder="Enter username"></div>
+      <div class="lf"><label>Password</label><input type="password" id="l-pass" placeholder="Enter password"></div>
+      <div class="lerr" id="l-err">Invalid credentials. Please try again.</div>
+      <button class="lsub" onclick="doLogin()">Login</button>
+      <div class="lhint" id="l-hint">Visitor: <span>visitor</span> / <span>visit123</span> &nbsp;·&nbsp; Admin: <span>admin</span> / <span>admin123</span></div>
+    </div>
+    <!-- REGISTER FORM -->
+    <div id="auth-register" style="display:none;">
+      <div class="ag2" style="gap:12px;">
+        <div class="lf"><label>Full Name *</label><input id="r-name" placeholder="Your full name"></div>
+        <div class="lf"><label>Username *</label><input id="r-user" placeholder="Choose username"></div>
+      </div>
+      <div class="lf"><label>Email *</label><input id="r-email" placeholder="your@email.com"></div>
+      <div class="ag2" style="gap:12px;">
+        <div class="lf"><label>Password *</label><input type="password" id="r-pass" placeholder="Min 6 characters"></div>
+        <div class="lf"><label>Confirm Password *</label><input type="password" id="r-conf" placeholder="Repeat password"></div>
+      </div>
+      <div class="lerr" id="r-err">Please fill all fields correctly.</div>
+      <div class="lsuccess" id="r-ok">✓ Registered! You can now login.</div>
+      <button class="lsub" onclick="doRegister()">Create Account</button>
     </div>
   </div>
 </div>
 
-<!-- MAIN NAV -->
-<nav id="mainNav">
-  <a href="#" class="nav-logo">Artistry <span>Haven</span></a>
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">Artistry <span>Haven</span></a>
   <ul class="nav-links">
-    <li><button id="galleryNavLink" class="nav-btn" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text)'">Gallery</button></li>
-    <li><button id="aiCuratorNavBtn" class="nav-btn" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text)'">AI Curator</button></li>
-    <li><button class="nav-btn" onclick="document.getElementById('timeline').scrollIntoView({behavior:'smooth'})" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text)'">Movements</button></li>
-    <li><button class="nav-btn nav-visit" onclick="document.getElementById('timeline').scrollIntoView({behavior:'smooth'})">Visit Us</button></li>
+    <li><button class="nb" onclick="open2('gm')">Gallery</button></li>
+    <li><button class="nb" onclick="open2('aim')">AI Curator</button></li>
+    <li><button class="nb" onclick="scrollTo2('timeline')">Movements</button></li>
+    <li><button class="nb nb-gold" onclick="scrollTo2('timeline')">Visit Us</button></li>
     <li>
-      <div class="user-badge" id="userBadge" style="display:none;">
-        <span id="userLabel">visitor</span>
-        <button id="submitArtBtn" onclick="document.getElementById('submitModal').classList.add('open')" style="display:none;background:none;border:1px solid var(--gold);color:var(--gold);font-family:inherit;font-size:9px;letter-spacing:.18em;padding:5px 12px;cursor:pointer;text-transform:uppercase;transition:all .3s;" onmouseover="this.style.background='rgba(201,169,110,.15)'" onmouseout="this.style.background='none'">+ Submit Art</button>
+      <div class="user-badge" id="ub">
+        <span id="ul">Visitor</span>
+        <button id="sab" onclick="open2('sm')" style="display:none;background:none;border:1px solid var(--gold);color:var(--gold);font-family:inherit;font-size:9px;letter-spacing:.15em;padding:5px 10px;cursor:pointer;text-transform:uppercase;transition:all .3s;">+ Submit Art</button>
         <button onclick="logout()">Logout</button>
       </div>
-      <button class="nav-btn nav-login-btn" id="loginNavBtn" onclick="openLogin()">⬡ Login</button>
+      <button class="nb nb-outline" id="lnb" onclick="open2('lm')">⬡ Login</button>
     </li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
-  <canvas id="hero-canvas"></canvas>
-  <div class="hero-content">
-    <p class="hero-eyebrow" id="heroEyebrow">Contemporary Art Gallery &nbsp;·&nbsp; Est. 2026</p>
-    <h1 class="hero-title" id="heroTitle">Artistry <span class="gold">Haven</span></h1>
-    <p class="hero-sub" id="heroSub">Experience Art in Another Dimension</p>
-    <button class="hero-cta" id="heroCta" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Explore Collection</button>
+  <canvas id="hc"></canvas>
+  <div class="hcont">
+    <p class="heyebrow" id="hey">Contemporary Art Gallery &nbsp;·&nbsp; Est. 2026</p>
+    <h1 class="htitle" id="hti">Artistry <span class="g">Haven</span></h1>
+    <p class="hsub" id="hsu">Experience Art in Another Dimension</p>
+    <button class="hcta" id="hct" onclick="scrollTo2('gallery')">Explore Collection</button>
   </div>
-  <div class="scroll-ind"><span>Scroll</span><div class="scroll-line"></div></div>
+  <div class="scroll-ind"><span>Scroll</span><div class="sline"></div></div>
 </section>
 
-<!-- STATS -->
 <div id="stats">
-  <div class="stat reveal"><div class="stat-num" id="cnt-art">0</div><div class="stat-label">Artworks</div></div>
-  <div class="stat reveal reveal-d1"><div class="stat-num" id="cnt-art2">0</div><div class="stat-label">Artists</div></div>
-  <div class="stat reveal reveal-d2"><div class="stat-num" id="cnt-art3">0</div><div class="stat-label">Exhibitions</div></div>
-  <div class="stat reveal reveal-d3"><div class="stat-num" id="cnt-art4">0</div><div class="stat-label">Years Active</div></div>
+  <div class="stat rv"><div class="snum" id="c1">0</div><div class="slb">Artworks</div></div>
+  <div class="stat rv d1"><div class="snum" id="c2">0</div><div class="slb">Artists</div></div>
+  <div class="stat rv d2"><div class="snum" id="c3">0</div><div class="slb">Exhibitions</div></div>
+  <div class="stat rv d3"><div class="snum" id="c4">0</div><div class="slb">Years Active</div></div>
 </div>
 
-<!-- GALLERY -->
 <section id="gallery">
-  <div class="section-label">Our Collection</div>
-  <h2 class="section-title reveal">Curated Masterpieces</h2>
-  <p class="section-sub reveal">Six decades of visionary art spanning movements from abstract expressionism to digital minimalism.</p>
-  <div class="filter-bar reveal">
-    <button class="filter-btn active" data-filter="all">All Works</button>
-    <button class="filter-btn" data-filter="abstract">Abstract</button>
-    <button class="filter-btn" data-filter="impressionist">Impressionist</button>
-    <button class="filter-btn" data-filter="modern">Modern</button>
-    <button class="filter-btn" data-filter="digital">Digital</button>
+  <div class="slabel">Our Collection</div>
+  <h2 class="stitle rv">Curated Masterpieces</h2>
+  <p class="ssub rv">Six decades of visionary art spanning abstract expressionism to digital minimalism.</p>
+  <div class="filter-bar rv">
+    <button class="fbtn active" data-f="all">All Works</button>
+    <button class="fbtn" data-f="abstract">Abstract</button>
+    <button class="fbtn" data-f="impressionist">Impressionist</button>
+    <button class="fbtn" data-f="modern">Modern</button>
+    <button class="fbtn" data-f="digital">Digital</button>
   </div>
-  <div class="gallery-grid" id="gallery-grid"></div>
+  <div class="ggrid" id="gg"></div>
 </section>
 
-<!-- TIMELINE -->
 <section id="timeline">
-  <div class="section-label">Art History</div>
-  <h2 class="section-title reveal">Movements Through Time</h2>
-  <p class="section-sub reveal">Journey through the defining movements that shaped visual art across the centuries.</p>
-  <div class="tl-scroll" id="tlScroll"></div>
+  <div class="slabel">Art History</div>
+  <h2 class="stitle rv">Movements Through Time</h2>
+  <p class="ssub rv">Journey through defining movements that shaped visual art.</p>
+  <div class="tls" id="tls"></div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div>
-    <span class="f-logo">Artistry Haven</span>
-    <p class="f-desc" id="footerDesc">A sanctuary for art and contemplation — where every piece tells a story and every visitor leaves transformed.</p>
+    <span class="flogo">Artistry Haven</span>
+    <p class="fdesc" id="fd">A sanctuary for art and contemplation — where every piece tells a story.</p>
   </div>
-  <div class="f-col">
-    <h4>Gallery</h4>
-    <ul>
-      <li><button class="f-btn" onclick="document.getElementById('galleryNavLink').click()">Collection</button></li>
-      <li><button class="f-btn" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Exhibitions</button></li>
-      <li><button class="f-btn" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Artists</button></li>
-      <li><button class="f-btn" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Archive</button></li>
-    </ul>
-  </div>
-  <div class="f-col">
-    <h4>Visit</h4>
-    <ul>
-      <li><button class="f-btn" onclick="document.getElementById('locationModal').style.display='flex'">Location</button></li>
-      <li><button class="f-btn" onclick="document.getElementById('hoursModal').style.display='flex'">Hours</button></li>
-      <li><button class="f-btn" onclick="document.getElementById('stats').scrollIntoView({behavior:'smooth'})">Admission</button></li>
-      <li><button class="f-btn" onclick="document.getElementById('timeline').scrollIntoView({behavior:'smooth'})">Events</button></li>
-    </ul>
-  </div>
-  <div class="f-col">
-    <h4>Connect</h4>
-    <ul>
-      <li><button class="f-btn" onclick="document.getElementById('aiCuratorNavBtn').click()">AI Curator</button></li>
-      <li><button class="f-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Newsletter</button></li>
-      <li><button class="f-btn" onclick="document.getElementById('stats').scrollIntoView({behavior:'smooth'})">Press</button></li>
-      <li><button class="f-btn" onclick="document.getElementById('aiCuratorNavBtn').click()">Contact</button></li>
-    </ul>
-  </div>
+  <div class="fcol"><h4>Gallery</h4><ul>
+    <li><button class="fb" onclick="open2('gm')">Collection</button></li>
+    <li><button class="fb" onclick="scrollTo2('gallery')">Exhibitions</button></li>
+    <li><button class="fb" onclick="scrollTo2('gallery')">Artists</button></li>
+    <li><button class="fb" onclick="scrollTo2('gallery')">Archive</button></li>
+  </ul></div>
+  <div class="fcol"><h4>Visit</h4><ul>
+    <li><button class="fb" onclick="open2('lpop')">Location</button></li>
+    <li><button class="fb" onclick="open2('hpop')">Hours</button></li>
+    <li><button class="fb" onclick="scrollTo2('stats')">Admission</button></li>
+    <li><button class="fb" onclick="scrollTo2('timeline')">Events</button></li>
+  </ul></div>
+  <div class="fcol"><h4>Connect</h4><ul>
+    <li><button class="fb" onclick="open2('aim')">AI Curator</button></li>
+    <li><button class="fb" onclick="window.scrollTo({top:0,behavior:'smooth'})">Newsletter</button></li>
+    <li><button class="fb" onclick="scrollTo2('stats')">Press</button></li>
+    <li><button class="fb" onclick="open2('aim')">Contact</button></li>
+  </ul></div>
 </footer>
-<div class="f-bottom">
+<div class="fbot">
   <p>© 2026 Artistry Haven. All rights reserved.</p>
   <p style="color:var(--gold)">BTech CSE Mini Project — 3D Art Gallery with AI</p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* ===== CURSOR ===== */
-const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+const $=id=>document.getElementById(id);
+const open2=id=>{const el=$(id);el.classList.add('open');if(el.classList.contains('modal-full'))document.body.style.overflow='hidden';};
+const closeM=id=>{$(id).classList.remove('open');document.body.style.overflow='';};
+const scrollTo2=id=>$(id).scrollIntoView({behavior:'smooth'});
+const showToast=()=>{$('toast').style.opacity='1';setTimeout(()=>$('toast').style.opacity='0',2200);};
+
+/* CURSOR */
 let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function ca(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ca);})();
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;$('cur').style.left=mx+'px';$('cur').style.top=my+'px';});
+(function ca(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;$('cr').style.left=rx+'px';$('cr').style.top=ry+'px';requestAnimationFrame(ca);})();
 
-/* ===== AUTH ===== */
-const USERS={visitor:{pass:'visit123',role:'visitor',name:'Visitor'},admin:{pass:'admin123',role:'admin',name:'Admin'}};
-const visitors=[{user:'visitor',name:'Visitor',loginTime:'2024-03-15 10:22 AM',visits:7}];
-let currentUser=null;
+/* AUTH SYSTEM */
+let registeredUsers=[
+  {name:'Demo Visitor',username:'visitor',email:'visitor@demo.com',pass:'visit123',role:'visitor',joined:'2026-01-10',logins:7},
+  {name:'Administrator',username:'admin',email:'admin@artistry.com',pass:'admin123',role:'admin',joined:'2026-01-01',logins:42}
+];
+let currentUser=null,loginRole='visitor';
 
-function openLogin(){document.getElementById('loginModal').classList.add('open');}
-function closeLogin(){document.getElementById('loginModal').classList.remove('open');document.getElementById('vErr').style.display='none';document.getElementById('aErr').style.display='none';}
-function switchTab(t){
-  document.querySelectorAll('.login-tab').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('visitorForm').style.display=t==='visitor'?'block':'none';
-  document.getElementById('adminForm').style.display=t==='admin'?'block':'none';
+function switchAuth(btn,tab){
+  document.querySelectorAll('.auth-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  $('auth-login').style.display=tab==='login'?'block':'none';
+  $('auth-register').style.display=tab==='register'?'block':'none';
+  $('l-err').style.display='none';$('r-err').style.display='none';$('r-ok').style.display='none';
 }
-function loginVisitor(){
-  const u=document.getElementById('vUser').value.trim(),p=document.getElementById('vPass').value;
-  if(USERS[u]&&USERS[u].pass===p&&USERS[u].role==='visitor'){doLogin(u);closeLogin();}
-  else{document.getElementById('vErr').style.display='block';}
+function selRole(btn,role){
+  loginRole=role;
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  $('l-hint').innerHTML=role==='visitor'?'Visitor: <span>visitor</span> / <span>visit123</span>':'Admin: <span>admin</span> / <span>admin123</span>';
 }
-function loginAdmin(){
-  const u=document.getElementById('aUser').value.trim(),p=document.getElementById('aPass').value;
-  if(USERS[u]&&USERS[u].pass===p&&USERS[u].role==='admin'){doLogin(u);closeLogin();setTimeout(()=>openAdmin(),300);}
-  else{document.getElementById('aErr').style.display='block';}
+function doLogin(){
+  const u=$('l-user').value.trim(),p=$('l-pass').value;
+  const found=registeredUsers.find(x=>x.username===u&&x.pass===p&&x.role===loginRole);
+  if(!found){$('l-err').style.display='block';return;}
+  found.logins=(found.logins||0)+1;
+  currentUser=found;closeM('lm');
+  $('lnb').style.display='none';
+  $('ub').style.display='flex';
+  $('ul').textContent=found.role==='admin'?'★ Admin':found.name.split(' ')[0];
+  $('ul').style.color=found.role==='admin'?'var(--gold)':'var(--text)';
+  $('sab').style.display=found.role==='visitor'?'inline-block':'none';
+  if(found.role==='admin')setTimeout(()=>{$('ap').classList.add('open');},300);
 }
-/* ===== LOGIN SHOW SUBMIT BTN ===== */function doLogin(u){
-  currentUser=u;
-  document.getElementById('loginNavBtn').style.display='none';
-  const badge=document.getElementById('userBadge');badge.style.display='flex';
-  document.getElementById('userLabel').textContent=USERS[u].role==='admin'?'Admin ★':USERS[u].name;
-  if(USERS[u].role==='admin') document.getElementById('userLabel').style.color='var(--gold)';
-  // show submit button only for visitors
-  document.getElementById('submitArtBtn').style.display=USERS[u].role==='visitor'?'inline-block':'none';
+function doRegister(){
+  const name=$('r-name').value.trim(),user=$('r-user').value.trim(),email=$('r-email').value.trim(),pass=$('r-pass').value,conf=$('r-conf').value;
+  $('r-err').style.display='none';$('r-ok').style.display='none';
+  if(!name||!user||!email||!pass||pass.length<6){$('r-err').textContent='Please fill all fields (password min 6 chars).';$('r-err').style.display='block';return;}
+  if(pass!==conf){$('r-err').textContent='Passwords do not match.';$('r-err').style.display='block';return;}
+  if(registeredUsers.find(x=>x.username===user)){$('r-err').textContent='Username already taken.';$('r-err').style.display='block';return;}
+  registeredUsers.push({name,username:user,email,pass,role:'visitor',joined:new Date().toISOString().slice(0,10),logins:0});
+  $('r-ok').style.display='block';
+  setTimeout(()=>{switchAuth(document.querySelector('.auth-tab'),'login');$('l-user').value=user;},1500);
 }
-function logout(){
-  currentUser=null;
-  document.getElementById('loginNavBtn').style.display='flex';
-  document.getElementById('userBadge').style.display='none';
-  document.getElementById('adminPanel').classList.remove('open');
-}
-function openAdmin(){document.getElementById('adminPanel').classList.add('open');renderVisitorList();}
-function closeAdmin(){document.getElementById('adminPanel').classList.remove('open');}
+function logout(){currentUser=null;$('lnb').style.display='';$('ub').style.display='none';$('ap').classList.remove('open');}
 
-/* ===== ART DATA ===== */
-let allArtworks=[
-  {title:"Chromatic Void",artist:"Ananya Sharma",year:"2022",cat:"Abstract",price:"₹4,50,000",desc:"A meditation on color and emptiness. Sharma's seminal work explores the tension between vibrant pigment and the void that surrounds it.",type:0},
-  {title:"Midnight Bloom",artist:"Karan Patel",year:"2021",cat:"Impressionist",price:"₹3,20,000",desc:"Rendered in the tradition of post-impressionism, Patel captures the nocturnal garden in a state of perpetual becoming.",type:1},
-  {title:"Silence No. 7",artist:"Rekha Iyer",year:"2023",cat:"Modern",price:"₹2,80,000",desc:"The seventh in Iyer's celebrated Silence series. Minimalist lines on textured paper speak more in restraint than any declaration.",type:2},
-  {title:"Rage & Gold",artist:"Mihir Verma",year:"2020",cat:"Abstract",price:"₹5,10,000",desc:"Verma's explosive gestural canvas channels the tumult of contemporary urban existence.",type:3},
-  {title:"Garden of Points",artist:"Sunita Nair",year:"2022",cat:"Impressionist",price:"₹3,90,000",desc:"Thousands of individual dots coalesce into extraordinary beauty. Nair bridges 19th century technique with contemporary Indian sensibility.",type:4},
-  {title:"Digital Specter",artist:"Arun Kumar",year:"2024",cat:"Digital",price:"₹1,80,000",desc:"A haunting exploration of digital consciousness. Kumar interrogates the line between organic and synthetic.",type:5},
-  {title:"Monsoon Wash",artist:"Priya Das",year:"2023",cat:"Watercolor",price:"₹2,10,000",desc:"Luminous watercolor layers evoke the melancholy and relief of the Indian monsoon.",type:6},
-  {title:"The Watcher",artist:"Nikhil Rao",year:"2021",cat:"Abstract",price:"₹3,60,000",desc:"A brooding geometric composition in which intersecting circles seem to observe the viewer.",type:0},
-  {title:"Ember Dreams",artist:"Kavya Menon",year:"2022",cat:"Expressionist",price:"₹4,20,000",desc:"Menon's explosive brushwork in reds and golds conjures visions of dying light and rising hope.",type:3},
-  {title:"Fragmented Sky",artist:"Rahul Joshi",year:"2023",cat:"Modern",price:"₹3,10,000",desc:"Geometric shards of blue and white fracture and reassemble across the canvas surface.",type:2},
-  {title:"Circuit Garden",artist:"Divya Shah",year:"2024",cat:"Digital",price:"₹1,60,000",desc:"Shah merges botanical illustration with circuit-board aesthetics in a luminous digital work.",type:5},
-  {title:"Nocturne IV",artist:"Arjun Pillai",year:"2020",cat:"Impressionist",price:"₹2,90,000",desc:"The fourth in Pillai's nocturne series, capturing a coastal village at midnight.",type:1},
+/* ART DATA */
+let arts=[
+  {title:"Chromatic Void",artist:"Ananya Sharma",year:"2022",cat:"abstract",price:"₹4,50,000",desc:"A meditation on color and emptiness exploring the tension between vibrant pigment and the void.",type:0},
+  {title:"Midnight Bloom",artist:"Karan Patel",year:"2021",cat:"impressionist",price:"₹3,20,000",desc:"Post-impressionist nocturnal garden in a state of perpetual becoming.",type:1},
+  {title:"Silence No. 7",artist:"Rekha Iyer",year:"2023",cat:"modern",price:"₹2,80,000",desc:"Minimalist lines on textured paper speak more in restraint than any declaration.",type:2},
+  {title:"Rage & Gold",artist:"Mihir Verma",year:"2020",cat:"abstract",price:"₹5,10,000",desc:"Explosive gestural canvas channels the tumult of contemporary urban existence.",type:3},
+  {title:"Garden of Points",artist:"Sunita Nair",year:"2022",cat:"impressionist",price:"₹3,90,000",desc:"Thousands of dots coalesce into extraordinary beauty bridging 19th century and contemporary Indian sensibility.",type:4},
+  {title:"Digital Specter",artist:"Arun Kumar",year:"2024",cat:"digital",price:"₹1,80,000",desc:"Haunting exploration of digital consciousness interrogating the line between organic and synthetic.",type:5},
+  {title:"Monsoon Wash",artist:"Priya Das",year:"2023",cat:"modern",price:"₹2,10,000",desc:"Luminous watercolor layers evoke the melancholy and relief of the Indian monsoon.",type:6},
+  {title:"The Watcher",artist:"Nikhil Rao",year:"2021",cat:"abstract",price:"₹3,60,000",desc:"Brooding geometric composition where intersecting circles seem to observe the viewer.",type:0},
+  {title:"Ember Dreams",artist:"Kavya Menon",year:"2022",cat:"abstract",price:"₹4,20,000",desc:"Explosive brushwork in reds and golds conjures visions of dying light and rising hope.",type:3},
+  {title:"Fragmented Sky",artist:"Rahul Joshi",year:"2023",cat:"modern",price:"₹3,10,000",desc:"Geometric shards of blue and white fracture and reassemble across the canvas.",type:2},
+  {title:"Circuit Garden",artist:"Divya Shah",year:"2024",cat:"digital",price:"₹1,60,000",desc:"Botanical illustration merged with circuit-board aesthetics.",type:5},
+  {title:"Nocturne IV",artist:"Arjun Pillai",year:"2020",cat:"impressionist",price:"₹2,90,000",desc:"Coastal village at midnight in thick impasto strokes of indigo and cream.",type:1},
 ];
 
-/* ===== PROCEDURAL ART GENERATOR ===== */
-function genArt(type){
-  const c=document.createElement('canvas');c.width=512;c.height=640;
-  const g=c.getContext('2d');
-  if(type===0){
-    g.fillStyle='#080618';g.fillRect(0,0,512,640);
-    const cols=['#ff6b9d','#c77dff','#4cc9f0','#f72585','#7209b7','#4361ee'];
-    for(let i=0;i<28;i++){g.beginPath();g.arc(Math.random()*512,Math.random()*640,Math.random()*100+20,0,Math.PI*2);g.fillStyle=cols[Math.floor(Math.random()*cols.length)]+'55';g.fill();}
-    g.strokeStyle='#ffffff0d';g.lineWidth=1;
-    for(let i=0;i<512;i+=48){g.beginPath();g.moveTo(i,0);g.lineTo(i,640);g.stroke();}
-    for(let i=0;i<640;i+=48){g.beginPath();g.moveTo(0,i);g.lineTo(512,i);g.stroke();}
-    g.strokeStyle='#c9a96e99';g.lineWidth=2.5;g.strokeRect(36,36,440,568);
-    [60,110,170].forEach(r=>{g.beginPath();g.arc(256,320,r,0,Math.PI*2);g.strokeStyle='#c9a96e44';g.lineWidth=1;g.stroke();});
-  } else if(type===1){
-    const sky=g.createLinearGradient(0,0,0,420);sky.addColorStop(0,'#080418');sky.addColorStop(.55,'#1e0d54');sky.addColorStop(1,'#6a35c8');
-    g.fillStyle=sky;g.fillRect(0,0,512,420);
-    for(let i=0;i<90;i++){g.beginPath();g.arc(Math.random()*512,Math.random()*320,Math.random()*2.2,0,Math.PI*2);g.fillStyle='rgba(255,255,255,'+(.2+Math.random()*.8)+')';g.fill();}
-    g.beginPath();g.arc(370,75,55,0,Math.PI*2);g.fillStyle='#eeeadc';g.fill();
-    g.beginPath();g.arc(390,65,50,0,Math.PI*2);g.fillStyle='#1e0d54';g.fill();
-    const grd=g.createLinearGradient(0,420,0,640);grd.addColorStop(0,'#162a08');grd.addColorStop(1,'#080f03');
-    g.fillStyle=grd;g.fillRect(0,420,512,220);
-    for(let i=0;i<220;i++){const x=Math.random()*512,y=390+Math.random()*110;g.beginPath();g.moveTo(x,y);g.lineTo(x+(Math.random()-.5)*28,y-Math.random()*55);g.strokeStyle='rgba('+(20+Math.random()*60)+','+(60+Math.random()*100)+',20,'+(.3+Math.random()*.6)+')';g.lineWidth=Math.random()*3+.5;g.lineCap='round';g.stroke();}
-  } else if(type===2){
-    g.fillStyle='#f4efe5';g.fillRect(0,0,512,640);
-    for(let y=50;y<590;y+=18){const w=Math.sin(y*.04)*28;g.beginPath();g.moveTo(50,y);g.quadraticCurveTo(256,y+w,462,y);g.strokeStyle='rgba(20,20,40,.25)';g.lineWidth=.8;g.stroke();}
-    g.strokeStyle='#8b1a2a';g.lineWidth=3.5;g.beginPath();g.moveTo(50,320);g.lineTo(462,320);g.stroke();
-    g.strokeStyle='#c9a96e';g.lineWidth=1;[55,100,145,190].forEach(r=>{g.beginPath();g.arc(256,320,r,0,Math.PI*2);g.stroke();});
-  } else if(type===3){
-    g.fillStyle='#100808';g.fillRect(0,0,512,640);
-    const sc=['#8b1a2a','#c9a96e','#ff6b35','#f72585','#ffd60a','#e63946'];
-    for(let s=0;s<90;s++){const x1=Math.random()*512,y1=Math.random()*640,x2=x1+(Math.random()-.5)*220,y2=y1+(Math.random()-.5)*200,cpx=(x1+x2)/2+(Math.random()-.5)*90,cpy=(y1+y2)/2+(Math.random()-.5)*90;g.beginPath();g.moveTo(x1,y1);g.quadraticCurveTo(cpx,cpy,x2,y2);g.strokeStyle=sc[Math.floor(Math.random()*sc.length)]+'cc';g.lineWidth=Math.random()*14+2;g.lineCap='round';g.stroke();}
-    const ov=g.createRadialGradient(256,320,60,256,320,360);ov.addColorStop(0,'rgba(0,0,0,0)');ov.addColorStop(1,'rgba(0,0,0,.65)');g.fillStyle=ov;g.fillRect(0,0,512,640);
-  } else if(type===4){
-    g.fillStyle='#f7f2ea';g.fillRect(0,0,512,640);
-    const bands=[['#2d6a4f','#40916c','#74c69d'],['#4895ef','#4cc9f0','#48bfe3'],['#f72585','#b5179e','#9b4dca'],['#ffb703','#fb8500','#e76f51']];
-    for(let i=0;i<5500;i++){const x=Math.random()*512,y=Math.random()*640,bi=Math.min(Math.floor(y/160),bands.length-1),pal=bands[bi];g.beginPath();g.arc(x,y,Math.random()*3.5+.5,0,Math.PI*2);g.fillStyle=pal[Math.floor(Math.random()*pal.length)]+'cc';g.fill();}
-  } else if(type===5){
-    g.fillStyle='#00040e';g.fillRect(0,0,512,640);
-    for(let y=0;y<640;y+=2){g.fillStyle='rgba(0,180,255,.02)';g.fillRect(0,y,512,1);}
-    g.lineWidth=1;
-    for(let i=0;i<40;i++){const x=Math.floor(Math.random()*8)*64;let cy2=Math.random()*640;g.beginPath();g.moveTo(x,cy2);let cx2=x;for(let s=0;s<Math.floor(Math.random()*5+2);s++){if(Math.random()>.5){cx2+=64*(Math.floor(Math.random()*3)+1);g.lineTo(cx2,cy2);}else{cy2+=(Math.random()-.5)*180;g.lineTo(cx2,cy2);}}g.strokeStyle=Math.random()>.6?'#00ff8877':'#0088ff77';g.stroke();}
-    const ov=g.createLinearGradient(0,0,512,640);ov.addColorStop(0,'rgba(0,30,80,.35)');ov.addColorStop(1,'rgba(60,0,80,.35)');g.fillStyle=ov;g.fillRect(0,0,512,640);
-  } else {
-    const bg=g.createLinearGradient(0,0,512,640);bg.addColorStop(0,'#eee8da');bg.addColorStop(1,'#e0d2c0');g.fillStyle=bg;g.fillRect(0,0,512,640);
-    const wc=['rgba(200,110,95,.28)','rgba(90,140,200,.28)','rgba(140,190,100,.28)','rgba(200,160,90,.28)','rgba(180,90,180,.22)'];
-    for(let i=0;i<18;i++){const x=Math.random()*512,y=Math.random()*640,r=Math.random()*140+50,wg=g.createRadialGradient(x,y,0,x,y,r);wg.addColorStop(0,wc[Math.floor(Math.random()*wc.length)]);wg.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=wg;g.beginPath();g.ellipse(x,y,r*1.3,r*.75,Math.random()*Math.PI,0,Math.PI*2);g.fill();}
-  }
+function gen(type){
+  const c=document.createElement('canvas');c.width=512;c.height=640;const g=c.getContext('2d');
+  if(type===0){g.fillStyle='#080618';g.fillRect(0,0,512,640);const cl=['#ff6b9d','#c77dff','#4cc9f0','#f72585','#7209b7','#4361ee'];for(let i=0;i<28;i++){g.beginPath();g.arc(Math.random()*512,Math.random()*640,Math.random()*100+20,0,Math.PI*2);g.fillStyle=cl[Math.floor(Math.random()*6)]+'55';g.fill();}g.strokeStyle='#c9a96e99';g.lineWidth=2.5;g.strokeRect(36,36,440,568);[60,110,170].forEach(r=>{g.beginPath();g.arc(256,320,r,0,Math.PI*2);g.strokeStyle='#c9a96e44';g.lineWidth=1;g.stroke();});}
+  else if(type===1){const sky=g.createLinearGradient(0,0,0,420);sky.addColorStop(0,'#080418');sky.addColorStop(.55,'#1e0d54');sky.addColorStop(1,'#6a35c8');g.fillStyle=sky;g.fillRect(0,0,512,420);for(let i=0;i<90;i++){g.beginPath();g.arc(Math.random()*512,Math.random()*320,Math.random()*2.2,0,Math.PI*2);g.fillStyle=`rgba(255,255,255,${.2+Math.random()*.8})`;g.fill();}g.beginPath();g.arc(370,75,55,0,Math.PI*2);g.fillStyle='#eeeadc';g.fill();g.beginPath();g.arc(390,65,50,0,Math.PI*2);g.fillStyle='#1e0d54';g.fill();const gr=g.createLinearGradient(0,420,0,640);gr.addColorStop(0,'#162a08');gr.addColorStop(1,'#080f03');g.fillStyle=gr;g.fillRect(0,420,512,220);for(let i=0;i<220;i++){const x=Math.random()*512,y=390+Math.random()*110;g.beginPath();g.moveTo(x,y);g.lineTo(x+(Math.random()-.5)*28,y-Math.random()*55);g.strokeStyle=`rgba(${20+Math.random()*60|0},${60+Math.random()*100|0},20,${.3+Math.random()*.6})`;g.lineWidth=Math.random()*3+.5;g.lineCap='round';g.stroke();}}
+  else if(type===2){g.fillStyle='#f4efe5';g.fillRect(0,0,512,640);for(let y=50;y<590;y+=18){g.beginPath();g.moveTo(50,y);g.quadraticCurveTo(256,y+Math.sin(y*.04)*28,462,y);g.strokeStyle='rgba(20,20,40,.25)';g.lineWidth=.8;g.stroke();}g.strokeStyle='#8b1a2a';g.lineWidth=3.5;g.beginPath();g.moveTo(50,320);g.lineTo(462,320);g.stroke();[55,100,145,190].forEach(r=>{g.beginPath();g.arc(256,320,r,0,Math.PI*2);g.strokeStyle='#c9a96e';g.lineWidth=1;g.stroke();});}
+  else if(type===3){g.fillStyle='#100808';g.fillRect(0,0,512,640);const sc=['#8b1a2a','#c9a96e','#ff6b35','#f72585','#ffd60a','#e63946'];for(let i=0;i<90;i++){const x1=Math.random()*512,y1=Math.random()*640,x2=x1+(Math.random()-.5)*220,y2=y1+(Math.random()-.5)*200;g.beginPath();g.moveTo(x1,y1);g.quadraticCurveTo((x1+x2)/2+(Math.random()-.5)*90,(y1+y2)/2+(Math.random()-.5)*90,x2,y2);g.strokeStyle=sc[Math.floor(Math.random()*6)]+'cc';g.lineWidth=Math.random()*14+2;g.lineCap='round';g.stroke();}const ov=g.createRadialGradient(256,320,60,256,320,360);ov.addColorStop(0,'rgba(0,0,0,0)');ov.addColorStop(1,'rgba(0,0,0,.65)');g.fillStyle=ov;g.fillRect(0,0,512,640);}
+  else if(type===4){g.fillStyle='#f7f2ea';g.fillRect(0,0,512,640);const bands=[['#2d6a4f','#40916c','#74c69d'],['#4895ef','#4cc9f0','#48bfe3'],['#f72585','#b5179e','#9b4dca'],['#ffb703','#fb8500','#e76f51']];for(let i=0;i<5500;i++){const x=Math.random()*512,y=Math.random()*640,bi=Math.min(y/160|0,3),p=bands[bi];g.beginPath();g.arc(x,y,Math.random()*3.5+.5,0,Math.PI*2);g.fillStyle=p[Math.floor(Math.random()*3)]+'cc';g.fill();}}
+  else if(type===5){g.fillStyle='#00040e';g.fillRect(0,0,512,640);for(let i=0;i<40;i++){const x=Math.floor(Math.random()*8)*64;let cy=Math.random()*640,cx=x;g.beginPath();g.moveTo(cx,cy);for(let s=0;s<Math.floor(Math.random()*5+2);s++){if(Math.random()>.5){cx+=64*(Math.floor(Math.random()*3)+1);}else{cy+=(Math.random()-.5)*180;}g.lineTo(cx,cy);}g.strokeStyle=Math.random()>.6?'#00ff8877':'#0088ff77';g.lineWidth=1;g.stroke();}const ov=g.createLinearGradient(0,0,512,640);ov.addColorStop(0,'rgba(0,30,80,.35)');ov.addColorStop(1,'rgba(60,0,80,.35)');g.fillStyle=ov;g.fillRect(0,0,512,640);}
+  else{const bg=g.createLinearGradient(0,0,512,640);bg.addColorStop(0,'#eee8da');bg.addColorStop(1,'#e0d2c0');g.fillStyle=bg;g.fillRect(0,0,512,640);const wc=['rgba(200,110,95,.28)','rgba(90,140,200,.28)','rgba(140,190,100,.28)','rgba(200,160,90,.28)','rgba(180,90,180,.22)'];for(let i=0;i<18;i++){const x=Math.random()*512,y=Math.random()*640,r=Math.random()*140+50,wg=g.createRadialGradient(x,y,0,x,y,r);wg.addColorStop(0,wc[Math.floor(Math.random()*5)]);wg.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=wg;g.beginPath();g.ellipse(x,y,r*1.3,r*.75,Math.random()*Math.PI,0,Math.PI*2);g.fill();}}
   return c;
 }
+let canvases=arts.map(a=>gen(a.type));
 
-const modalCanvases=allArtworks.map(a=>genArt(a.type));
-
-/* ===== THREE.JS HERO ===== */
-const heroCanvas=document.getElementById('hero-canvas');
-const renderer=new THREE.WebGLRenderer({canvas:heroCanvas,antialias:true,alpha:true});
-renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+/* THREE.JS */
+const hc=$('hc'),renderer=new THREE.WebGLRenderer({canvas:hc,antialias:true,alpha:true});
+renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x06060e,.045);
-const camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,.1,100);camera.position.set(0,1.5,13);
+const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,100);camera.position.set(0,1.5,13);
 scene.add(new THREE.AmbientLight(0x111122,2));
 const ptA=new THREE.PointLight(0xc9a96e,4,35);ptA.position.set(8,6,5);scene.add(ptA);
 const ptB=new THREE.PointLight(0x4444dd,2.5,25);ptB.position.set(-7,-3,4);scene.add(ptB);
 const ptC=new THREE.PointLight(0xffffff,2,22);ptC.position.set(0,10,0);scene.add(ptC);
-const floorMesh=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.MeshStandardMaterial({color:0x0a0a14,metalness:.85,roughness:.15}));floorMesh.rotation.x=-Math.PI/2;floorMesh.position.y=-4;scene.add(floorMesh);
-const grp=new THREE.Group();scene.add(grp);
-const frameObjs=[];
-allArtworks.forEach((a,i)=>{
-  const ang=(i/allArtworks.length)*Math.PI*2,R=7.5,fx=Math.cos(ang)*R,fz=Math.sin(ang)*R,fy=(Math.random()-.5)*1.2;
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.MeshStandardMaterial({color:0x0a0a14,metalness:.85,roughness:.15}));floor.rotation.x=-Math.PI/2;floor.position.y=-4;scene.add(floor);
+const grp=new THREE.Group();scene.add(grp);const frames=[];
+arts.forEach((a,i)=>{
+  const ang=(i/arts.length)*Math.PI*2,R=7.5,fy=(Math.random()-.5)*1.2;
   const fm=new THREE.Mesh(new THREE.BoxGeometry(2.5,3.1,.11),new THREE.MeshStandardMaterial({color:0xc9a96e,metalness:.92,roughness:.15}));
-  const mat2=new THREE.Mesh(new THREE.PlaneGeometry(2.1,2.7),new THREE.MeshStandardMaterial({color:0x080808}));mat2.position.z=.057;fm.add(mat2);
-  const tex=new THREE.CanvasTexture(genArt(a.type));
-  const am=new THREE.Mesh(new THREE.PlaneGeometry(1.95,2.55),new THREE.MeshBasicMaterial({map:tex}));am.position.z=.059;fm.add(am);
-  fm.position.set(fx,fy,fz);fm.lookAt(0,fy,0);fm.rotateY(Math.PI);fm.userData={baseY:fy};grp.add(fm);frameObjs.push(fm);
+  const m2=new THREE.Mesh(new THREE.PlaneGeometry(2.1,2.7),new THREE.MeshStandardMaterial({color:0x080808}));m2.position.z=.057;fm.add(m2);
+  const am=new THREE.Mesh(new THREE.PlaneGeometry(1.95,2.55),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(gen(a.type))}));am.position.z=.059;fm.add(am);
+  fm.position.set(Math.cos(ang)*R,fy,Math.sin(ang)*R);fm.lookAt(0,fy,0);fm.rotateY(Math.PI);fm.userData.by=fy;grp.add(fm);frames.push(fm);
 });
-const pCnt=1000,pPos=new Float32Array(pCnt*3);for(let i=0;i<pCnt;i++){pPos[i*3]=(Math.random()-.5)*70;pPos[i*3+1]=(Math.random()-.5)*50;pPos[i*3+2]=(Math.random()-.5)*70;}
-const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
-const pts=new THREE.Points(pGeo,new THREE.PointsMaterial({color:0xc9a96e,size:.06,transparent:true,opacity:.5}));scene.add(pts);
-let tRotY=0,mRotX=0,isDrag=false,lastMX=0;
-heroCanvas.addEventListener('mousedown',e=>{isDrag=true;lastMX=e.clientX;});
-heroCanvas.addEventListener('mouseup',()=>{isDrag=false;});
-heroCanvas.addEventListener('mousemove',e=>{if(isDrag){tRotY+=(e.clientX-lastMX)*.006;lastMX=e.clientX;}mRotX=(e.clientY/window.innerHeight-.5)*.25;});
-let t=0;
-(function loop(){requestAnimationFrame(loop);t+=.005;tRotY+=.0018;grp.rotation.y+=(tRotY-grp.rotation.y)*.025;grp.rotation.x+=(mRotX-grp.rotation.x)*.04;frameObjs.forEach((f,i)=>{f.position.y=f.userData.baseY+Math.sin(t+i*.85)*.22;});ptA.position.x=Math.cos(t*.45)*10;ptA.position.z=Math.sin(t*.45)*10;pts.rotation.y=t*.04;renderer.render(scene,camera);})();
-window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
+const pPos=new Float32Array(3000);for(let i=0;i<3000;i++)pPos[i]=(Math.random()-.5)*70;
+const pts=new THREE.Points(new THREE.BufferGeometry().setAttribute('position',new THREE.BufferAttribute(pPos,3)),new THREE.PointsMaterial({color:0xc9a96e,size:.06,transparent:true,opacity:.5}));scene.add(pts);
+let tRY=0,mRX=0,drag=false,lmx2=0,t3=0;
+hc.addEventListener('mousedown',e=>{drag=true;lmx2=e.clientX;});
+hc.addEventListener('mouseup',()=>drag=false);
+hc.addEventListener('mousemove',e=>{if(drag){tRY+=(e.clientX-lmx2)*.006;lmx2=e.clientX;}mRX=(e.clientY/innerHeight-.5)*.25;});
+(function loop(){requestAnimationFrame(loop);t3+=.005;tRY+=.0018;grp.rotation.y+=(tRY-grp.rotation.y)*.025;grp.rotation.x+=(mRX-grp.rotation.x)*.04;frames.forEach((f,i)=>f.position.y=f.userData.by+Math.sin(t3+i*.85)*.22);ptA.position.x=Math.cos(t3*.45)*10;ptA.position.z=Math.sin(t3*.45)*10;pts.rotation.y=t3*.04;renderer.render(scene,camera);})();
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 
-/* ===== GALLERY GRID ===== */
-const galleryData=allArtworks.slice(0,6).map((a,i)=>({...a}));
-function buildGalleryGrid(){
-  const gg=document.getElementById('gallery-grid');gg.innerHTML='';
-  galleryData.forEach((a,i)=>{
-    const ac=genArt(a.type);const card=document.createElement('div');card.className='art-card';card.dataset.category=a.cat.toLowerCase();
-    const acHolder=document.createElement('div');acHolder.style.cssText='width:100%;height:80%;overflow:hidden;';
-    ac.style.cssText='width:100%;height:100%;object-fit:cover;';acHolder.appendChild(ac);
-    card.innerHTML=`<div class="art-card-inner"><div class="art-front"><div class="ac-ph"></div><div class="art-front-info"><h3>${a.title}</h3><p>${a.artist} · ${a.year}</p></div></div><div class="art-back"><div class="cat-tag">${a.cat}</div><h3>${a.title}</h3><div class="a-name">${a.artist}</div><p>${a.desc}</p><div class="art-price">${a.price}</div></div></div>`;
-    card.querySelector('.ac-ph').replaceWith(acHolder);
-    gg.appendChild(card);
+/* GALLERY */
+function buildGrid(){
+  const gg=$('gg');gg.innerHTML='';
+  arts.slice(0,6).forEach((a,i)=>{
+    const card=document.createElement('div');card.className='acard';card.dataset.category=a.cat;
+    const img=gen(a.type);img.style.cssText='width:100%;height:100%;object-fit:cover;';
+    card.innerHTML=`<div class="acard-in"><div class="af"><div class="ah"></div><div class="af-info"><h3>${a.title}</h3><p>${a.artist} · ${a.year}</p></div></div><div class="ab"><div class="ctag">${a.cat}</div><h3>${a.title}</h3><div class="aname">${a.artist}</div><p>${a.desc}</p><div class="aprice">${a.price}</div><button onclick="event.stopPropagation();buyArt(${i})" style="margin-top:10px;padding:8px 22px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;width:100%;">🛒 Buy Now</button></div></div>`;
+    card.querySelector('.ah').replaceWith(img);$('gg').appendChild(card);
   });
 }
-buildGalleryGrid();
+buildGrid();
+document.querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',function(){
+  document.querySelectorAll('[data-f]').forEach(x=>x.classList.remove('active'));this.classList.add('active');
+  const f=this.dataset.f;
+  document.querySelectorAll('.acard').forEach((c,i)=>{const show=f==='all'||c.dataset.category===f;c.style.display=show?'':'none';if(show){c.style.opacity=0;setTimeout(()=>{c.style.transition='opacity .5s';c.style.opacity=1;},i*60);}});
+}));
 
-document.querySelectorAll('[data-filter]').forEach(b=>{
-  b.addEventListener('click',function(){
-    document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('active'));this.classList.add('active');
-    const f=this.dataset.filter;
-    document.querySelectorAll('.art-card').forEach((c,i)=>{
-      const show=f==='all'||c.dataset.category===f;c.style.display=show?'':'none';
-      if(show){c.style.opacity=0;setTimeout(()=>{c.style.transition='opacity .5s';c.style.opacity=1;},i*60);}
-    });
-  });
-});
-
-/* ===== GALLERY MODAL ===== */
-function buildGmGrid(){
-  const gmGrid=document.getElementById('gmGrid');gmGrid.innerHTML='';
-  allArtworks.forEach((a,i)=>{
-    const item=document.createElement('div');item.className='gm-item';
-    const img=document.createElement('img');img.src=modalCanvases[i]?modalCanvases[i].toDataURL():genArt(a.type).toDataURL();
-    img.style.cssText='width:100%;height:220px;object-fit:cover;display:block;';item.appendChild(img);
-    const overlay=document.createElement('div');overlay.className='gm-item-overlay';
-    overlay.innerHTML=`<div class="gm-item-title">${a.title}</div><div class="gm-item-meta">${a.artist} · ${a.cat} · ${a.price}</div>`;
-    item.appendChild(overlay);item.addEventListener('click',()=>openLightbox(i));gmGrid.appendChild(item);
+/* GALLERY MODAL */
+function buildGM(){
+  $('gmg').innerHTML='';
+  arts.forEach((a,i)=>{
+    const item=document.createElement('div');item.className='gmi';
+    const img=document.createElement('img');img.src=canvases[i].toDataURL();img.style.cssText='width:100%;height:220px;object-fit:cover;display:block;';
+    const ov=document.createElement('div');ov.className='gmio';
+    ov.innerHTML=`<div class="gmit">${a.title}</div><div class="gmim">${a.artist} · ${a.cat} · ${a.price}</div><button onclick="event.stopPropagation();buyArt(${i})" style="margin-top:8px;padding:6px 16px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;">🛒 Buy</button>`;
+    item.appendChild(img);item.appendChild(ov);item.onclick=()=>openLb(i);$('gmg').appendChild(item);
   });
 }
-buildGmGrid();
-document.getElementById('galleryNavLink').addEventListener('click',()=>{document.getElementById('galleryModal').classList.add('open');document.body.style.overflow='hidden';});
-document.getElementById('gmClose').addEventListener('click',()=>{document.getElementById('galleryModal').classList.remove('open');document.body.style.overflow='';});
+buildGM();
 
-/* ===== LIGHTBOX ===== */
-let lbIdx=0;
-function openLightbox(i){lbIdx=i;renderLightbox();document.getElementById('lightbox').classList.add('open');}
-function renderLightbox(){
-  const a=allArtworks[lbIdx],src=modalCanvases[lbIdx]||genArt(a.type),dest=document.getElementById('lbCanvas');
-  dest.width=src.width;dest.height=src.height;dest.getContext('2d').drawImage(src,0,0);
-  document.getElementById('lbTitle').textContent=a.title;
-  document.getElementById('lbMeta').textContent=`${a.artist} · ${a.year} · ${a.cat} · ${a.price}`;
-  document.getElementById('lbDesc').textContent=a.desc;
-}
-document.getElementById('lbClose').addEventListener('click',()=>document.getElementById('lightbox').classList.remove('open'));
-document.getElementById('lbPrev').addEventListener('click',()=>{lbIdx=(lbIdx-1+allArtworks.length)%allArtworks.length;renderLightbox();});
-document.getElementById('lbNext').addEventListener('click',()=>{lbIdx=(lbIdx+1)%allArtworks.length;renderLightbox();});
+/* LIGHTBOX */
+let lbI=0;
+function openLb(i){lbI=i;drawLb();$('lb').classList.add('open');}
+function drawLb(){const a=arts[lbI],src=canvases[lbI],d=$('lbc');d.width=src.width;d.height=src.height;d.getContext('2d').drawImage(src,0,0);$('lbt').textContent=a.title;$('lbm').textContent=`${a.artist} · ${a.year} · ${a.cat} · ${a.price}`;$('lbd').textContent=a.desc;}
+function closeLb(){$('lb').classList.remove('open');}
+function moveLb(d){lbI=(lbI+d+arts.length)%arts.length;drawLb();}
 document.addEventListener('keydown',e=>{
-  if(document.getElementById('lightbox').classList.contains('open')){
-    if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%allArtworks.length;renderLightbox();}
-    if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+allArtworks.length)%allArtworks.length;renderLightbox();}
-    if(e.key==='Escape')document.getElementById('lightbox').classList.remove('open');
-  }
-  if(document.getElementById('galleryModal').classList.contains('open')&&e.key==='Escape'){document.getElementById('galleryModal').classList.remove('open');document.body.style.overflow='';}
-  if(document.getElementById('aiCuratorModal').classList.contains('open')&&e.key==='Escape'){document.getElementById('aiCuratorModal').classList.remove('open');document.body.style.overflow='';}
+  if($('lb').classList.contains('open')){if(e.key==='ArrowRight')moveLb(1);if(e.key==='ArrowLeft')moveLb(-1);if(e.key==='Escape')closeLb();}
+  if(e.key==='Escape')['gm','aim','lm','sm','hpop','lpop','paym'].forEach(id=>{const el=$(id);if(el)el.classList.remove('open');});
 });
 
-/* ===== AI CURATOR ===== */
-document.getElementById('aiCuratorNavBtn').addEventListener('click',()=>{document.getElementById('aiCuratorModal').classList.add('open');document.body.style.overflow='hidden';});
-document.getElementById('aiModalClose').addEventListener('click',()=>{document.getElementById('aiCuratorModal').classList.remove('open');document.body.style.overflow='';});
-const exs=["A large oil painting — a woman's face emerging from swirling dark water, golden light breaking through storm clouds above. Her expression is serene despite the chaos. Deep impasto blues and golds.","A minimalist sculpture: three polished steel rings of different sizes intersecting at precise angles on a white plinth, casting long shadows. The surface is mirror-polished, reflecting the viewer.","An abstract canvas covered in thick layered impasto paint — crimson, burnt orange and deep black built up over years of reworking. In the far center, a small area of pale blue suggests a distant horizon."];
-function setEx(n){document.getElementById('artDesc').value=exs[n-1];}
-const offlineResponses={
-  0:{analysis:`This work occupies a fascinating position at the intersection of chromatic theory and spatial philosophy. The artist employs saturated hues in a manner reminiscent of the Abstract Expressionist tradition — yet the deliberate, almost architectural placement of color fields suggests a deeper engagement with the Colour Field painters of the late 1950s, particularly the transcendental ambitions of Mark Rothko and Barnett Newman.\n\nPsychologically, the composition exerts an almost gravitational pull on the viewer. The eye is drawn inward through layers of pigment, each stratum revealing a new emotional register — urgency, then stillness, then a quiet that borders on the sublime. Viewers frequently report an involuntary slowing of breath when confronted with works of this chromatic density.\n\nHistorically, this approach draws from a rich lineage: the spiritual colour investigations of Wassily Kandinsky, the raw emotional directness of the Fauves, and the meditative restraint of contemporary Indian miniature traditions. In the context of post-globalisation art practice, it represents a genuinely hybrid sensibility.`,tags:["Abstract Expressionism","Colour Field","Chromatic Theory","Contemporary Indian Art","Post-Modernism"]},
-  1:{analysis:`The nocturnal scene described here places itself squarely within the great tradition of luminism — that sustained fascination with artificial and celestial light that runs from Rembrandt's candlelit interiors through Turner's atmospheric seascapes to the electric urban glow captured by Edward Hopper.\n\nOn an emotional plane, the work achieves something rare: it is simultaneously intimate and expansive. The compressed scale of botanical detail against the vast darkness of the night sky enacts the very tension of human consciousness — the individual psyche dwarfed by the infinite, yet finding within small, flowering things a reason to endure.\n\nThe cultural resonances are multiple and layered. The lotus, present as a motif in classical Indian aesthetics since the Vedic period, carries connotations of purity emerging from murky depths — a symbolism that maps onto the painting's emotional narrative with striking precision.`,tags:["Luminism","Impressionism","Bengal School","Symbolism","Nocturne"]},
-  2:{analysis:`Minimalism has always been, paradoxically, one of the most demanding modes of artistic expression. This work, in its deliberate reduction of form to essential geometry, participates in a tradition that stretches from the Bauhaus pursuit of pure function through Donald Judd's specific objects to the meditative sculptures of Anish Kapoor.\n\nThe psychological experience of such work is one of progressive revelation. Initially, the eye searches for more — for narrative, for representation, for the familiar comfort of likeness. Finding none, the viewer is returned to sensation itself: the quality of light on a surface, the weight of silence.\n\nRooted in the intellectual currents of 20th century abstraction — from Mondrian's neo-plastic grids to the Zero Group's investigations — this work also resonates with the ancient Indian concept of śūnyatā, or emptiness, understood not as absence but as pure potentiality.`,tags:["Minimalism","Geometric Abstraction","Bauhaus","Negative Space","Conceptual Art"]},
-  3:{analysis:`The expressionist impetus — the compulsion to distort, exaggerate, and intensify outward form — is one of the oldest and most persistent forces in art history. This work, with its aggressive brushwork and emotionally charged palette, situates itself within a lineage that includes the raw psychological excavations of Edvard Munch and the spiritual violence of Emil Nolde.\n\nThe emotional impact is immediate and physical. The gestural marks carry the energy of their making — viewers can almost feel the pressure of the brush, the speed of the arm, the arrested breath at the moment of application. This is art that performs its own creation.\n\nCulturally, the tension between raw expression and gilded beauty recalls the Tantric tradition within Indian visual practice, in which destruction is understood as inseparable from creation, and in which the most intense states of consciousness are regarded as gateways rather than endpoints.`,tags:["Expressionism","Gestural Painting","Abstract Expressionism","Tantric Art","Neo-Expressionism"]},
-  4:{analysis:`Pointillism, as pioneered by Georges Seurat and Paul Signac in the 1880s, was rooted in a scientific theory of optical mixture: the conviction that discrete dots of pure colour, placed in proximity, would blend in the eye of the viewer to produce a luminosity unattainable through physical mixing.\n\nThe viewer's experience of such a work is profoundly durational: it changes as one moves closer and farther, the image dissolving into pure sensation at proximity before reconstituting itself at distance into recognisable form. This oscillation enacts the fundamental perceptual question underlying all representational art.\n\nThe historical significance of this mode extends beyond its European origins. The patient, meditative accumulation of individual marks resonates with traditions of intricate handiwork deeply embedded in Indian craft culture — from Warli and Gond painting to the meticulous bead-work of tribal textile traditions.`,tags:["Pointillism","Neo-Impressionism","Optical Art","Gond Art","Post-Impressionism"]},
-  5:{analysis:`The emergence of digital art as a legitimate mode of contemporary practice marks one of the most significant paradigm shifts in image-making history. This work participates in a conversation spanning from the early computer art of Vera Molnár through the generative practices of Casey Reas to AI-assisted works redefining authorship in the 21st century.\n\nThe psychological territory explored here is one of profound contemporary anxiety: the dissolution of the boundary between the organic and the synthetic, between human interiority and machine intelligence. The work asks, without resolving, whether the ghost in the machine is our projection or an emergent presence.\n\nIn the Indian context, this interrogation carries particular resonance. A civilisation that has long navigated the relationship between maya and deeper reality is perhaps uniquely positioned to engage with questions of digital simulation. The circuit, viewed through this lens, becomes a contemporary mandala.`,tags:["Digital Art","Generative Art","New Media","Cyber Aesthetics","Post-Digital"]},
-};
-function getOfflineResponse(desc){
-  const d=desc.toLowerCase();
-  if(d.includes('digital')||d.includes('circuit')||d.includes('pixel')||d.includes('neon'))return offlineResponses[5];
-  if(d.includes('point')||d.includes('dot')||d.includes('stippl'))return offlineResponses[4];
-  if(d.includes('rage')||d.includes('anger')||d.includes('gold')||d.includes('storm')||d.includes('expressive'))return offlineResponses[3];
-  if(d.includes('minimal')||d.includes('line')||d.includes('silence')||d.includes('geometric'))return offlineResponses[2];
-  if(d.includes('night')||d.includes('moon')||d.includes('dark')||d.includes('bloom')||d.includes('lotus'))return offlineResponses[1];
-  return offlineResponses[desc.length%6]||offlineResponses[0];
-}
+/* TIMELINE */
+[{era:"1400–1600",name:"Renaissance",desc:"Rebirth of classical ideals.",g:"linear-gradient(90deg,#8b6914,#c9a96e)"},
+ {era:"1600–1700",name:"Baroque",desc:"Dramatic intensity and emotional grandeur.",g:"linear-gradient(90deg,#5c1a1a,#9b2335)"},
+ {era:"1700–1800",name:"Neoclassicism",desc:"Return to reason and Greco-Roman virtue.",g:"linear-gradient(90deg,#1a3a5c,#3a7abf)"},
+ {era:"1800–1870",name:"Romanticism",desc:"Passion, the sublime, individual emotion.",g:"linear-gradient(90deg,#3a1a0a,#c45c2a)"},
+ {era:"1870–1910",name:"Impressionism",desc:"Light, color, and the fleeting moment.",g:"linear-gradient(90deg,#1a4a2a,#52b788)"},
+ {era:"1910–1940",name:"Expressionism",desc:"Distorted forms to convey inner states.",g:"linear-gradient(90deg,#5c1a3a,#e63b87)"},
+ {era:"1940–1960",name:"Abstract Expressionism",desc:"Pure gesture and spontaneity.",g:"linear-gradient(90deg,#1a0a2e,#7209b7)"},
+ {era:"1960–1980",name:"Pop Art",desc:"Consumer culture elevated to high art.",g:"linear-gradient(90deg,#7a1a3a,#e63946)"},
+ {era:"2000–Now",name:"Digital & AI Art",desc:"Algorithms and AI as artistic medium.",g:"linear-gradient(90deg,#001a3a,#4cc9f0)"},
+].forEach(m=>{const d=document.createElement('div');d.className='tli';d.innerHTML=`<div class="tli-sw" style="background:${m.g}"></div><div class="tli-era">${m.era}</div><div class="tli-yr">${m.era.split('–')[0]}</div><div class="tli-name">${m.name}</div><div class="tli-desc">${m.desc}</div>`;$('tls').appendChild(d);});
+
+/* REVEAL & COUNTERS */
+const rvObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
+let sv={a:240,b:80,c:36,d:12};
+const cnt=(el,v,s='')=>{let i=0;const iv=setInterval(()=>{i=Math.min(i+v/80,v);el.textContent=~~i+s;if(i>=v)clearInterval(iv);},18);};
+new IntersectionObserver(es=>{if(es[0].isIntersecting){cnt($('c1'),sv.a,'+');cnt($('c2'),sv.b,'+');cnt($('c3'),sv.c,'');cnt($('c4'),sv.d,'');}},{threshold:.3}).observe($('stats'));
+window.addEventListener('scroll',()=>$('nav').style.background=scrollY>60?'rgba(6,6,14,.98)':'linear-gradient(to bottom,rgba(6,6,14,.95),transparent)');
+
+/* AI CURATOR */
+const exs=["A large oil painting — a woman's face emerging from swirling dark water, golden light breaking through storm clouds above. Deep impasto blues and golds.","A minimalist sculpture: three polished steel rings intersecting at precise angles on a white plinth, casting long shadows.","An abstract canvas in thick layered impasto — crimson, burnt orange and deep black. In the far center, a small pale blue horizon."];
+const ors=[
+  {a:`This work occupies a fascinating position at the intersection of chromatic theory and spatial philosophy. The artist employs saturated hues reminiscent of the Abstract Expressionist tradition, yet the deliberate placement of color fields suggests engagement with Colour Field painters like Rothko and Newman.\n\nPsychologically, the composition exerts a gravitational pull. The eye is drawn inward through layers of pigment, each stratum revealing a new emotional register — urgency, then stillness, then a quiet bordering on the sublime.\n\nHistorically, this draws from Kandinsky's spiritual colour investigations, the Fauves' raw directness, and contemporary Indian miniature traditions — a genuinely hybrid sensibility.`,t:["Abstract Expressionism","Colour Field","Chromatic Theory","Contemporary Indian Art","Post-Modernism"]},
+  {a:`The nocturnal scene places itself in the tradition of luminism — the fascination with light running from Rembrandt through Turner to Hopper. The moon functions as both anchor and protagonist symbolising longing and memory.\n\nEmotionally, the work is simultaneously intimate and expansive. The scale of botanical detail against vast darkness enacts the tension of human consciousness — the individual dwarfed by the infinite, finding in small things a reason to endure.\n\nThe lotus, central to Indian aesthetics since the Vedic period, carries connotations of purity from murky depths — mapping onto the painting's emotional narrative with precision.`,t:["Luminism","Impressionism","Bengal School","Symbolism","Nocturne"]},
+  {a:`Minimalism is paradoxically one of the most demanding modes of expression. This work's deliberate reduction of form to essential geometry participates in a tradition from Bauhaus through Judd to Kapoor — yet warmth persists beneath the austerity.\n\nThe viewer's experience is one of progressive revelation: the eye searches for narrative, finding none, returning to sensation itself — light on surface, weight of silence.\n\nRooted in 20th century abstraction from Mondrian to the Zero Group, the work resonates with the Indian concept of śūnyatā — emptiness understood not as absence but pure potentiality.`,t:["Minimalism","Geometric Abstraction","Bauhaus","Negative Space","Conceptual Art"]},
+  {a:`The expressionist impetus — distorting form to give shape to inward truth — is one of the oldest forces in art. This work situates itself with Munch's psychological excavations and Nolde's spiritual violence. Gold amid chaos introduces a countervailing note: destruction and transcendence occupying the same space.\n\nThe emotional impact is immediate and physical. The gestural marks carry the energy of their making — viewers feel the pressure of the brush, the speed of the arm.\n\nThe tension between raw expression and gilded beauty recalls the Tantric tradition where destruction is inseparable from creation, and intense consciousness states are gateways rather than endpoints.`,t:["Expressionism","Gestural Painting","Abstract Expressionism","Tantric Art","Neo-Expressionism"]},
+  {a:`Pointillism, pioneered by Seurat and Signac, was rooted in the theory that discrete dots of pure colour blend in the eye to produce luminosity unattainable through physical mixing. This work honours that insight while extending into new cultural territory.\n\nThe experience is profoundly durational: the image dissolves into pure sensation at proximity before reconstituting at distance. This oscillation enacts the fundamental perceptual question of all representational art.\n\nThe patient accumulation of individual marks resonates with traditions embedded in Indian craft — from Warli and Gond painting to the bead-work of tribal textiles.`,t:["Pointillism","Neo-Impressionism","Optical Art","Gond Art","Post-Impressionism"]},
+  {a:`Digital art's emergence as a dominant mode marks one of the most significant paradigm shifts in image-making. This work participates in a conversation from Vera Molnár's early computer art through Casey Reas to AI-assisted works redefining authorship.\n\nThe psychological territory explored is profound contemporary anxiety: dissolution of the boundary between organic and synthetic, human interiority and machine intelligence.\n\nIn the Indian context, a civilisation navigating maya — the world of appearances versus deeper reality — is uniquely positioned to engage with digital simulation. The circuit becomes a contemporary mandala.`,t:["Digital Art","Generative Art","New Media","Cyber Aesthetics","Post-Digital"]},
+];
+function setEx(n){$('adt').value=exs[n];}
+function getOR(d){d=d.toLowerCase();if(d.includes('digital')||d.includes('circuit'))return ors[5];if(d.includes('dot')||d.includes('point'))return ors[4];if(d.includes('rage')||d.includes('storm'))return ors[3];if(d.includes('minimal')||d.includes('silence'))return ors[2];if(d.includes('night')||d.includes('moon')||d.includes('bloom'))return ors[1];return ors[d.length%6]||ors[0];}
 async function analyzeArt(){
-  const desc=document.getElementById('artDesc').value.trim();if(!desc)return;
-  const btn=document.getElementById('analyzeBtn'),btnTxt=document.getElementById('btnTxt'),ld=document.getElementById('ldots');
-  btn.disabled=true;btnTxt.style.display='none';ld.style.display='flex';
-  document.getElementById('outPh').style.display='none';document.getElementById('aiResp').style.display='none';document.getElementById('outputCard').classList.add('active');
-  function typeOut(analysis,tags){
-    const aiText=document.getElementById('aiText'),aiTags=document.getElementById('aiTags');
-    aiText.textContent='';aiTags.innerHTML='';document.getElementById('aiResp').style.display='block';
-    let i=0;const ti=setInterval(()=>{if(i<analysis.length){aiText.textContent+=analysis[i];i++;}else{clearInterval(ti);tags.forEach(tg=>{const el=document.createElement('div');el.className='ai-tag';el.textContent=tg;aiTags.appendChild(el);});btn.disabled=false;btnTxt.style.display='inline';ld.style.display='none';}},10);
+  const desc=$('adt').value.trim();if(!desc)return;
+  const btn=$('anb'),bt=$('abt'),ld=$('ald');
+  btn.disabled=true;bt.style.display='none';ld.style.display='flex';
+  $('oph').style.display='none';$('ars').style.display='none';$('oc').classList.add('active');
+  function type(analysis,tags){
+    const at=$('atxtout'),tg=$('atags');at.textContent='';tg.innerHTML='';$('ars').style.display='block';
+    let i=0;const iv=setInterval(()=>{if(i<analysis.length){at.textContent+=analysis[i++];}else{clearInterval(iv);tags.forEach(t=>{const e=document.createElement('div');e.className='aitag';e.textContent=t;tg.appendChild(e);});btn.disabled=false;bt.style.display='inline';ld.style.display='none';}},10);
   }
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:`You are an expert art curator at Artistry Haven. Produce a rich 3-paragraph museum-quality curatorial analysis covering: (1) artistic style and movement, (2) emotional and psychological impact, (3) historical/cultural influences. Write in elevated prose. After analysis output exactly: TAGS:["tag1","tag2","tag3","tag4","tag5"]`,messages:[{role:'user',content:`Artwork: ${desc}`}]})});
-    const data=await res.json();let full=data.content[0].text,tags=[],analysis=full;
-    const tm=full.match(/TAGS:\[(.+?)\]/);if(tm){analysis=full.replace(/TAGS:\[.*?\]/,'').trim();try{tags=JSON.parse('['+tm[1]+']');}catch(e){}}
-    typeOut(analysis,tags);
-  }catch(e){const fb=getOfflineResponse(desc);typeOut(fb.analysis,fb.tags);}
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'You are an expert art curator at Artistry Haven. Produce a rich 3-paragraph museum-quality curatorial analysis covering: (1) artistic style and movement, (2) emotional and psychological impact, (3) historical and cultural influences. Write in elevated prose. After the analysis output exactly: TAGS:["tag1","tag2","tag3","tag4","tag5"]. No preamble or markdown.',messages:[{role:'user',content:`Analyze this artwork:\n\n${desc}`}]})});
+    if(!r.ok)throw new Error('API '+r.status);
+    const data=await r.json();if(!data.content||!data.content[0])throw new Error('No content');
+    let full=data.content[0].text,tags=[],analysis=full;
+    const tm=full.match(/TAGS:\[(.+?)\]/s);if(tm){analysis=full.replace(/TAGS:\[.*?\]/s,'').trim();try{tags=JSON.parse('['+tm[1]+']');}catch(e){tags=[];}}
+    if(!tags.length)tags=["Contemporary Art","Fine Art","Gallery","Curatorial","Visual Art"];
+    type(analysis,tags);
+  }catch(e){console.warn('Offline fallback:',e);const fb=getOR(desc);type(fb.a,fb.t);}
 }
 
-/* ===== TIMELINE ===== */
-const movements=[
-  {era:"1400–1600",name:"Renaissance",desc:"A rebirth of classical ideals, humanism, and naturalistic representation.",grad:"linear-gradient(90deg,#8b6914,#c9a96e)"},
-  {era:"1600–1700",name:"Baroque",desc:"Dramatic intensity, deep shadows, and emotional grandeur.",grad:"linear-gradient(90deg,#5c1a1a,#9b2335)"},
-  {era:"1700–1800",name:"Neoclassicism",desc:"A return to reason and Greco-Roman virtue in the Enlightenment.",grad:"linear-gradient(90deg,#1a3a5c,#3a7abf)"},
-  {era:"1800–1870",name:"Romanticism",desc:"Passion, the sublime, and individual emotion against industrial reason.",grad:"linear-gradient(90deg,#3a1a0a,#c45c2a)"},
-  {era:"1870–1910",name:"Impressionism",desc:"Light, color, and the fleeting moment in loose brushwork.",grad:"linear-gradient(90deg,#1a4a2a,#52b788)"},
-  {era:"1910–1940",name:"Expressionism",desc:"Distorted forms and raw color to convey inner states.",grad:"linear-gradient(90deg,#5c1a3a,#e63b87)"},
-  {era:"1940–1960",name:"Abstract Expressionism",desc:"Pure gesture, scale, and spontaneity transformed New York into the world's art center.",grad:"linear-gradient(90deg,#1a0a2e,#7209b7)"},
-  {era:"1960–1980",name:"Pop Art",desc:"Consumer culture elevated to high art.",grad:"linear-gradient(90deg,#7a1a3a,#e63946)"},
-  {era:"2000–Now",name:"Digital & AI Art",desc:"Algorithms, AI, and the internet as artistic medium.",grad:"linear-gradient(90deg,#001a3a,#4cc9f0)"},
-];
-const tl=document.getElementById('tlScroll');
-movements.forEach(m=>{
-  const d=document.createElement('div');d.className='tl-item';
-  d.innerHTML=`<div class="tl-swatch" style="background:${m.grad}"></div><div class="tl-era">${m.era}</div><div class="tl-yr">${m.era.split('–')[0]}</div><div class="tl-name">${m.name}</div><div class="tl-desc">${m.desc}</div>`;
-  tl.appendChild(d);
-});
-
-/* ===== SCROLL REVEAL ===== */
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-/* ===== COUNTERS ===== */
-let statsVals={art:240,artists:80,ex:36,yr:12};
-function animCount(el,target,suffix=''){let v=0;const step=target/80;const iv=setInterval(()=>{v=Math.min(v+step,target);el.textContent=Math.floor(v)+suffix;if(v>=target)clearInterval(iv);},18);}
-const cObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animCount(document.getElementById('cnt-art'),statsVals.art,'+');animCount(document.getElementById('cnt-art2'),statsVals.artists,'+');animCount(document.getElementById('cnt-art3'),statsVals.ex,'');animCount(document.getElementById('cnt-art4'),statsVals.yr,'');cObs.disconnect();}});},{threshold:.3});
-cObs.observe(document.getElementById('stats'));
-
-/* ===== NAV SCROLL ===== */
-window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.background=window.scrollY>60?'rgba(6,6,14,.98)':'linear-gradient(to bottom,rgba(6,6,14,.95),transparent)';});
-
-/* ===== TOAST ===== */
-function showToast(){const t=document.getElementById('savedToast');t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2200);}
-
-/* ===== ADMIN FUNCTIONS ===== */
-function switchAdminTab(tab){
-  document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('tab-'+tab).classList.add('active');
-  if(tab==='artworks') setTimeout(renderArtworkAdmin,0);
-  if(tab==='pending') setTimeout(renderPendingList,0);
-  if(tab==='visitors') setTimeout(renderVisitorList,0);
+/* PAYMENT */
+let curPayIdx=0,purchases=[];
+function buyArt(i){
+  curPayIdx=i;const a=arts[i];
+  $('pay-img').src=canvases[i].toDataURL();
+  $('pay-title').textContent=a.title;$('pay-artist').textContent=a.artist+' · '+a.year;
+  $('pay-price').textContent=a.price;$('pay-btn-amt').textContent=a.price;
+  $('pay-success').style.display='none';$('pay-main').style.display='block';
+  document.querySelectorAll('.pm-btn').forEach((b,i)=>{b.classList.toggle('active',i===0);});
+  ['pf-card','pf-upi','pf-netbank','pf-wallet'].forEach(id=>$(id).style.display='none');$('pf-card').style.display='block';
+  open2('paym');
+}
+function switchPay(btn,tab){document.querySelectorAll('.pm-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');['pf-card','pf-upi','pf-netbank','pf-wallet'].forEach(id=>$(id).style.display='none');$('pf-'+tab).style.display='block';}
+function selUpi(btn){btn.closest('.upi-row').querySelectorAll('.upi-opt').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function fmtCard(i){let v=i.value.replace(/\D/g,'').substring(0,16);i.value=v.replace(/(.{4})/g,'$1 ').trim();}
+function fmtExp(i){let v=i.value.replace(/\D/g,'').substring(0,4);if(v.length>=2)v=v.slice(0,2)+' / '+v.slice(2);i.value=v;}
+function processPayment(){
+  const btn=$('pay-submit-btn');btn.textContent='Processing...';btn.disabled=true;
+  setTimeout(()=>{
+    btn.textContent='Pay '+arts[curPayIdx].price;btn.disabled=false;
+    const ref='AH-'+Math.random().toString(36).substring(2,8).toUpperCase();
+    $('pay-ref').textContent='REF: '+ref;
+    // record purchase
+    purchases.push({ref,artwork:arts[curPayIdx].title,artist:arts[curPayIdx].artist,price:arts[curPayIdx].price,buyer:currentUser?currentUser.name:'Guest',username:currentUser?currentUser.username:'guest',date:new Date().toLocaleString(),method:document.querySelector('.pm-btn.active').textContent.trim()});
+    $('pay-main').style.display='none';$('pay-success').style.display='block';
+  },2000);
 }
 
-function saveHero(){
-  document.getElementById('heroEyebrow').textContent=document.getElementById('edit-eyebrow').value;
-  document.getElementById('heroSub').textContent=document.getElementById('edit-tagline').value;
-  document.getElementById('heroCta').textContent=document.getElementById('edit-cta').value;
-  const name=document.getElementById('edit-name').value;
-  document.querySelector('.hero-title').innerHTML=name.slice(0,-5)+' <span class="gold">'+name.slice(-5)+'</span>';
-  showToast();
+/* ADMIN */
+let pending=[],newImg=null,sImg=null;
+function aTab(btn,sec){
+  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.asec').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');$(sec).classList.add('active');
+  if(sec==='ta')setTimeout(renderArtworks,0);
+  if(sec==='tp')setTimeout(renderPending,0);
+  if(sec==='tv')setTimeout(renderUsers,0);
+  if(sec==='tpay')setTimeout(renderPurchases,0);
+}
+function closeAdmin(){$('ap').classList.remove('open');}
+function saveHero(){$('hey').textContent=$('ee').value;$('hsu').textContent=$('et').value;$('hct').textContent=$('ec').value;showToast();}
+function saveStats(){sv={a:+$('sa').value,b:+$('sb').value,c:+$('sc').value,d:+$('sd').value};$('c1').textContent=sv.a+'+';$('c2').textContent=sv.b+'+';$('c3').textContent=sv.c;$('c4').textContent=sv.d;showToast();}
+function saveInfo(){$('fd').textContent=$('it').value;showToast();}
+
+function prevImg(input,pvId,fnId,isSub){
+  const file=input.files[0];if(!file)return;$(fnId).textContent=file.name;
+  const r=new FileReader();r.onload=e=>{
+    if(isSub)sImg=e.target.result;else newImg=e.target.result;
+    const pv=$(pvId);pv.style.display='block';
+    const img=new Image();img.onload=()=>{const ctx=pv.getContext('2d'),s=Math.min(pv.width/img.width,pv.height/img.height);ctx.clearRect(0,0,pv.width,pv.height);ctx.drawImage(img,(pv.width-img.width*s)/2,(pv.height-img.height*s)/2,img.width*s,img.height*s);};img.src=e.target.result;
+  };r.readAsDataURL(file);
 }
 
-function renderArtworkAdmin(){
-  const container=document.getElementById('artworkAdminRows');container.innerHTML='';
+function renderArtworks(){
+  const c=$('ar');c.innerHTML='';
+  const form=document.createElement('div');
+  form.style.cssText='background:rgba(201,169,110,.05);border:1px dashed var(--gd);padding:22px;margin-bottom:24px;';
+  form.innerHTML=`<div style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">➕ Add New Artwork</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;">
+    <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px;">Title *</label><input id="nt" placeholder="Title" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"></div>
+    <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px;">Artist *</label><input id="na" placeholder="Artist" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"></div>
+    <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px;">Year *</label><input id="ny" placeholder="2026" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;">
+    <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px;">Category</label><select id="nc" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"><option>abstract</option><option>impressionist</option><option>modern</option><option>digital</option><option>expressionist</option><option>other</option></select></div>
+    <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px;">Price *</label><input id="np" placeholder="₹2,00,000" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"></div>
+    <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px;">Art Style</label><select id="nty" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"><option value="0">Abstract Geometric</option><option value="1">Night/Impressionist</option><option value="2">Minimalist Lines</option><option value="3">Expressionist</option><option value="4">Pointillist</option><option value="5">Digital/Circuit</option><option value="6">Watercolor</option></select></div>
+  </div>
+  <div style="margin-bottom:12px;"><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px;">Description *</label><textarea id="nd" placeholder="Description..." style="width:100%;height:65px;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;resize:vertical;line-height:1.6;"></textarea></div>
+  <div style="margin-bottom:16px;"><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:6px;">Upload Image (optional)</label>
+    <div style="display:flex;align-items:center;gap:12px;"><label class="flabel" for="nup">Choose File</label><input type="file" id="nup" accept="image/*" style="display:none;" onchange="prevImg(this,'npv','nfn',false)"><span id="nfn" style="font-size:12px;color:var(--dim);">No file chosen</span><canvas id="npv" width="60" height="60" style="border:1px solid #22223a;display:none;"></canvas></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;"><button onclick="addArt()" class="asave">Add Artwork</button><span id="naerr" style="font-size:12px;color:#e63946;display:none;">Fill all required fields.</span></div>`;
+  c.appendChild(form);
+  if(arts.length){const hdr=document.createElement('div');hdr.style.cssText='display:grid;grid-template-columns:60px 1fr 1fr 1fr auto;gap:12px;padding:0 0 10px;border-bottom:1px solid #181828;margin-bottom:6px;';hdr.innerHTML='<span></span>'+['Title','Artist','Price',''].map(h=>`<span style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);">${h}</span>`).join('');c.appendChild(hdr);}
+  arts.forEach((a,i)=>{const row=document.createElement('div');row.className='arow';const img=document.createElement('img');img.src=canvases[i].toDataURL();row.appendChild(img);['title','artist','price'].forEach(f=>{const inp=document.createElement('input');inp.value=a[f];inp.onchange=e=>arts[i][f]=e.target.value;row.appendChild(inp);});const d=document.createElement('button');d.className='dbtn';d.textContent='Remove';d.onclick=()=>{arts.splice(i,1);canvases.splice(i,1);renderArtworks();buildGrid();buildGM();};row.appendChild(d);c.appendChild(row);});
+}
 
-  // ── Add New Artwork Form ──
-  const addCard=document.createElement('div');
-  addCard.style.cssText='background:rgba(201,169,110,.05);border:1px dashed var(--gold-dark);padding:24px;margin-bottom:28px;';
-  addCard.innerHTML=`
-    <div style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">➕ Add New Artwork</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;">
-      <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;">Title *</label>
-        <input type="text" id="new-title" placeholder="Artwork title" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"></div>
-      <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;">Artist *</label>
-        <input type="text" id="new-artist" placeholder="Artist name" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"></div>
-      <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;">Year *</label>
-        <input type="text" id="new-year" placeholder="e.g. 2024" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;">
-      <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;">Category *</label>
-        <select id="new-cat" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;">
-          <option>Abstract</option><option>Impressionist</option><option>Modern</option>
-          <option>Digital</option><option>Expressionist</option><option>Watercolor</option><option>Other</option>
-        </select></div>
-      <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;">Price *</label>
-        <input type="text" id="new-price" placeholder="e.g. ₹2,50,000" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"></div>
-      <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;">Art Style (preview)</label>
-        <select id="new-type" style="width:100%;padding:9px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;">
-          <option value="0">Abstract Geometric</option><option value="1">Night / Impressionist</option>
-          <option value="2">Minimalist Lines</option><option value="3">Expressionist</option>
-          <option value="4">Pointillist</option><option value="5">Digital / Circuit</option><option value="6">Watercolor Wash</option>
-        </select></div>
-    </div>
-    <div style="margin-bottom:14px;">
-      <label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;">Description *</label>
-      <textarea id="new-desc" placeholder="Write a short description of the artwork..." style="width:100%;height:72px;padding:9px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;resize:vertical;line-height:1.6;"></textarea>
-    </div>
-    <div style="margin-bottom:18px;">
-      <label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:6px;">Upload Image (optional — uses generated art if empty)</label>
-      <div style="display:flex;align-items:center;gap:14px;">
-        <label for="new-img-upload" style="padding:9px 22px;border:1px solid #22223a;color:var(--text-dim);font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .3s;background:var(--bg);" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='#22223a';this.style.color='var(--text-dim)'">Choose File</label>
-        <input type="file" id="new-img-upload" accept="image/*" style="display:none;" onchange="previewNewImg(this)">
-        <span id="new-img-name" style="font-size:12px;color:var(--text-dim);">No file chosen</span>
-        <canvas id="new-img-preview" width="60" height="60" style="border:1px solid #22223a;display:none;object-fit:cover;"></canvas>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <button onclick="addNewArtwork()" style="padding:11px 32px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;transition:background .3s;" onmouseover="this.style.background='var(--gold-light)'" onmouseout="this.style.background='var(--gold)'">Add Artwork</button>
-      <span id="new-art-err" style="font-size:12px;color:#e63946;display:none;">Please fill all required fields.</span>
-    </div>`;
-  container.appendChild(addCard);
+function addArt(){
+  const t=$('nt').value.trim(),a=$('na').value.trim(),y=$('ny').value.trim(),p=$('np').value.trim(),d=$('nd').value.trim();
+  if(!t||!a||!y||!p||!d){$('naerr').style.display='inline';return;}$('naerr').style.display='none';
+  const entry={title:t,artist:a,year:y,cat:$('nc').value,price:p,desc:d,type:+$('nty').value};arts.push(entry);
+  if(newImg){const cv=document.createElement('canvas');cv.width=512;cv.height=640;const img=new Image();img.onload=()=>{const ctx=cv.getContext('2d'),s=Math.max(512/img.width,640/img.height);ctx.drawImage(img,(512-img.width*s)/2,(640-img.height*s)/2,img.width*s,img.height*s);canvases.push(cv);buildGrid();buildGM();showToast();};img.src=newImg;newImg=null;}
+  else{canvases.push(gen(entry.type));buildGrid();buildGM();showToast();}
+  renderArtworks();
+}
 
-  // ── Existing Artworks Header ──
-  if(allArtworks.length>0){
-    const hdr=document.createElement('div');
-    hdr.style.cssText='display:grid;grid-template-columns:60px 1fr 1fr 1fr auto;gap:12px;padding:0 0 10px;border-bottom:1px solid #181828;margin-bottom:6px;';
-    hdr.innerHTML='<span></span>'+['Title','Artist','Price',''].map(h=>`<span style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);">${h}</span>`).join('');
-    container.appendChild(hdr);
-  }
+function updatePB(){const n=pending.filter(p=>p.status==='pending').length;$('pb').textContent=n;$('pb').style.background=n?'var(--gold)':'#333';}
 
-  // ── Existing Artworks ──
-  allArtworks.forEach((a,i)=>{
-    const row=document.createElement('div');row.className='artwork-admin-row';
-    const img=document.createElement('img');
-    img.src=modalCanvases[i]?modalCanvases[i].toDataURL():genArt(a.type).toDataURL();
-    row.appendChild(img);
-    ['title','artist','price'].forEach(field=>{
-      const inp=document.createElement('input');inp.type='text';inp.value=a[field];
-      inp.dataset.idx=i;inp.dataset.field=field;
-      inp.addEventListener('change',e=>{allArtworks[parseInt(e.target.dataset.idx)][e.target.dataset.field]=e.target.value;});
-      row.appendChild(inp);
-    });
-    const del=document.createElement('button');del.className='del-btn';del.textContent='Remove';
-    del.onclick=()=>{allArtworks.splice(i,1);modalCanvases.splice(i,1);renderArtworkAdmin();buildGalleryGrid();buildGmGrid();};
-    row.appendChild(del);container.appendChild(row);
+function submitArt(){
+  const t=$('s-ti').value.trim(),a=$('s-ar').value.trim(),y=$('s-yr').value.trim(),d=$('s-de').value.trim();
+  if(!t||!a||!y||!d||!sImg){$('s-err').style.display='block';return;}$('s-err').style.display='none';
+  pending.push({id:Date.now(),title:t,artist:a,year:y,cat:$('s-cat').value,price:$('s-pr').value||'Not for Sale',desc:d,img:sImg,by:currentUser?currentUser.username:'visitor',at:new Date().toLocaleString(),status:'pending'});
+  updatePB();$('s-ok').style.display='block';
+  setTimeout(()=>{$('s-ok').style.display='none';closeM('sm');['s-ti','s-ar','s-yr','s-pr','s-de'].forEach(i=>$(i).value='');$('s-fn').textContent='No file chosen';$('s-pv').style.display='none';sImg=null;},2200);
+}
+
+function renderPending(){
+  const c=$('pl');c.innerHTML='';
+  const pend=pending.filter(p=>p.status==='pending');
+  if(!pend.length){c.innerHTML='<p style="color:var(--dim);font-size:13px;padding:10px 0;">No pending submissions.</p>';}
+  else pend.forEach(a=>{
+    const row=document.createElement('div');row.className='prow';
+    const img=document.createElement('img');img.src=a.img;row.appendChild(img);
+    const info=document.createElement('div');info.innerHTML=`<div style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream);">${a.title}</div><div style="font-size:10px;color:var(--gold);margin-top:3px;">${a.artist} · ${a.year} · ${a.cat}</div><div style="font-size:11px;color:var(--dim);margin-top:3px;">${a.price}</div>`;
+    const sub=document.createElement('div');sub.innerHTML=`<div style="font-size:12px;color:var(--dim);">By: <span style="color:var(--cream);">${a.by}</span></div><div style="font-size:11px;color:var(--dim);margin-top:3px;">${a.at}</div>`;
+    const ab=document.createElement('button');ab.className='appbtn';ab.textContent='✓ Approve';ab.onclick=()=>approveArt(a.id);
+    const rb=document.createElement('button');rb.className='rejbtn';rb.textContent='✕ Reject';rb.onclick=()=>rejectArt(a.id);
+    row.appendChild(info);row.appendChild(sub);row.appendChild(ab);row.appendChild(rb);c.appendChild(row);
   });
+  const rev=pending.filter(p=>p.status!=='pending');
+  if(rev.length){const sec=document.createElement('div');sec.style.cssText='margin-top:24px;';sec.innerHTML='<div style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;padding-top:16px;border-top:1px solid #181828;">Previously Reviewed</div>';rev.forEach(a=>{const r=document.createElement('div');r.style.cssText='display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid #181828;';r.innerHTML=`<img src="${a.img}" style="width:40px;height:40px;object-fit:cover;border:1px solid #22223a;"><span style="font-size:13px;color:var(--cream);flex:1;">${a.title} <span style="color:var(--dim);">by ${a.artist}</span></span><span class="${a.status==='approved'?'abadge2':'rbadge'}">${a.status}</span>`;sec.appendChild(r);});c.appendChild(sec);}
 }
 
-function previewNewImg(input){
-  const file=input.files[0];if(!file)return;
-  document.getElementById('new-img-name').textContent=file.name;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    newImgDataUrl=e.target.result;
-    const preview=document.getElementById('new-img-preview');
-    preview.style.display='block';
-    const img=new Image();img.onload=()=>{
-      const ctx=preview.getContext('2d');ctx.clearRect(0,0,60,60);
-      const s=Math.min(60/img.width,60/img.height);
-      ctx.drawImage(img,(60-img.width*s)/2,(60-img.height*s)/2,img.width*s,img.height*s);
-    };img.src=e.target.result;
-  };reader.readAsDataURL(file);
+function approveArt(id){
+  const a=pending.find(x=>x.id===id);if(!a)return;a.status='approved';
+  const cv=document.createElement('canvas');cv.width=512;cv.height=640;
+  const img=new Image();img.onload=()=>{const ctx=cv.getContext('2d'),s=Math.max(512/img.width,640/img.height);ctx.drawImage(img,(512-img.width*s)/2,(640-img.height*s)/2,img.width*s,img.height*s);arts.push({title:a.title,artist:a.artist,year:a.year,cat:a.cat.toLowerCase(),price:a.price,desc:a.desc,type:0});canvases.push(cv);buildGrid();buildGM();updatePB();renderPending();showToast();};img.src=a.img;
 }
+function rejectArt(id){const a=pending.find(x=>x.id===id);if(a){a.status='rejected';updatePB();renderPending();}}
 
-function addNewArtwork(){
-  const title=document.getElementById('new-title').value.trim();
-  const artist=document.getElementById('new-artist').value.trim();
-  const year=document.getElementById('new-year').value.trim();
-  const cat=document.getElementById('new-cat').value;
-  const price=document.getElementById('new-price').value.trim();
-  const desc=document.getElementById('new-desc').value.trim();
-  const type=parseInt(document.getElementById('new-type').value);
-  const err=document.getElementById('new-art-err');
-  if(!title||!artist||!year||!price||!desc){err.style.display='inline';return;}
-  err.style.display='none';
-  const newArt={title,artist,year,cat,price,desc,type};
-  allArtworks.push(newArt);
-  // generate or use uploaded canvas
-  if(newImgDataUrl){
-    const c=document.createElement('canvas');c.width=512;c.height=640;
-    const ctx=c.getContext('2d');const img=new Image();
-    img.onload=()=>{
-      const s=Math.max(512/img.width,640/img.height);
-      ctx.drawImage(img,(512-img.width*s)/2,(640-img.height*s)/2,img.width*s,img.height*s);
-      modalCanvases.push(c);buildGalleryGrid();buildGmGrid();showToast();
-    };img.src=newImgDataUrl;
-  } else {
-    modalCanvases.push(genArt(type));buildGalleryGrid();buildGmGrid();showToast();
-  }
-  // reset form
-  ['new-title','new-artist','new-year','new-price','new-desc'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('new-img-name').textContent='No file chosen';
-  document.getElementById('new-img-preview').style.display='none';
-  newImgDataUrl=null;
-  renderArtworkAdmin();
-}
-
-function saveArtworks(){buildGalleryGrid();buildGmGrid();showToast();}
-
-function saveStats(){
-  statsVals={art:parseInt(document.getElementById('s-art').value),artists:parseInt(document.getElementById('s-artists').value),ex:parseInt(document.getElementById('s-ex').value),yr:parseInt(document.getElementById('s-yr').value)};
-  document.getElementById('cnt-art').textContent=statsVals.art+'+';
-  document.getElementById('cnt-art2').textContent=statsVals.artists+'+';
-  document.getElementById('cnt-art3').textContent=statsVals.ex;
-  document.getElementById('cnt-art4').textContent=statsVals.yr;
-  showToast();
-}
-
-function saveInfo(){
-  document.getElementById('footerDesc').textContent=document.getElementById('edit-footer-tag').value;
-  showToast();
-}
-
-function renderVisitorList(){
-  const vl=document.getElementById('visitorList');vl.innerHTML='';
-  visitors.forEach(v=>{
-    const row=document.createElement('div');row.className='visitor-info-row';
-    row.innerHTML=`<span>${v.name} <span style="color:var(--text-dim);font-size:11px;">(${v.user})</span></span><span>Visits: ${v.visits} · Last: ${v.loginTime}</span>`;
-    vl.appendChild(row);
+function renderUsers(){
+  const c=$('vl');c.innerHTML='';
+  const tbl=document.createElement('table');tbl.className='atable';
+  tbl.innerHTML=`<thead><tr><th>Name</th><th>Username</th><th>Email</th><th>Role</th><th>Joined</th><th>Logins</th></tr></thead><tbody></tbody>`;
+  const tb=tbl.querySelector('tbody');
+  registeredUsers.forEach(u=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${u.name}</td><td>${u.username}</td><td>${u.email}</td><td><span class="badge ${u.role==='admin'?'badge-a':'badge-v'}">${u.role}</span></td><td>${u.joined}</td><td>${u.logins||0}</td>`;
+    tb.appendChild(tr);
   });
+  c.appendChild(tbl);
+  const total=document.createElement('div');total.style.cssText='margin-top:14px;font-size:12px;color:var(--dim);';total.textContent=`Total: ${registeredUsers.length} users · ${registeredUsers.filter(u=>u.role==='visitor').length} visitors · ${registeredUsers.filter(u=>u.role==='admin').length} admins`;
+  c.appendChild(total);
+}
+
+function renderPurchases(){
+  const c=$('paylist');c.innerHTML='';
+  if(!purchases.length){c.innerHTML='<p style="color:var(--dim);font-size:13px;padding:10px 0;">No purchases yet.</p>';return;}
+  const tbl=document.createElement('table');tbl.className='atable';
+  tbl.innerHTML=`<thead><tr><th>Ref</th><th>Artwork</th><th>Artist</th><th>Buyer</th><th>Amount</th><th>Method</th><th>Date</th><th>Status</th></tr></thead><tbody></tbody>`;
+  const tb=tbl.querySelector('tbody');
+  purchases.forEach(p=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="font-size:11px;font-family:monospace;color:var(--gold);">${p.ref}</td><td>${p.artwork}</td><td style="color:var(--dim);">${p.artist}</td><td>${p.buyer} <span style="font-size:10px;color:var(--dim);">(${p.username})</span></td><td style="color:var(--gold);font-family:'Cinzel',serif;">${p.price}</td><td>${p.method}</td><td style="font-size:11px;color:var(--dim);">${p.date}</td><td><span class="badge badge-p">Paid</span></td>`;
+    tb.appendChild(tr);
+  });
+  c.appendChild(tbl);
+  const total=purchases.reduce((sum,p)=>{const n=parseInt(p.price.replace(/[^0-9]/g,''));return sum+(isNaN(n)?0:n);},0);
+  const summary=document.createElement('div');summary.style.cssText='margin-top:16px;display:flex;gap:30px;';
+  summary.innerHTML=`<div style="background:var(--bg2);border:1px solid var(--gd);padding:16px 24px;"><p style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;">Total Sales</p><p style="font-family:'Cinzel',serif;font-size:24px;color:var(--gold);">${purchases.length}</p></div><div style="background:var(--bg2);border:1px solid var(--gd);padding:16px 24px;"><p style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;">Total Revenue</p><p style="font-family:'Cinzel',serif;font-size:24px;color:var(--gold);">₹${total.toLocaleString('en-IN')}</p></div>`;
+  c.appendChild(summary);
 }
 </script>
 </body>
