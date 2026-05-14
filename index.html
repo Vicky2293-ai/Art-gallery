@@ -6,7 +6,7 @@
 <title>Artistry Haven</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;700;900&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#06060e;--bg2:#0d0d1a;--gold:#c9a96e;--gl:#e8d5a3;--gd:#6b5014;--cream:#f2ece0;--text:#c0b8aa;--dim:#5a5550;}
+:root{--bg:#f5f0e8;--bg2:#ede6d6;--gold:#8b5e1a;--gl:#a07230;--gd:#c9a96e;--cream:#2a1f0e;--text:#4a3728;--dim:#8a7a6a;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Raleway',sans-serif;overflow-x:hidden;cursor:none;}
 .cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
@@ -751,7 +751,8 @@ let canvases=arts.map(a=>gen(a.type));
 /* THREE.JS */
 const hc=$('hc'),renderer=new THREE.WebGLRenderer({canvas:hc,antialias:true,alpha:true});
 renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x06060e,.045);
+const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0xf5f0e8,.045);
+scene.background=new THREE.Color(0xf5f0e8);
 const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,100);camera.position.set(0,1.5,13);
 scene.add(new THREE.AmbientLight(0x111122,2));
 const ptA=new THREE.PointLight(0xc9a96e,4,35);ptA.position.set(8,6,5);scene.add(ptA);
