@@ -995,7 +995,7 @@ function buildGM(){
     const item=document.createElement('div');item.className='gmi';
     const img=document.createElement('img');img.src=canvases[i].toDataURL();img.style.cssText='width:100%;height:220px;object-fit:cover;display:block;';
     const ov=document.createElement('div');ov.className='gmio';
-    ov.innerHTML=`<div class="gmit">${a.title}</div><div class="gmim">${a.artist} · ${a.cat} · ${a.price}</div><button onclick="event.stopPropagation();buyArt(${i})" style="margin-top:8px;padding:6px 16px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;">🛒 Buy</button>`;
+    ov.innerHTML=`<div class="gmit">${a.title}</div><div class="gmim">${a.artist} · ${a.cat} · ${a.price}</div><div style="display:flex;gap:8px;margin-top:8px;"><button onclick="event.stopPropagation();buyArt(${i})" style="padding:6px 14px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;">🛒 Buy</button><button onclick="event.stopPropagation();viewHistory(${i})" style="padding:6px 14px;background:none;border:1px solid rgba(201,169,110,.6);color:#e8c87a;font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;">📜 History</button></div>`;
     item.appendChild(img);item.appendChild(ov);item.onclick=()=>openLb(i);$('gmg').appendChild(item);
   });
 }
