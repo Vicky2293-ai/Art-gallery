@@ -49,7 +49,7 @@ section{padding:110px 60px;}
 .fbtn{padding:8px 22px;border:1px solid var(--dim);background:none;color:var(--text);font-family:'Raleway',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
 .fbtn.active,.fbtn:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,.07);}
 .ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-.acard{perspective:1000px;height:420px;cursor:pointer;}
+.acard{perspective:1000px;height:480px;cursor:pointer;}
 .acard-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.23,1,.32,1);}
 .acard:hover .acard-in{transform:rotateY(180deg);}
 .af,.ab{position:absolute;width:100%;height:100%;backface-visibility:hidden;overflow:hidden;}
@@ -57,12 +57,12 @@ section{padding:110px 60px;}
 .af-info{padding:16px 20px;border-top:1px solid #181828;}
 .af-info h3{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--cream);margin-bottom:4px;}
 .af-info p{font-size:10px;letter-spacing:.18em;color:var(--dim);text-transform:uppercase;}
-.ab{transform:rotateY(180deg);background:linear-gradient(135deg,#0d0d1a,#180d24);border:1px solid var(--gd);padding:28px;display:flex;flex-direction:column;justify-content:center;}
-.ctag{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#e8c87a;border:1px solid var(--gd);display:inline-block;padding:4px 12px;margin-bottom:12px;}
-.ab h3{font-family:'Cinzel',serif;font-size:18px;color:#f0e8d0;margin-bottom:6px;}
-.ab .aname{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:#e8c87a;margin-bottom:12px;}
-.ab p{font-size:12px;line-height:1.8;color:#c8b898;margin-bottom:12px;}
-.aprice{font-family:'Cinzel',serif;font-size:20px;color:#f0e8d0;border-top:1px solid rgba(201,169,110,.25);padding-top:12px;margin-bottom:10px;}
+.ab{transform:rotateY(180deg);background:linear-gradient(135deg,#0d0d1a,#180d24);border:1px solid var(--gd);padding:20px 22px;display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;}
+.ctag{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#e8c87a;border:1px solid var(--gd);display:inline-block;padding:4px 12px;margin-bottom:10px;}
+.ab h3{font-family:'Cinzel',serif;font-size:17px;color:#f0e8d0;margin-bottom:5px;}
+.ab .aname{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:#e8c87a;margin-bottom:10px;}
+.ab p{font-size:12px;line-height:1.7;color:#c8b898;margin-bottom:10px;}
+.aprice{font-family:'Cinzel',serif;font-size:18px;color:#f0e8d0;border-top:1px solid rgba(201,169,110,.25);padding-top:10px;margin-bottom:8px;}
 #timeline{background:var(--bg2);}
 .tls{display:flex;margin-top:56px;overflow-x:auto;padding-bottom:28px;scrollbar-width:thin;scrollbar-color:var(--gd) transparent;}
 .tli{flex:0 0 270px;padding:38px 28px;border-right:1px solid #181828;position:relative;transition:background .3s;}
@@ -178,8 +178,8 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
 .atab.active{color:var(--gold);border-bottom-color:var(--gold);}
 .asec{display:none;}
 .asec.active{display:block;}
-.admin-card{background:var(--bg2);border:1px solid #181828;padding:32px;margin-bottom:24px;}
-.admin-card h3{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #181828;}
+.acard{background:var(--bg2);border:1px solid #181828;padding:32px;margin-bottom:24px;}
+.acard h3{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--cream);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #181828;}
 .af2{margin-bottom:16px;}
 .af2 label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;}
 .af2 input,.af2 textarea,.af2 select{width:100%;padding:10px 14px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;transition:border-color .3s;}
@@ -269,9 +269,9 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
 .flabel{padding:9px 20px;border:1px solid #22223a;color:var(--dim);font-size:10px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;background:var(--bg);display:inline-block;transition:all .3s;}
 .flabel:hover{border-color:var(--gold);color:var(--gold);}
 /* POPUP */
-.popup{display:none;position:fixed;inset:0;z-index:7000;background:rgba(4,4,10,.96);backdrop-filter:blur(18px);align-items:center;justify-content:center;}
+.popup{display:none;position:fixed;inset:0;z-index:7000;background:rgba(4,4,10,.96);backdrop-filter:blur(18px);align-items:center;justify-content:center;overflow-y:auto;}
 .popup.open{display:flex;}
-.pbox{background:var(--bg2);border:1px solid var(--gd);padding:46px;max-width:420px;width:90%;position:relative;}
+.pbox{background:var(--bg2);border:1px solid var(--gd);padding:46px;max-width:420px;width:90%;position:relative;max-height:90vh;overflow-y:auto;margin:auto;}
 .pbox-cl{position:absolute;top:16px;right:16px;width:36px;height:36px;background:none;border:1px solid #2a2a40;color:var(--cream);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;}
 .pbox-cl:hover{border-color:var(--gold);color:var(--gold);}
 .prow2{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #181828;}
@@ -390,7 +390,7 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
   .abody{padding:16px;}
   .atabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px;}
   .atab{white-space:nowrap;font-size:9px;padding:10px 14px;}
-  .admin-card{padding:20px 16px;}
+  .acard{padding:20px 16px;}
   .af2 input,.af2 textarea,.af2 select{font-size:14px;}
   .arow{grid-template-columns:50px 1fr auto;gap:8px;}
   .arow input{font-size:11px;}
@@ -509,6 +509,7 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
     </div>
     <div class="sf"><label>Price</label><input id="s-pr" placeholder="₹1,50,000 or Not for Sale"></div>
     <div class="sf"><label>Description *</label><textarea id="s-de" placeholder="Tell us about your artwork..."></textarea></div>
+    <div class="sf"><label>Artwork History</label><textarea id="s-hi" placeholder="Share the story behind this piece — its inspiration, creation process, exhibitions, or any notable events in its journey..." style="height:110px;"></textarea></div>
     <div class="sf">
       <label>Upload Image *</label>
       <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
@@ -533,6 +534,21 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
     <div class="prow2"><p>Saturday – Sunday</p><p>10:00 AM – 8:00 PM</p></div>
     <div class="prow2"><p>Last Entry</p><p style="color:var(--gold);">7:30 PM</p></div>
     <div style="background:rgba(201,169,110,.06);border:1px solid var(--gd);padding:14px 18px;margin-top:16px;"><p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Note</p><p style="font-size:13px;color:var(--dim);line-height:1.7;">Open all days. Timings may vary during special exhibitions.</p></div>
+  </div>
+</div>
+
+<!-- HISTORY MODAL -->
+<div class="popup" id="histm">
+  <div class="pbox" style="max-width:540px;width:90vw;">
+    <button class="pbox-cl" onclick="closeM('histm')">✕</button>
+    <div class="plabel">Artwork History</div>
+    <div id="hist-title" style="font-family:'Cinzel',serif;font-size:20px;color:var(--cream);margin-bottom:6px;letter-spacing:.06em;"></div>
+    <div id="hist-artist" style="font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px;"></div>
+    <div style="height:1px;background:linear-gradient(to right,var(--gold),transparent);margin-bottom:20px;"></div>
+    <div style="font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">About this Work</div>
+    <p id="hist-desc" style="font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.85;color:var(--dim);font-style:italic;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid #1e1e30;"></p>
+    <div style="font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Provenance &amp; History</div>
+    <p id="hist-text" style="font-family:'Cormorant Garamond',serif;font-size:16.5px;line-height:2;color:var(--text);"></p>
   </div>
 </div>
 
@@ -627,11 +643,11 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
       <button class="atab" onclick="aTab(this,'ts')">Stats</button>
       <button class="atab" onclick="aTab(this,'ti')">Gallery Info</button>
       <button class="atab" onclick="aTab(this,'tp')">Pending <span id="pb" style="background:var(--gold);color:var(--bg);font-size:9px;padding:2px 6px;margin-left:4px;">0</span></button>
-      <button class="atab" onclick="aTab(this,'tv')">Users</button>
+      <button class="atab" onclick="aTab(this,'tv')">Users <span id="upb" style="background:#333;color:var(--bg);font-size:9px;padding:2px 6px;margin-left:4px;">0</span></button>
       <button class="atab" onclick="aTab(this,'tpay')">Purchases</button>
     </div>
     <div class="asec active" id="th">
-      <div class="admin-card"><h3>Hero Section</h3>
+      <div class="acard"><h3>Hero Section</h3>
         <div class="ag2">
           <div class="af2"><label>Gallery Name</label><input id="en" value="Artistry Haven"></div>
           <div class="af2"><label>Eyebrow Text</label><input id="ee" value="Contemporary Art Gallery · Est. 2026"></div>
@@ -641,9 +657,9 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
         <button class="asave" onclick="saveHero()">Save Changes</button>
       </div>
     </div>
-    <div class="asec" id="ta"><div class="admin-card"><h3>Manage Artworks</h3><div id="ar"></div></div></div>
+    <div class="asec" id="ta"><div class="acard"><h3>Manage Artworks</h3><div id="ar"></div></div></div>
     <div class="asec" id="ts">
-      <div class="admin-card"><h3>Statistics</h3>
+      <div class="acard"><h3>Statistics</h3>
         <div class="serow"><label>Artworks</label><input type="number" id="sa" value="240"></div>
         <div class="serow"><label>Artists</label><input type="number" id="sb" value="80"></div>
         <div class="serow"><label>Exhibitions</label><input type="number" id="sc" value="36"></div>
@@ -652,7 +668,7 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
       </div>
     </div>
     <div class="asec" id="ti">
-      <div class="admin-card"><h3>Gallery Information</h3>
+      <div class="acard"><h3>Gallery Information</h3>
         <div class="ag2">
           <div class="af2"><label>Department</label><input id="id2" value="Computer Science & Engineering"></div>
           <div class="af2"><label>Footer Tagline</label><input id="it" value="A sanctuary for art and contemplation"></div>
@@ -664,9 +680,9 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
         <button class="asave" onclick="saveInfo()">Save Info</button>
       </div>
     </div>
-    <div class="asec" id="tp"><div class="admin-card"><h3>Pending Submissions</h3><div id="pl"><p style="color:var(--dim);font-size:13px;">No pending submissions.</p></div></div></div>
-    <div class="asec" id="tv"><div class="admin-card"><h3>Registered Users</h3><div id="vl"></div></div></div>
-    <div class="asec" id="tpay"><div class="admin-card"><h3>Purchase History</h3><div id="paylist"></div></div></div>
+    <div class="asec" id="tp"><div class="acard"><h3>Pending Submissions</h3><div id="pl"><p style="color:var(--dim);font-size:13px;">No pending submissions.</p></div></div></div>
+    <div class="asec" id="tv"><div class="acard"><h3>Registered Users</h3><div id="vl"></div></div></div>
+    <div class="asec" id="tpay"><div class="acard"><h3>Purchase History</h3><div id="paylist"></div></div></div>
   </div>
 </div>
 
@@ -815,8 +831,8 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;$('cur').sty
 
 /* AUTH SYSTEM */
 let registeredUsers=[
-  {name:'Demo Visitor',username:'visitor',email:'visitor@demo.com',pass:'visit123',role:'visitor',joined:'2026-01-10',logins:7},
-  {name:'Administrator',username:'admin',email:'admin@artistry.com',pass:'admin123',role:'admin',joined:'2026-01-01',logins:42}
+  {name:'Demo Visitor',username:'visitor',email:'visitor@demo.com',pass:'visit123',role:'visitor',joined:'2026-01-10',logins:7,status:'approved'},
+  {name:'Administrator',username:'admin',email:'admin@artistry.com',pass:'admin123',role:'admin',joined:'2026-01-01',logins:42,status:'approved'}
 ];
 let currentUser=null,loginRole='visitor';
 
@@ -834,7 +850,9 @@ function selRole(btn,role){
 function doLogin(){
   const u=$('l-user').value.trim(),p=$('l-pass').value;
   const found=registeredUsers.find(x=>x.username===u&&x.pass===p&&x.role===loginRole);
-  if(!found){$('l-err').style.display='block';return;}
+  if(!found){$('l-err').textContent='Invalid credentials. Please try again.';$('l-err').style.display='block';return;}
+  if(found.status==='pending'){$('l-err').textContent='⏳ Your account is awaiting admin approval. Please check back later.';$('l-err').style.display='block';return;}
+  if(found.status==='rejected'){$('l-err').textContent='✕ Your account registration was not approved. Contact the admin for assistance.';$('l-err').style.display='block';return;}
   found.logins=(found.logins||0)+1;
   currentUser=found;closeM('lm');
   $('lnb').style.display='none';
@@ -850,7 +868,9 @@ function doRegister(){
   if(!name||!user||!email||!pass||pass.length<6){$('r-err').textContent='Please fill all fields (password min 6 chars).';$('r-err').style.display='block';return;}
   if(pass!==conf){$('r-err').textContent='Passwords do not match.';$('r-err').style.display='block';return;}
   if(registeredUsers.find(x=>x.username===user)){$('r-err').textContent='Username already taken.';$('r-err').style.display='block';return;}
-  registeredUsers.push({name,username:user,email,pass,role:'visitor',joined:new Date().toISOString().slice(0,10),logins:0});
+  registeredUsers.push({name,username:user,email,pass,role:'visitor',joined:new Date().toISOString().slice(0,10),logins:0,status:'pending'});
+  updateUserPB();
+  $('r-ok').textContent='✓ Account created! Awaiting admin approval before you can login.';
   $('r-ok').style.display='block';
   setTimeout(()=>{switchAuth(document.querySelector('.auth-tab'),'login');$('l-user').value=user;},1500);
 }
@@ -858,13 +878,13 @@ function logout(){currentUser=null;$('lnb').style.display='';$('ub').style.displ
 
 /* ART DATA */
 let arts=[
-  {title:"Chromatic Void",artist:"Ananya Sharma",year:"2022",cat:"abstract",price:"₹4,50,000",desc:"A meditation on color and emptiness exploring the tension between vibrant pigment and the void.",type:0},
-  {title:"Midnight Bloom",artist:"Karan Patel",year:"2021",cat:"impressionist",price:"₹3,20,000",desc:"Post-impressionist nocturnal garden in a state of perpetual becoming.",type:1},
-  {title:"Silence No. 7",artist:"Rekha Iyer",year:"2023",cat:"modern",price:"₹2,80,000",desc:"Minimalist lines on textured paper speak more in restraint than any declaration.",type:2},
-  {title:"Rage & Gold",artist:"Mihir Verma",year:"2020",cat:"abstract",price:"₹5,10,000",desc:"Explosive gestural canvas channels the tumult of contemporary urban existence.",type:3},
-  {title:"Garden of Points",artist:"Sunita Nair",year:"2022",cat:"impressionist",price:"₹3,90,000",desc:"Thousands of dots coalesce into extraordinary beauty bridging 19th century and contemporary Indian sensibility.",type:4},
-  {title:"Digital Specter",artist:"Arun Kumar",year:"2024",cat:"digital",price:"₹1,80,000",desc:"Haunting exploration of digital consciousness interrogating the line between organic and synthetic.",type:5},
-  {title:"Monsoon Wash",artist:"Priya Das",year:"2023",cat:"modern",price:"₹2,10,000",desc:"Luminous watercolor layers evoke the melancholy and relief of the Indian monsoon.",type:6},
+  {title:"Chromatic Void",artist:"Ananya Sharma",year:"2022",cat:"abstract",price:"₹4,50,000",desc:"A meditation on color and emptiness exploring the tension between vibrant pigment and the void.",type:0,history:"Chromatic Void was conceived during Ananya Sharma's residency at the Kochi-Muziris Biennale in 2021, where she explored the philosophical concept of sunyata — the Buddhist notion of emptiness as potential rather than absence. Originally rejected by two galleries for being considered too confrontational, the piece was championed by curator Radhika Mehta and debuted at the 2022 Mumbai Contemporary Art Fair, where it sold out its print edition within the opening evening. It is now considered one of the defining Indian abstract works of the decade."},
+  {title:"Midnight Bloom",artist:"Karan Patel",year:"2021",cat:"impressionist",price:"₹3,20,000",desc:"Post-impressionist nocturnal garden in a state of perpetual becoming.",type:1,history:"Karan Patel painted Midnight Bloom across seven consecutive nights in his Jaipur studio following the passing of his grandmother, whose garden provided the compositional source material. The work draws directly from the Bengal School's nocturne tradition established by Abanindranath Tagore, filtered through Patel's study of Van Gogh's late paintings at the Musee d'Orsay in 2019. The lotus in the lower right corner — barely visible — was added on the final night as a private memorial gesture. The painting was exhibited at the Lalit Kala Akademi National Exhibition in 2022."},
+  {title:"Silence No. 7",artist:"Rekha Iyer",year:"2023",cat:"modern",price:"₹2,80,000",desc:"Minimalist lines on textured paper speak more in restraint than any declaration.",type:2,history:"Silence No. 7 is the seventh and final work in Rekha Iyer's celebrated Silences series, begun in 2018 as a response to the noise pollution she experienced during urbanisation in Chennai. Each piece in the series took a minimum of three months to complete, with Iyer working only in the pre-dawn hours between 3 and 5 AM. The series earned her the prestigious Sangam Art Prize in 2023 and was acquired in part by the National Gallery of Modern Art, New Delhi. Silence No. 7 is widely regarded as the emotional apex of the series."},
+  {title:"Rage & Gold",artist:"Mihir Verma",year:"2020",cat:"abstract",price:"₹5,10,000",desc:"Explosive gestural canvas channels the tumult of contemporary urban existence.",type:3,history:"Created during the first lockdown of 2020, Rage & Gold channelled Mihir Verma's claustrophobic experience of Kolkata apartment life into a physically intense, four-hour gestural session. The gold pigment was sourced from a traditional wedding fabric supplier in Barabazar — Verma's deliberate collision of festive material with existential anguish. The work was shared online during the lockdown and went viral, attracting international press coverage and inquiries from collectors in Berlin and New York. It was ultimately exhibited at Gallery Espace, New Delhi, in 2021 as the centrepiece of Verma's solo debut."},
+  {title:"Garden of Points",artist:"Sunita Nair",year:"2022",cat:"impressionist",price:"₹3,90,000",desc:"Thousands of dots coalesce into extraordinary beauty bridging 19th century and contemporary Indian sensibility.",type:4,history:"Garden of Points took Sunita Nair fourteen months and an estimated 1.2 million individual dot applications to complete. Inspired by her study of Seurat's 'A Sunday Afternoon' at the Art Institute of Chicago during a Fulbright Fellowship, Nair transposed the pointillist method onto the landscape of her ancestral village in Kerala. The work is notable for its use of natural earth pigments sourced from the Western Ghats alongside traditional mineral colours used in Kerala mural painting. It was acquired by the Peabody Essex Museum in 2023 as part of their expanding South Asian contemporary collection."},
+  {title:"Digital Specter",artist:"Arun Kumar",year:"2024",cat:"digital",price:"₹1,80,000",desc:"Haunting exploration of digital consciousness interrogating the line between organic and synthetic.",type:5,history:"Digital Specter emerged from Arun Kumar's two-year research collaboration with IIT Madras's computational aesthetics lab, where he developed a custom generative algorithm that simulates synaptic misfiring in neural networks. The final output — a limited edition of 12 archival prints — was produced through a hybrid process combining AI-generated base imagery with hand-applied interference pigments that shift colour under different light conditions. The work sparked significant debate at the 2024 India Art Fair about authorship and machine creativity. Kumar has since been invited to present the research methodology at the Centre Pompidou."},
+  {title:"Monsoon Wash",artist:"Priya Das",year:"2023",cat:"modern",price:"₹2,10,000",desc:"Luminous watercolor layers evoke the melancholy and relief of the Indian monsoon.",type:6,history:"Monsoon Wash was painted en plein air over three consecutive monsoon seasons in the wetlands surrounding Bhubaneswar, Odisha. Priya Das worked entirely with handmade watercolour pigments prepared using traditional Pattachitra techniques — a practice she learned from master artisans in Raghurajpur village. The work carries seventeen transparent washes, each applied only when the previous layer had dried naturally in the monsoon humidity — a process that could take anywhere from one hour to two days depending on conditions. It was shortlisted for the Young Masters Art Prize (Watercolour Category) in 2024."},
 ];
 
 function gen(type){
@@ -914,6 +934,7 @@ _curatedArts.forEach((art)=>{
       arts.unshift(...rArts);
       canvases.unshift(...rCvs);
       buildGrid();buildGM();
+      for(let i=0;i<Math.min(3,frames.length);i++){const tex=new THREE.CanvasTexture(canvases[i]);tex.needsUpdate=true;const mesh=frames[i].userData.artMesh;if(mesh){mesh.material.map=tex;mesh.material.needsUpdate=true;}}
     }
   };
   im.onerror=()=>{_curLoaded++;if(_curLoaded===_curatedArts.length){buildGrid();buildGM();}};
@@ -936,7 +957,7 @@ arts.forEach((a,i)=>{
   const ang=(i/arts.length)*Math.PI*2,R=7.5,fy=(Math.random()-.5)*1.2;
   const fm=new THREE.Mesh(new THREE.BoxGeometry(2.5,3.1,.11),new THREE.MeshStandardMaterial({color:0xc9a96e,metalness:.92,roughness:.15}));
   const m2=new THREE.Mesh(new THREE.PlaneGeometry(2.1,2.7),new THREE.MeshStandardMaterial({color:0x080808}));m2.position.z=.057;fm.add(m2);
-  const am=new THREE.Mesh(new THREE.PlaneGeometry(1.95,2.55),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(gen(a.type))}));am.position.z=.059;fm.add(am);
+  const am=new THREE.Mesh(new THREE.PlaneGeometry(1.95,2.55),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(gen(a.type))}));am.position.z=.059;fm.add(am);fm.userData.artMesh=am;
   fm.position.set(Math.cos(ang)*R,fy,Math.sin(ang)*R);fm.lookAt(0,fy,0);fm.rotateY(Math.PI);fm.userData.by=fy;grp.add(fm);frames.push(fm);
 });
 const pPos=new Float32Array(3000);for(let i=0;i<3000;i++)pPos[i]=(Math.random()-.5)*70;
@@ -956,15 +977,15 @@ function buildGrid(){
     const imgEl=document.createElement('img');
     imgEl.src=canvases[i]?canvases[i].toDataURL():'';
     imgEl.style.cssText='width:100%;height:100%;object-fit:cover;display:block;';
-    card.innerHTML=`<div class="acard-in"><div class="af"><div class="ah"></div><div class="af-info"><h3>${a.title}</h3><p>${a.artist} · ${a.year}</p></div></div><div class="ab"><div class="ctag">${a.cat}</div><h3>${a.title}</h3><div class="aname">${a.artist}</div><p>${a.desc}</p><div class="aprice">${a.price}</div><button onclick="event.stopPropagation();buyArt(${i})" style="margin-top:10px;padding:8px 22px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;width:100%;">🛒 Buy Now</button></div></div>`;
+    card.innerHTML=`<div class="acard-in"><div class="af"><div class="ah"></div><div class="af-info"><h3>${a.title}</h3><p>${a.artist} · ${a.year}</p></div></div><div class="ab"><div class="ctag">${a.cat}</div><h3>${a.title}</h3><div class="aname">${a.artist}</div><p>${a.desc}</p><div class="aprice">${a.price}</div><button onclick="event.stopPropagation();buyArt(${i})" style="margin-top:10px;padding:8px 22px;background:var(--gold);border:none;color:var(--bg);font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;width:100%;">🛒 Buy Now</button><button onclick="event.stopPropagation();viewHistory(${i})" style="margin-top:7px;padding:7px 22px;background:none;border:1px solid rgba(201,169,110,.45);color:#e8c87a;font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;width:100%;transition:border-color .3s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,169,110,.45)'">📜 View History</button></div></div>`;
     card.querySelector('.ah').replaceWith(imgEl);$('gg').appendChild(card);
   });
 }
 buildGrid();
 document.querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',function(){
   document.querySelectorAll('[data-f]').forEach(x=>x.classList.remove('active'));this.classList.add('active');
-  const f=this.dataset.f;let vi=0;
-  document.querySelectorAll('.acard').forEach((c)=>{const show=f==='all'||c.dataset.category===f;c.style.display=show?'':'none';if(show){c.style.opacity=0;const d=vi*60;vi++;setTimeout(()=>{c.style.transition='opacity .5s';c.style.opacity=1;},d);}});
+  const f=this.dataset.f;
+  document.querySelectorAll('.acard').forEach((c,i)=>{const show=f==='all'||c.dataset.category===f;c.style.display=show?'':'none';if(show){c.style.opacity=0;setTimeout(()=>{c.style.transition='opacity .5s';c.style.opacity=1;},i*60);}});
 }));
 
 /* GALLERY MODAL */
@@ -986,9 +1007,17 @@ function openLb(i){lbI=i;drawLb();$('lb').classList.add('open');}
 function drawLb(){const a=arts[lbI],src=canvases[lbI],d=$('lbc');d.width=src.width;d.height=src.height;d.getContext('2d').drawImage(src,0,0);$('lbt').textContent=a.title;$('lbm').textContent=`${a.artist} · ${a.year} · ${a.cat} · ${a.price}`;$('lbd').textContent=a.desc;}
 function closeLb(){$('lb').classList.remove('open');}
 function moveLb(d){lbI=(lbI+d+arts.length)%arts.length;drawLb();}
+function viewHistory(i){
+  const a=arts[i];
+  $('hist-title').textContent=a.title;
+  $('hist-artist').textContent=a.artist+' · '+a.year+' · '+a.cat;
+  $('hist-desc').textContent=a.desc;
+  $('hist-text').textContent=a.history||a.desc||'No history has been recorded for this artwork yet.';
+  open2('histm');
+}
 document.addEventListener('keydown',e=>{
   if($('lb').classList.contains('open')){if(e.key==='ArrowRight')moveLb(1);if(e.key==='ArrowLeft')moveLb(-1);if(e.key==='Escape')closeLb();}
-  if(e.key==='Escape')['gm','aim','lm','sm','hpop','lpop','paym'].forEach(id=>{const el=$(id);if(el)el.classList.remove('open');});
+  if(e.key==='Escape')['gm','aim','lm','sm','hpop','lpop','paym','histm'].forEach(id=>{const el=$(id);if(el)el.classList.remove('open');});
 });
 
 /* TIMELINE */
@@ -1082,9 +1111,9 @@ function aTab(btn,sec){
   if(sec==='tpay')setTimeout(renderPurchases,0);
 }
 function closeAdmin(){$('ap').classList.remove('open');}
-function saveHero(){const n=$('en').value||'Artistry Haven';$('hti').textContent=n;document.querySelectorAll('.flogo').forEach(el=>el.textContent=n);$('hey').textContent=$('ee').value;$('hsu').textContent=$('et').value;$('hct').textContent=$('ec').value;showToast();}
+function saveHero(){$('hey').textContent=$('ee').value;$('hsu').textContent=$('et').value;$('hct').textContent=$('ec').value;showToast();}
 function saveStats(){sv={a:+$('sa').value,b:+$('sb').value,c:+$('sc').value,d:+$('sd').value};$('c1').textContent=sv.a+'+';$('c2').textContent=sv.b+'+';$('c3').textContent=sv.c;$('c4').textContent=sv.d;showToast();}
-function saveInfo(){$('fd').textContent=$('it').value;const o=$('io').value||'10:00 AM',c=$('ic').value||'8:00 PM';document.querySelectorAll('#hpop .prow2 p:last-child').forEach((el,i)=>{if(i===0)el.textContent=o+' – '+c;if(i===1)el.textContent=o+' – '+c;});showToast();}
+function saveInfo(){$('fd').textContent=$('it').value;showToast();}
 
 function prevImg(input,pvId,fnId,isSub){
   const file=input.files[0];if(!file)return;$(fnId).textContent=file.name;
@@ -1111,6 +1140,7 @@ function renderArtworks(){
     <div><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px;">Art Style</label><select id="nty" style="width:100%;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;"><option value="0">Abstract Geometric</option><option value="1">Night/Impressionist</option><option value="2">Minimalist Lines</option><option value="3">Expressionist</option><option value="4">Pointillist</option><option value="5">Digital/Circuit</option><option value="6">Watercolor</option></select></div>
   </div>
   <div style="margin-bottom:12px;"><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px;">Description *</label><textarea id="nd" placeholder="Description..." style="width:100%;height:65px;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;resize:vertical;line-height:1.6;"></textarea></div>
+  <div style="margin-bottom:12px;"><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px;">Artwork History</label><textarea id="nhi" placeholder="The story behind this artwork — provenance, exhibitions, inspiration, creation process..." style="width:100%;height:80px;padding:8px 12px;background:var(--bg);border:1px solid #22223a;color:var(--cream);font-family:'Raleway',sans-serif;font-size:13px;outline:none;resize:vertical;line-height:1.6;"></textarea></div>
   <div style="margin-bottom:16px;"><label style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:6px;">Upload Image (optional)</label>
     <div style="display:flex;align-items:center;gap:12px;"><label class="flabel" for="nup">Choose File</label><input type="file" id="nup" accept="image/*" style="display:none;" onchange="prevImg(this,'npv','nfn',false)"><span id="nfn" style="font-size:12px;color:var(--dim);">No file chosen</span><canvas id="npv" width="60" height="60" style="border:1px solid #22223a;display:none;"></canvas></div>
   </div>
@@ -1123,7 +1153,8 @@ function renderArtworks(){
 function addArt(){
   const t=$('nt').value.trim(),a=$('na').value.trim(),y=$('ny').value.trim(),p=$('np').value.trim(),d=$('nd').value.trim();
   if(!t||!a||!y||!p||!d){$('naerr').style.display='inline';return;}$('naerr').style.display='none';
-  const entry={title:t,artist:a,year:y,cat:$('nc').value,price:p,desc:d,type:+$('nty').value};arts.push(entry);
+  const hi=$('nhi')?$('nhi').value.trim():'';
+  const entry={title:t,artist:a,year:y,cat:$('nc').value,price:p,desc:d,history:hi,type:+$('nty').value};arts.push(entry);
   if(newImg){const cv=document.createElement('canvas');cv.width=512;cv.height=640;const img=new Image();img.onload=()=>{const ctx=cv.getContext('2d'),s=Math.max(512/img.width,640/img.height);ctx.drawImage(img,(512-img.width*s)/2,(640-img.height*s)/2,img.width*s,img.height*s);canvases.push(cv);buildGrid();buildGM();showToast();};img.src=newImg;newImg=null;}
   else{canvases.push(gen(entry.type));buildGrid();buildGM();showToast();}
   renderArtworks();
@@ -1134,10 +1165,15 @@ function updatePB(){const n=pending.filter(p=>p.status==='pending').length;$('pb
 function submitArt(){
   const t=$('s-ti').value.trim(),a=$('s-ar').value.trim(),y=$('s-yr').value.trim(),d=$('s-de').value.trim();
   if(!t||!a||!y||!d||!sImg){$('s-err').style.display='block';return;}$('s-err').style.display='none';
-  pending.push({id:Date.now(),title:t,artist:a,year:y,cat:$('s-cat').value,price:$('s-pr').value||'Not for Sale',desc:d,img:sImg,by:currentUser?currentUser.username:'visitor',at:new Date().toLocaleString(),status:'pending'});
+  const hi=$('s-hi').value.trim();
+  pending.push({id:Date.now(),title:t,artist:a,year:y,cat:$('s-cat').value,price:$('s-pr').value||'Not for Sale',desc:d,history:hi,img:sImg,by:currentUser?currentUser.username:'visitor',at:new Date().toLocaleString(),status:'pending'});
   updatePB();$('s-ok').style.display='block';
-  setTimeout(()=>{$('s-ok').style.display='none';closeM('sm');['s-ti','s-ar','s-yr','s-pr','s-de'].forEach(i=>$(i).value='');$('s-fn').textContent='No file chosen';$('s-pv').style.display='none';sImg=null;},2200);
+  setTimeout(()=>{$('s-ok').style.display='none';closeM('sm');['s-ti','s-ar','s-yr','s-pr','s-de','s-hi'].forEach(i=>$(i).value='');$('s-fn').textContent='No file chosen';$('s-pv').style.display='none';sImg=null;},2200);
 }
+
+function updateUserPB(){const n=registeredUsers.filter(u=>u.status==='pending').length;$('upb').textContent=n;$('upb').style.background=n?'var(--gold)':'#333';}
+function approveUser(username){const u=registeredUsers.find(x=>x.username===username);if(u){u.status='approved';updateUserPB();renderUsers();showToast();}}
+function rejectUser(username){const u=registeredUsers.find(x=>x.username===username);if(u){u.status='rejected';updateUserPB();renderUsers();}}
 
 function renderPending(){
   const c=$('pl');c.innerHTML='';
@@ -1159,22 +1195,47 @@ function renderPending(){
 function approveArt(id){
   const a=pending.find(x=>x.id===id);if(!a)return;a.status='approved';
   const cv=document.createElement('canvas');cv.width=512;cv.height=640;
-  const img=new Image();img.onload=()=>{const ctx=cv.getContext('2d'),s=Math.max(512/img.width,640/img.height);ctx.drawImage(img,(512-img.width*s)/2,(640-img.height*s)/2,img.width*s,img.height*s);arts.push({title:a.title,artist:a.artist,year:a.year,cat:a.cat.toLowerCase(),price:a.price,desc:a.desc,type:0});canvases.push(cv);buildGrid();buildGM();updatePB();renderPending();showToast();};img.src=a.img;
+  const img=new Image();img.onload=()=>{const ctx=cv.getContext('2d'),s=Math.max(512/img.width,640/img.height);ctx.drawImage(img,(512-img.width*s)/2,(640-img.height*s)/2,img.width*s,img.height*s);arts.push({title:a.title,artist:a.artist,year:a.year,cat:a.cat.toLowerCase(),price:a.price,desc:a.desc,history:a.history||'',type:0});canvases.push(cv);buildGrid();buildGM();updatePB();renderPending();showToast();};img.src=a.img;
 }
 function rejectArt(id){const a=pending.find(x=>x.id===id);if(a){a.status='rejected';updatePB();renderPending();}}
 
 function renderUsers(){
   const c=$('vl');c.innerHTML='';
+  // Pending users section
+  const pendUsers=registeredUsers.filter(u=>u.status==='pending');
+  if(pendUsers.length){
+    const phdr=document.createElement('div');
+    phdr.style.cssText='font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#fb8c00;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #281800;';
+    phdr.textContent='⏳ Pending Approval ('+pendUsers.length+')';
+    c.appendChild(phdr);
+    pendUsers.forEach(u=>{
+      const row=document.createElement('div');
+      row.style.cssText='display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #181828;flex-wrap:wrap;';
+      row.innerHTML=`<div style="flex:1;min-width:160px;"><div style="font-size:14px;color:var(--cream);">${u.name}</div><div style="font-size:11px;color:var(--dim);margin-top:2px;">${u.username} · ${u.email}</div><div style="font-size:10px;color:var(--dim);margin-top:2px;">Registered: ${u.joined}</div></div>`;
+      const ab=document.createElement('button');ab.className='appbtn';ab.textContent='✓ Approve';ab.onclick=()=>approveUser(u.username);
+      const rb=document.createElement('button');rb.className='rejbtn';rb.textContent='✕ Reject';rb.onclick=()=>rejectUser(u.username);
+      row.appendChild(ab);row.appendChild(rb);
+      c.appendChild(row);
+    });
+    const sep=document.createElement('div');sep.style.cssText='margin:22px 0 16px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);';sep.textContent='All Users';
+    c.appendChild(sep);
+  }
+  // Full users table
   const tbl=document.createElement('table');tbl.className='atable';
-  tbl.innerHTML=`<thead><tr><th>Name</th><th>Username</th><th>Email</th><th>Role</th><th>Joined</th><th>Logins</th></tr></thead><tbody></tbody>`;
+  tbl.innerHTML=`<thead><tr><th>Name</th><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th>Joined</th><th>Logins</th></tr></thead><tbody></tbody>`;
   const tb=tbl.querySelector('tbody');
   registeredUsers.forEach(u=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${u.name}</td><td>${u.username}</td><td>${u.email}</td><td><span class="badge ${u.role==='admin'?'badge-a':'badge-v'}">${u.role}</span></td><td>${u.joined}</td><td>${u.logins||0}</td>`;
+    const st=u.status||'approved';
+    const sbadge=st==='approved'?'abadge2':st==='rejected'?'rbadge':'pbadge';
+    tr.innerHTML=`<td>${u.name}</td><td>${u.username}</td><td>${u.email}</td><td><span class="badge ${u.role==='admin'?'badge-a':'badge-v'}">${u.role}</span></td><td><span class="${sbadge}">${st}</span></td><td>${u.joined}</td><td>${u.logins||0}</td>`;
     tb.appendChild(tr);
   });
   c.appendChild(tbl);
-  const total=document.createElement('div');total.style.cssText='margin-top:14px;font-size:12px;color:var(--dim);';total.textContent=`Total: ${registeredUsers.length} users · ${registeredUsers.filter(u=>u.role==='visitor').length} visitors · ${registeredUsers.filter(u=>u.role==='admin').length} admins`;
+  const total=document.createElement('div');total.style.cssText='margin-top:14px;font-size:12px;color:var(--dim);';
+  const approved=registeredUsers.filter(u=>(!u.status||u.status==='approved')).length;
+  const pend=registeredUsers.filter(u=>u.status==='pending').length;
+  total.textContent=`Total: ${registeredUsers.length} users · ${approved} approved · ${pend} pending`;
   c.appendChild(total);
 }
 
