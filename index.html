@@ -416,6 +416,10 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
   .pay-methods{gap:4px;}
   .pm-btn{font-size:8px;min-width:60px;}
 }
+.v-err{border-color:#e63946 !important;}
+.v-msg{color:#e63946;font-size:11px;margin-top:4px;display:block;font-family:'Raleway',sans-serif;letter-spacing:.04em;}
+.v-ok{border-color:#4caf50 !important;}
+input.v-err,textarea.v-err,select.v-err{box-shadow:0 0 0 1px #e63946;}
 </style>
 </head>
 <body>
@@ -442,11 +446,11 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
       </div>
       <div class="pay-form">
         <div id="pf-card">
-          <div class="pf"><label>Cardholder Name</label><input id="cc-name" placeholder="Name on card"></div>
-          <div class="pf"><label>Card Number</label><input id="cc-num" placeholder="1234 5678 9012 3456" maxlength="19" oninput="fmtCard(this)"></div>
+          <div class="pf"><label>Cardholder Name</label><input id="cc-name" placeholder="Name on card" oninput="vClear(this)"><span class="v-msg" id="e-cc-name"></span></div>
+          <div class="pf"><label>Card Number</label><input id="cc-num" placeholder="1234 5678 9012 3456" maxlength="19" oninput="fmtCard(this);vClear(this)"><span class="v-msg" id="e-cc-num"></span></div>
           <div class="pf-row">
-            <div class="pf"><label>Expiry</label><input placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)"></div>
-            <div class="pf"><label>CVV</label><input placeholder="•••" maxlength="3" type="password"></div>
+            <div class="pf"><label>Expiry</label><input id="cc-exp" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this);vClear(this)"><span class="v-msg" id="e-cc-exp"></span></div>
+            <div class="pf"><label>CVV</label><input id="cc-cvv" placeholder="•••" maxlength="4" type="password" oninput="vClear(this)"><span class="v-msg" id="e-cc-cvv"></span></div>
           </div>
         </div>
         <div id="pf-upi" style="display:none;">
@@ -458,7 +462,7 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
               <button class="upi-opt" onclick="selUpi(this)">BHIM</button>
             </div>
           </div>
-          <div class="pf"><label>UPI ID</label><input placeholder="yourname@upi"></div>
+          <div class="pf"><label>UPI ID</label><input id="upi-id" placeholder="yourname@upi" oninput="vClear(this)"><span class="v-msg" id="e-upi-id"></span></div>
         </div>
         <div id="pf-netbank" style="display:none;">
           <div class="pf"><label>Select Bank</label>
@@ -466,8 +470,8 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
               <option>State Bank of India</option><option>HDFC Bank</option><option>ICICI Bank</option><option>Axis Bank</option><option>Kotak Mahindra</option><option>Punjab National Bank</option>
             </select>
           </div>
-          <div class="pf"><label>User ID</label><input placeholder="Net banking user ID"></div>
-          <div class="pf"><label>Password</label><input type="password" placeholder="••••••••"></div>
+          <div class="pf"><label>User ID</label><input id="nb-uid" placeholder="Net banking user ID" oninput="vClear(this)"><span class="v-msg" id="e-nb-uid"></span></div>
+          <div class="pf"><label>Password</label><input id="nb-pass" type="password" placeholder="••••••••" oninput="vClear(this)"><span class="v-msg" id="e-nb-pass"></span></div>
         </div>
         <div id="pf-wallet" style="display:none;">
           <div class="pf"><label>Select Wallet</label>
@@ -477,7 +481,7 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
               <button class="upi-opt" onclick="selUpi(this)">Mobikwik</button>
             </div>
           </div>
-          <div class="pf"><label>Registered Mobile</label><input placeholder="10-digit mobile number" maxlength="10"></div>
+          <div class="pf"><label>Registered Mobile</label><input id="wlt-mob" placeholder="10-digit mobile number" maxlength="10" oninput="vClear(this)"><span class="v-msg" id="e-wlt-mob"></span></div>
         </div>
         <button class="pay-btn" id="pay-submit-btn" onclick="processPayment()">Pay <span id="pay-btn-amt">₹0</span></button>
         <div class="pay-secure">🔒 256-bit SSL Encrypted &nbsp;·&nbsp; PCI DSS Compliant</div>
@@ -500,23 +504,24 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
     <h2>Submit Your Artwork</h2>
     <div class="sbox-sub">Reviewed by admin before going live</div>
     <div class="sg2">
-      <div class="sf"><label>Title *</label><input id="s-ti" placeholder="Artwork title"></div>
-      <div class="sf"><label>Artist Name *</label><input id="s-ar" placeholder="Your name"></div>
+      <div class="sf"><label>Title *</label><input id="s-ti" placeholder="Artwork title" oninput="vClear(this)"><span class="v-msg" id="e-s-ti"></span></div>
+      <div class="sf"><label>Artist Name *</label><input id="s-ar" placeholder="Your name" oninput="vClear(this)"><span class="v-msg" id="e-s-ar"></span></div>
     </div>
     <div class="sg2">
-      <div class="sf"><label>Year *</label><input id="s-yr" placeholder="2026"></div>
+      <div class="sf"><label>Year *</label><input id="s-yr" placeholder="2026" oninput="vClear(this)"><span class="v-msg" id="e-s-yr"></span></div>
       <div class="sf"><label>Category *</label><select id="s-cat"><option>Abstract</option><option>Impressionist</option><option>Modern</option><option>Digital</option><option>Expressionist</option><option>Watercolor</option><option>Other</option></select></div>
     </div>
-    <div class="sf"><label>Price</label><input id="s-pr" placeholder="₹1,50,000 or Not for Sale"></div>
-    <div class="sf"><label>Description *</label><textarea id="s-de" placeholder="Tell us about your artwork..."></textarea></div>
+    <div class="sf"><label>Price</label><input id="s-pr" placeholder="₹1,50,000 or Not for Sale"><span class="v-msg" id="e-s-pr"></span></div>
+    <div class="sf"><label>Description *</label><textarea id="s-de" placeholder="Tell us about your artwork... (min 20 characters)" oninput="vClear(this)"></textarea><span class="v-msg" id="e-s-de"></span></div>
     <div class="sf"><label>Artwork History</label><textarea id="s-hi" placeholder="Share the story behind this piece — its inspiration, creation process, exhibitions, or any notable events in its journey..." style="height:110px;"></textarea></div>
     <div class="sf">
       <label>Upload Image *</label>
       <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
         <label class="flabel" for="s-up">Choose Image</label>
-        <input type="file" id="s-up" accept="image/*" style="display:none;" onchange="prevImg(this,'s-pv','s-fn',true)">
+        <input type="file" id="s-up" accept="image/*" style="display:none;" onchange="prevImg(this,'s-pv','s-fn',true);vClearId('e-s-img')">
         <span id="s-fn" style="font-size:12px;color:var(--dim);">No file chosen</span>
       </div>
+      <span class="v-msg" id="e-s-img"></span>
       <canvas id="s-pv" width="120" height="90" style="display:none;margin-top:10px;border:1px solid #22223a;"></canvas>
     </div>
     <div id="s-err" style="color:#e63946;font-size:12px;margin-bottom:8px;display:none;">Please fill all required fields and upload an image.</div>
@@ -578,7 +583,8 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
       <div class="cpanel">
         <h3>Describe Your Artwork</h3>
         <p class="pdesc">Share colors, composition, mood — our AI curator responds with deep analysis.</p>
-        <textarea class="atxt" id="adt" placeholder="e.g. 'A woman's face half-submerged in golden water...'"></textarea>
+        <textarea class="atxt" id="adt" placeholder="e.g. 'A woman's face half-submerged in golden water...'" oninput="vClearId('e-adt')"></textarea>
+        <span class="v-msg" id="e-adt"></span>
         <div class="exrow">
           <button class="exb" onclick="setEx(0)">Example 1</button>
           <button class="exb" onclick="setEx(1)">Example 2</button>
@@ -649,33 +655,33 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
     <div class="asec active" id="th">
       <div class="acard"><h3>Hero Section</h3>
         <div class="ag2">
-          <div class="af2"><label>Gallery Name</label><input id="en" value="Artistry Haven"></div>
-          <div class="af2"><label>Eyebrow Text</label><input id="ee" value="Contemporary Art Gallery · Est. 2026"></div>
+          <div class="af2"><label>Gallery Name</label><input id="en" value="Artistry Haven" oninput="vClear(this)"><span class="v-msg" id="e-en"></span></div>
+          <div class="af2"><label>Eyebrow Text</label><input id="ee" value="Contemporary Art Gallery · Est. 2026" oninput="vClear(this)"><span class="v-msg" id="e-ee"></span></div>
         </div>
-        <div class="af2"><label>Tagline</label><input id="et" value="Experience Art in Another Dimension"></div>
-        <div class="af2"><label>CTA Button</label><input id="ec" value="Explore Collection"></div>
+        <div class="af2"><label>Tagline</label><input id="et" value="Experience Art in Another Dimension" oninput="vClear(this)"><span class="v-msg" id="e-et"></span></div>
+        <div class="af2"><label>CTA Button</label><input id="ec" value="Explore Collection" oninput="vClear(this)"><span class="v-msg" id="e-ec"></span></div>
         <button class="asave" onclick="saveHero()">Save Changes</button>
       </div>
     </div>
     <div class="asec" id="ta"><div class="acard"><h3>Manage Artworks</h3><div id="ar"></div></div></div>
     <div class="asec" id="ts">
       <div class="acard"><h3>Statistics</h3>
-        <div class="serow"><label>Artworks</label><input type="number" id="sa" value="240"></div>
-        <div class="serow"><label>Artists</label><input type="number" id="sb" value="80"></div>
-        <div class="serow"><label>Exhibitions</label><input type="number" id="sc" value="36"></div>
-        <div class="serow"><label>Years Active</label><input type="number" id="sd" value="12"></div>
+        <div class="serow"><label>Artworks</label><input type="number" id="sa" value="240" min="0" oninput="vClear(this)"><span class="v-msg" id="e-sa"></span></div>
+        <div class="serow"><label>Artists</label><input type="number" id="sb" value="80" min="0" oninput="vClear(this)"><span class="v-msg" id="e-sb"></span></div>
+        <div class="serow"><label>Exhibitions</label><input type="number" id="sc" value="36" min="0" oninput="vClear(this)"><span class="v-msg" id="e-sc"></span></div>
+        <div class="serow"><label>Years Active</label><input type="number" id="sd" value="12" min="0" oninput="vClear(this)"><span class="v-msg" id="e-sd"></span></div>
         <button class="asave" onclick="saveStats()">Save Stats</button>
       </div>
     </div>
     <div class="asec" id="ti">
       <div class="acard"><h3>Gallery Information</h3>
         <div class="ag2">
-          <div class="af2"><label>Department</label><input id="id2" value="Computer Science & Engineering"></div>
-          <div class="af2"><label>Footer Tagline</label><input id="it" value="A sanctuary for art and contemplation"></div>
+          <div class="af2"><label>Department</label><input id="id2" value="Computer Science & Engineering" oninput="vClear(this)"><span class="v-msg" id="e-id2"></span></div>
+          <div class="af2"><label>Footer Tagline</label><input id="it" value="A sanctuary for art and contemplation" oninput="vClear(this)"><span class="v-msg" id="e-it"></span></div>
         </div>
         <div class="ag2">
-          <div class="af2"><label>Opening Time</label><input id="io" value="10:00 AM"></div>
-          <div class="af2"><label>Closing Time</label><input id="ic" value="8:00 PM"></div>
+          <div class="af2"><label>Opening Time</label><input id="io" value="10:00 AM" placeholder="HH:MM AM/PM" oninput="vClear(this)"><span class="v-msg" id="e-io"></span></div>
+          <div class="af2"><label>Closing Time</label><input id="ic" value="8:00 PM" placeholder="HH:MM AM/PM" oninput="vClear(this)"><span class="v-msg" id="e-ic"></span></div>
         </div>
         <button class="asave" onclick="saveInfo()">Save Info</button>
       </div>
@@ -702,8 +708,8 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
         <button class="role-btn active" id="rb-v" onclick="selRole(this,'visitor')">👤 Visitor</button>
         <button class="role-btn" id="rb-a" onclick="selRole(this,'admin')">🔐 Admin</button>
       </div>
-      <div class="lf"><label>Username</label><input id="l-user" placeholder="Enter username"></div>
-      <div class="lf"><label>Password</label><input type="password" id="l-pass" placeholder="Enter password"></div>
+      <div class="lf"><label>Username</label><input id="l-user" placeholder="Enter username" oninput="vClear(this)"><span class="v-msg" id="e-l-user"></span></div>
+      <div class="lf"><label>Password</label><input type="password" id="l-pass" placeholder="Enter password" oninput="vClear(this)"><span class="v-msg" id="e-l-pass"></span></div>
       <div class="lerr" id="l-err">Invalid credentials. Please try again.</div>
       <button class="lsub" onclick="doLogin()">Login</button>
       <div class="lhint" id="l-hint">Visitor: <span>visitor</span> / <span>visit123</span> &nbsp;·&nbsp; Admin: <span>admin</span> / <span>admin123</span></div>
@@ -711,13 +717,13 @@ footer{background:var(--bg);border-top:1px solid #181828;padding:60px;display:gr
     <!-- REGISTER FORM -->
     <div id="auth-register" style="display:none;">
       <div class="ag2" style="gap:12px;">
-        <div class="lf"><label>Full Name *</label><input id="r-name" placeholder="Your full name"></div>
-        <div class="lf"><label>Username *</label><input id="r-user" placeholder="Choose username"></div>
+        <div class="lf"><label>Full Name *</label><input id="r-name" placeholder="Your full name" oninput="vClear(this)"><span class="v-msg" id="e-r-name"></span></div>
+        <div class="lf"><label>Username *</label><input id="r-user" placeholder="Choose username" oninput="vClear(this)"><span class="v-msg" id="e-r-user"></span></div>
       </div>
-      <div class="lf"><label>Email *</label><input id="r-email" placeholder="your@email.com"></div>
+      <div class="lf"><label>Email *</label><input id="r-email" placeholder="your@email.com" oninput="vClear(this)"><span class="v-msg" id="e-r-email"></span></div>
       <div class="ag2" style="gap:12px;">
-        <div class="lf"><label>Password *</label><input type="password" id="r-pass" placeholder="Min 6 characters"></div>
-        <div class="lf"><label>Confirm Password *</label><input type="password" id="r-conf" placeholder="Repeat password"></div>
+        <div class="lf"><label>Password *</label><input type="password" id="r-pass" placeholder="Min 8 characters" oninput="vClear(this)"><span class="v-msg" id="e-r-pass"></span></div>
+        <div class="lf"><label>Confirm Password *</label><input type="password" id="r-conf" placeholder="Repeat password" oninput="vClear(this)"><span class="v-msg" id="e-r-conf"></span></div>
       </div>
       <div class="lerr" id="r-err">Please fill all fields correctly.</div>
       <div class="lsuccess" id="r-ok">✓ Registered! You can now login.</div>
@@ -847,12 +853,23 @@ function selRole(btn,role){
   document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
   $('l-hint').innerHTML=role==='visitor'?'Visitor: <span>visitor</span> / <span>visit123</span>':'Admin: <span>admin</span> / <span>admin123</span>';
 }
+/* ── VALIDATION HELPERS ── */
+function vErr(id,msg){const el=$(id);if(el){el.textContent=msg;}}
+function vClear(el){el.classList.remove('v-err');const em=$('e-'+el.id);if(em)em.textContent='';}
+function vClearId(id){const el=$(id);if(el)el.textContent='';}
+function vMark(id,errId,msg){const el=$(id);if(el)el.classList.add('v-err');vErr(errId,msg);}
+
 function doLogin(){
-  const u=$('l-user').value.trim(),p=$('l-pass').value;
-  const found=registeredUsers.find(x=>x.username===u&&x.pass===p&&x.role===loginRole);
+  let ok=true;
+  $('l-err').style.display='none';
+  const u=$('l-user'),p=$('l-pass');
+  if(!u.value.trim()){u.classList.add('v-err');vErr('e-l-user','Username is required');ok=false;}
+  if(!p.value){p.classList.add('v-err');vErr('e-l-pass','Password is required');ok=false;}
+  if(!ok)return;
+  const found=registeredUsers.find(x=>x.username===u.value.trim()&&x.pass===p.value&&x.role===loginRole);
   if(!found){$('l-err').textContent='Invalid credentials. Please try again.';$('l-err').style.display='block';return;}
-  if(found.status==='pending'){$('l-err').textContent='⏳ Your account is awaiting admin approval. Please check back later.';$('l-err').style.display='block';return;}
-  if(found.status==='rejected'){$('l-err').textContent='✕ Your account registration was not approved. Contact the admin for assistance.';$('l-err').style.display='block';return;}
+  if(found.status==='pending'){$('l-err').textContent='⏳ Your account is awaiting admin approval.';$('l-err').style.display='block';return;}
+  if(found.status==='rejected'){$('l-err').textContent='✕ Account not approved. Contact admin.';$('l-err').style.display='block';return;}
   found.logins=(found.logins||0)+1;
   currentUser=found;closeM('lm');
   $('lnb').style.display='none';
@@ -862,17 +879,29 @@ function doLogin(){
   $('sab').style.display=found.role==='visitor'?'inline-block':'none';
   if(found.role==='admin')setTimeout(()=>{$('ap').classList.add('open');},300);
 }
+
 function doRegister(){
-  const name=$('r-name').value.trim(),user=$('r-user').value.trim(),email=$('r-email').value.trim(),pass=$('r-pass').value,conf=$('r-conf').value;
+  let ok=true;
+  const name=$('r-name'),user=$('r-user'),email=$('r-email'),pass=$('r-pass'),conf=$('r-conf');
   $('r-err').style.display='none';$('r-ok').style.display='none';
-  if(!name||!user||!email||!pass||pass.length<6){$('r-err').textContent='Please fill all fields (password min 6 chars).';$('r-err').style.display='block';return;}
-  if(pass!==conf){$('r-err').textContent='Passwords do not match.';$('r-err').style.display='block';return;}
-  if(registeredUsers.find(x=>x.username===user)){$('r-err').textContent='Username already taken.';$('r-err').style.display='block';return;}
-  registeredUsers.push({name,username:user,email,pass,role:'visitor',joined:new Date().toISOString().slice(0,10),logins:0,status:'pending'});
+  ['r-name','r-user','r-email','r-pass','r-conf'].forEach(id=>{const el=$(id);if(el)el.classList.remove('v-err');});
+  ['e-r-name','e-r-user','e-r-email','e-r-pass','e-r-conf'].forEach(id=>vErr(id,''));
+  if(!name.value.trim()){name.classList.add('v-err');vErr('e-r-name','Full name is required');ok=false;}
+  if(!user.value.trim()){user.classList.add('v-err');vErr('e-r-user','Username is required');ok=false;}
+  else if(user.value.trim().length<3){user.classList.add('v-err');vErr('e-r-user','At least 3 characters');ok=false;}
+  else if(registeredUsers.find(x=>x.username===user.value.trim())){user.classList.add('v-err');vErr('e-r-user','Username already taken');ok=false;}
+  if(!email.value.trim()){email.classList.add('v-err');vErr('e-r-email','Email is required');ok=false;}
+  else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){email.classList.add('v-err');vErr('e-r-email','Enter a valid email (e.g. you@mail.com)');ok=false;}
+  if(!pass.value){pass.classList.add('v-err');vErr('e-r-pass','Password is required');ok=false;}
+  else if(pass.value.length<8){pass.classList.add('v-err');vErr('e-r-pass','Minimum 8 characters');ok=false;}
+  if(!conf.value){conf.classList.add('v-err');vErr('e-r-conf','Please confirm your password');ok=false;}
+  else if(pass.value&&conf.value&&pass.value!==conf.value){conf.classList.add('v-err');vErr('e-r-conf','Passwords do not match');ok=false;}
+  if(!ok)return;
+  registeredUsers.push({name:name.value.trim(),username:user.value.trim(),email:email.value.trim(),pass:pass.value,role:'visitor',joined:new Date().toISOString().slice(0,10),logins:0,status:'pending'});
   updateUserPB();
   $('r-ok').textContent='✓ Account created! Awaiting admin approval before you can login.';
   $('r-ok').style.display='block';
-  setTimeout(()=>{switchAuth(document.querySelector('.auth-tab'),'login');$('l-user').value=user;},1500);
+  setTimeout(()=>{switchAuth(document.querySelector('.auth-tab'),'login');$('l-user').value=user.value.trim();},1500);
 }
 function logout(){currentUser=null;$('lnb').style.display='';$('ub').style.display='none';$('ap').classList.remove('open');}
 
@@ -1053,7 +1082,11 @@ const ors=[
 function setEx(n){$('adt').value=exs[n];}
 function getOR(d){d=d.toLowerCase();if(d.includes('digital')||d.includes('circuit'))return ors[5];if(d.includes('dot')||d.includes('point'))return ors[4];if(d.includes('rage')||d.includes('storm'))return ors[3];if(d.includes('minimal')||d.includes('silence'))return ors[2];if(d.includes('night')||d.includes('moon')||d.includes('bloom'))return ors[1];return ors[d.length%6]||ors[0];}
 async function analyzeArt(){
-  const desc=$('adt').value.trim();if(!desc)return;
+  const desc=$('adt').value.trim();
+  $('adt').classList.remove('v-err');vErr('e-adt','');
+  if(!desc){$('adt').classList.add('v-err');vErr('e-adt','Please describe the artwork before analyzing');return;}
+  if(desc.length<10){$('adt').classList.add('v-err');vErr('e-adt','Description too short — add at least 10 characters');return;}
+  const apiKey='';
   const btn=$('anb'),bt=$('abt'),ld=$('ald');
   btn.disabled=true;bt.style.display='none';ld.style.display='flex';
   $('oph').style.display='none';$('ars').style.display='none';$('oc').classList.add('active');
@@ -1062,7 +1095,8 @@ async function analyzeArt(){
     let i=0;const iv=setInterval(()=>{if(i<analysis.length){at.textContent+=analysis[i++];}else{clearInterval(iv);tags.forEach(t=>{const e=document.createElement('div');e.className='aitag';e.textContent=t;tg.appendChild(e);});btn.disabled=false;bt.style.display='inline';ld.style.display='none';}},10);
   }
   try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'You are an expert art curator at Artistry Haven. Produce a rich 3-paragraph museum-quality curatorial analysis covering: (1) artistic style and movement, (2) emotional and psychological impact, (3) historical and cultural influences. Write in elevated prose. After the analysis output exactly: TAGS:["tag1","tag2","tag3","tag4","tag5"]. No preamble or markdown.',messages:[{role:'user',content:`Analyze this artwork:\n\n${desc}`}]})});
+    if(!apiKey)throw new Error('No API key');
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'You are an expert art curator at Artistry Haven. Produce a rich 3-paragraph museum-quality curatorial analysis covering: (1) artistic style and movement, (2) emotional and psychological impact, (3) historical and cultural influences. Write in elevated prose. After the analysis output exactly: TAGS:["tag1","tag2","tag3","tag4","tag5"]. No preamble or markdown.',messages:[{role:'user',content:`Analyze this artwork:\n\n${desc}`}]})});
     if(!r.ok)throw new Error('API '+r.status);
     const data=await r.json();if(!data.content||!data.content[0])throw new Error('No content');
     let full=data.content[0].text,tags=[],analysis=full;
@@ -1089,13 +1123,41 @@ function selUpi(btn){btn.closest('.upi-row').querySelectorAll('.upi-opt').forEac
 function fmtCard(i){let v=i.value.replace(/\D/g,'').substring(0,16);i.value=v.replace(/(.{4})/g,'$1 ').trim();}
 function fmtExp(i){let v=i.value.replace(/\D/g,'').substring(0,4);if(v.length>=2)v=v.slice(0,2)+' / '+v.slice(2);i.value=v;}
 function processPayment(){
+  let ok=true;
+  const method=document.querySelector('.pm-btn.active').textContent.trim();
+  if(method.includes('Card')||method.includes('💳')){
+    const name=$('cc-name'),num=$('cc-num'),exp=$('cc-exp'),cvv=$('cc-cvv');
+    [name,num,exp,cvv].forEach(el=>{if(el)el.classList.remove('v-err');});
+    ['e-cc-name','e-cc-num','e-cc-exp','e-cc-cvv'].forEach(id=>vErr(id,''));
+    if(!name.value.trim()){name.classList.add('v-err');vErr('e-cc-name','Cardholder name is required');ok=false;}
+    const digits=num.value.replace(/\s/g,'');
+    if(!digits){num.classList.add('v-err');vErr('e-cc-num','Card number is required');ok=false;}
+    else if(!/^\d{16}$/.test(digits)){num.classList.add('v-err');vErr('e-cc-num','Must be exactly 16 digits');ok=false;}
+    if(!exp.value.trim()){exp.classList.add('v-err');vErr('e-cc-exp','Expiry is required');ok=false;}
+    else if(!/^(0[1-9]|1[0-2])\s*\/\s*\d{2}$/.test(exp.value)){exp.classList.add('v-err');vErr('e-cc-exp','Format: MM / YY');ok=false;}
+    if(!cvv.value){cvv.classList.add('v-err');vErr('e-cc-cvv','CVV is required');ok=false;}
+    else if(!/^\d{3,4}$/.test(cvv.value)){cvv.classList.add('v-err');vErr('e-cc-cvv','Must be 3–4 digits');ok=false;}
+  } else if(method.includes('UPI')||method.includes('📱')){
+    const uid=$('upi-id');if(uid)uid.classList.remove('v-err');vErr('e-upi-id','');
+    if(!uid||!uid.value.trim()){if(uid)uid.classList.add('v-err');vErr('e-upi-id','UPI ID is required');ok=false;}
+    else if(!/^[\w.\-]+@[\w]+$/.test(uid.value.trim())){uid.classList.add('v-err');vErr('e-upi-id','Format: yourname@upi');ok=false;}
+  } else if(method.includes('Net')||method.includes('🏦')){
+    const uid=$('nb-uid'),pass=$('nb-pass');
+    [uid,pass].forEach(el=>{if(el)el.classList.remove('v-err');});
+    if(!uid||!uid.value.trim()){if(uid)uid.classList.add('v-err');vErr('e-nb-uid','User ID is required');ok=false;}
+    if(!pass||!pass.value){if(pass)pass.classList.add('v-err');vErr('e-nb-pass','Password is required');ok=false;}
+  } else if(method.includes('Wallet')||method.includes('👝')){
+    const mob=$('wlt-mob');if(mob)mob.classList.remove('v-err');vErr('e-wlt-mob','');
+    if(!mob||!mob.value.trim()){if(mob)mob.classList.add('v-err');vErr('e-wlt-mob','Mobile number is required');ok=false;}
+    else if(!/^\d{10}$/.test(mob.value.trim())){mob.classList.add('v-err');vErr('e-wlt-mob','Must be exactly 10 digits');ok=false;}
+  }
+  if(!ok)return;
   const btn=$('pay-submit-btn');btn.textContent='Processing...';btn.disabled=true;
   setTimeout(()=>{
     btn.textContent='Pay '+arts[curPayIdx].price;btn.disabled=false;
     const ref='AH-'+Math.random().toString(36).substring(2,8).toUpperCase();
     $('pay-ref').textContent='REF: '+ref;
-    // record purchase
-    purchases.push({ref,artwork:arts[curPayIdx].title,artist:arts[curPayIdx].artist,price:arts[curPayIdx].price,buyer:currentUser?currentUser.name:'Guest',username:currentUser?currentUser.username:'guest',date:new Date().toLocaleString(),method:document.querySelector('.pm-btn.active').textContent.trim()});
+    purchases.push({ref,artwork:arts[curPayIdx].title,artist:arts[curPayIdx].artist,price:arts[curPayIdx].price,buyer:currentUser?currentUser.name:'Guest',username:currentUser?currentUser.username:'guest',date:new Date().toLocaleString(),method});
     $('pay-main').style.display='none';$('pay-success').style.display='block';
   },2000);
 }
@@ -1111,9 +1173,43 @@ function aTab(btn,sec){
   if(sec==='tpay')setTimeout(renderPurchases,0);
 }
 function closeAdmin(){$('ap').classList.remove('open');}
-function saveHero(){$('hey').textContent=$('ee').value;$('hsu').textContent=$('et').value;$('hct').textContent=$('ec').value;showToast();}
-function saveStats(){sv={a:+$('sa').value,b:+$('sb').value,c:+$('sc').value,d:+$('sd').value};$('c1').textContent=sv.a+'+';$('c2').textContent=sv.b+'+';$('c3').textContent=sv.c;$('c4').textContent=sv.d;showToast();}
-function saveInfo(){$('fd').textContent=$('it').value;showToast();}
+function saveHero(){
+  let ok=true;
+  [['en','e-en','Gallery name'],['ee','e-ee','Eyebrow text'],['et','e-et','Tagline'],['ec','e-ec','CTA button text']].forEach(([id,eid,label])=>{
+    const el=$(id);if(el)el.classList.remove('v-err');vErr(eid,'');
+    if(!$(id)||!$(id).value.trim()){$(id).classList.add('v-err');vErr(eid,label+' cannot be empty');ok=false;}
+  });
+  if(!ok)return;
+  $('hey').textContent=$('ee').value;$('hsu').textContent=$('et').value;$('hct').textContent=$('ec').value;showToast();
+}
+function saveStats(){
+  let ok=true;
+  [['sa','e-sa'],['sb','e-sb'],['sc','e-sc'],['sd','e-sd']].forEach(([id,eid])=>{
+    const el=$(id);if(el)el.classList.remove('v-err');vErr(eid,'');
+    const v=+$(id).value;
+    if(isNaN(v)||v<0||$(id).value.trim()===''){$(id).classList.add('v-err');vErr(eid,'Must be a positive number');ok=false;}
+  });
+  if(!ok)return;
+  const sv={a:+$('sa').value,b:+$('sb').value,c:+$('sc').value,d:+$('sd').value};
+  $('c1').textContent=sv.a+'+';$('c2').textContent=sv.b+'+';$('c3').textContent=sv.c;$('c4').textContent=sv.d;showToast();
+}
+function saveInfo(){
+  let ok=true;
+  [['id2','e-id2','Department'],['it','e-it','Footer tagline']].forEach(([id,eid,label])=>{
+    const el=$(id);if(el)el.classList.remove('v-err');vErr(eid,'');
+    if(!$(id)||!$(id).value.trim()){$(id).classList.add('v-err');vErr(eid,label+' cannot be empty');ok=false;}
+  });
+  const timeRe=/^([1-9]|1[0-2]):[0-5]\d\s?(AM|PM)$/i;
+  const io=$('io'),ic=$('ic');
+  [io,ic].forEach(el=>{if(el)el.classList.remove('v-err');});
+  ['e-io','e-ic'].forEach(id=>vErr(id,''));
+  if(!io.value.trim()){io.classList.add('v-err');vErr('e-io','Opening time required');ok=false;}
+  else if(!timeRe.test(io.value.trim())){io.classList.add('v-err');vErr('e-io','Format: H:MM AM/PM (e.g. 10:00 AM)');ok=false;}
+  if(!ic.value.trim()){ic.classList.add('v-err');vErr('e-ic','Closing time required');ok=false;}
+  else if(!timeRe.test(ic.value.trim())){ic.classList.add('v-err');vErr('e-ic','Format: H:MM AM/PM (e.g. 8:00 PM)');ok=false;}
+  if(!ok)return;
+  $('fd').textContent=$('it').value;showToast();
+}
 
 function prevImg(input,pvId,fnId,isSub){
   const file=input.files[0];if(!file)return;$(fnId).textContent=file.name;
@@ -1151,8 +1247,15 @@ function renderArtworks(){
 }
 
 function addArt(){
+  let ok=true;
   const t=$('nt').value.trim(),a=$('na').value.trim(),y=$('ny').value.trim(),p=$('np').value.trim(),d=$('nd').value.trim();
-  if(!t||!a||!y||!p||!d){$('naerr').style.display='inline';return;}$('naerr').style.display='none';
+  if(!t){$('nt').classList.add('v-err');ok=false;}else $('nt').classList.remove('v-err');
+  if(!a){$('na').classList.add('v-err');ok=false;}else $('na').classList.remove('v-err');
+  if(!y||!/^\d{4}$/.test(y)||+y<1800||+y>new Date().getFullYear()){$('ny').classList.add('v-err');ok=false;}else $('ny').classList.remove('v-err');
+  if(!p){$('np').classList.add('v-err');ok=false;}else $('np').classList.remove('v-err');
+  if(!d||d.length<10){$('nd').classList.add('v-err');ok=false;}else $('nd').classList.remove('v-err');
+  if(!ok){$('naerr').textContent=!y||!/^\d{4}$/.test(y)?'Fill all required fields. Year must be 4 digits (1800–'+new Date().getFullYear()+').':'Fill all required fields (description min 10 chars).';$('naerr').style.display='inline';return;}
+  $('naerr').style.display='none';
   const hi=$('nhi')?$('nhi').value.trim():'';
   const entry={title:t,artist:a,year:y,cat:$('nc').value,price:p,desc:d,history:hi,type:+$('nty').value};arts.push(entry);
   if(newImg){const cv=document.createElement('canvas');cv.width=512;cv.height=640;const img=new Image();img.onload=()=>{const ctx=cv.getContext('2d'),s=Math.max(512/img.width,640/img.height);ctx.drawImage(img,(512-img.width*s)/2,(640-img.height*s)/2,img.width*s,img.height*s);canvases.push(cv);buildGrid();buildGM();showToast();};img.src=newImg;newImg=null;}
@@ -1163,10 +1266,21 @@ function addArt(){
 function updatePB(){const n=pending.filter(p=>p.status==='pending').length;$('pb').textContent=n;$('pb').style.background=n?'var(--gold)':'#333';}
 
 function submitArt(){
-  const t=$('s-ti').value.trim(),a=$('s-ar').value.trim(),y=$('s-yr').value.trim(),d=$('s-de').value.trim();
-  if(!t||!a||!y||!d||!sImg){$('s-err').style.display='block';return;}$('s-err').style.display='none';
+  let ok=true;
+  ['s-ti','s-ar','s-yr','s-de'].forEach(id=>{const el=$(id);if(el)el.classList.remove('v-err');});
+  if(!$('s-ti').value.trim()){$('s-ti').classList.add('v-err');vErr('e-s-ti','Title is required');ok=false;}
+  if(!$('s-ar').value.trim()){$('s-ar').classList.add('v-err');vErr('e-s-ar','Artist name is required');ok=false;}
+  const yr=$('s-yr').value.trim();
+  if(!yr){$('s-yr').classList.add('v-err');vErr('e-s-yr','Year is required');ok=false;}
+  else if(!/^\d{4}$/.test(yr)||+yr<1800||+yr>new Date().getFullYear()){$('s-yr').classList.add('v-err');vErr('e-s-yr','Enter a valid year (1800–'+new Date().getFullYear()+')');ok=false;}
+  const desc=$('s-de').value.trim();
+  if(!desc){$('s-de').classList.add('v-err');vErr('e-s-de','Description is required');ok=false;}
+  else if(desc.length<20){$('s-de').classList.add('v-err');vErr('e-s-de','At least 20 characters required');ok=false;}
+  if(!sImg){vErr('e-s-img','Please upload an image');ok=false;}
+  $('s-err').style.display='none';
+  if(!ok)return;
   const hi=$('s-hi').value.trim();
-  pending.push({id:Date.now(),title:t,artist:a,year:y,cat:$('s-cat').value,price:$('s-pr').value||'Not for Sale',desc:d,history:hi,img:sImg,by:currentUser?currentUser.username:'visitor',at:new Date().toLocaleString(),status:'pending'});
+  pending.push({id:Date.now(),title:$('s-ti').value.trim(),artist:$('s-ar').value.trim(),year:yr,cat:$('s-cat').value,price:$('s-pr').value||'Not for Sale',desc,history:hi,img:sImg,by:currentUser?currentUser.username:'visitor',at:new Date().toLocaleString(),status:'pending'});
   updatePB();$('s-ok').style.display='block';
   setTimeout(()=>{$('s-ok').style.display='none';closeM('sm');['s-ti','s-ar','s-yr','s-pr','s-de','s-hi'].forEach(i=>$(i).value='');$('s-fn').textContent='No file chosen';$('s-pv').style.display='none';sImg=null;},2200);
 }
@@ -1299,6 +1413,8 @@ document.addEventListener('click',e=>{
     if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){moveLb(dx<0?1:-1);}
   });
 })();
+
+// Pre-fill API key field from localStorage on load
 </script>
 </body>
 </html>
